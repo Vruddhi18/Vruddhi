@@ -4,379 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vruddhi Shah - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
-      background-color: #FAFAFF;
-      color: #080705;
-    }
-
-    /* Custom color variables */
-    :root {
-      --black: #080705;
-      --ghost-white: #FAFAFF;
-      --canary-yellow: #EEF36A;
-      --persian-blue: #192BC2;
-      --atomic-tangerine: #FF7733;
-      --bright-green: #00A86B;
-    }
-
-    /* Sun/star burst animation */
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .star-burst {
-      animation: rotate 20s linear infinite;
-    }
-
-    /* Navigation pill buttons */
-    .nav-pill {
-      min-width: 120px;
-      height: 64px;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 1.125rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .nav-pill:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 12px 24px rgba(8, 7, 5, 0.2);
-    }
-
-    .nav-pill.yellow {
-      background-color: var(--canary-yellow);
-      color: var(--black);
-    }
-
-    .nav-pill.blue {
-      background-color: var(--persian-blue);
-      color: var(--ghost-white);
-    }
-
-    .nav-pill.orange {
-      background-color: var(--atomic-tangerine);
-      color: var(--ghost-white);
-    }
-
-    /* Typography */
-    .hero-title {
-      font-size: clamp(4rem, 15vw, 12rem);
-      font-weight: 700;
-      line-height: 0.9;
-      color: var(--bright-green);
-      letter-spacing: -0.02em;
-    }
-
-    /* 3D Keyboard Styles - Realistic mechanical keyboard */
-    #keyboard-3d-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      perspective: 2000px;
-      perspective-origin: 50% 50%;
-      z-index: 10;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    #keyboard-3d-container.visible {
-      opacity: 1;
-    }
-    
-    .keyboard-3d {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding: 40px;
-      background: linear-gradient(145deg, #2a2d3a, #1f222e);
-      border-radius: 20px;
-      box-shadow: 
-        0 40px 100px rgba(0,0,0,0.6),
-        inset 0 2px 10px rgba(255,255,255,0.05);
-      transform-style: preserve-3d;
-      transform: rotateX(45deg) rotateZ(0deg) scale(1);
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .kb-row {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-    }
-    
-    .kb-key {
-      position: relative;
-      width: 65px;
-      height: 65px;
-      transform-style: preserve-3d;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      cursor: pointer;
-      animation: keyPopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      opacity: 0;
-      pointer-events: auto;
-    }
-    
-    @keyframes keyPopIn {
-      from {
-        opacity: 0;
-        transform: translateZ(-100px) scale(0.5);
-      }
-      to {
-        opacity: 1;
-        transform: translateZ(0) scale(1);
-      }
-    }
-    
-    .kb-key:hover {
-      transform: translateZ(10px) scale(1.05);
-      z-index: 10;
-    }
-    
-    .kb-key:active {
-      transform: translateZ(-5px) scale(0.98);
-    }
-    
-    .kb-key-lg {
-      width: 95px;
-    }
-    
-    .kb-key-space {
-      width: 350px;
-    }
-    
-    /* Realistic key faces with bevels */
-    .key-face {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backface-visibility: hidden;
-    }
-    
-    .key-top {
-      width: 100%;
-      height: 100%;
-      background: var(--key-color, #ffffff);
-      border-radius: 10px;
-      box-shadow: 
-        inset 0 -4px 8px rgba(0,0,0,0.2),
-        inset 0 2px 4px rgba(255,255,255,0.3),
-        0 0 30px rgba(255,255,255,0.1);
-      transform: translateZ(20px);
-      border: 2px solid rgba(255,255,255,0.1);
-    }
-    
-    .key-front {
-      width: 100%;
-      height: 20px;
-      background: linear-gradient(
-        to bottom, 
-        var(--key-color, #ffffff), 
-        color-mix(in srgb, var(--key-color, #ffffff) 50%, black)
-      );
-      transform: rotateX(-90deg) translateY(10px);
-      transform-origin: top;
-      border-radius: 0 0 10px 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    .key-right {
-      width: 20px;
-      height: 100%;
-      background: linear-gradient(
-        to right, 
-        var(--key-color, #ffffff), 
-        color-mix(in srgb, var(--key-color, #ffffff) 70%, black)
-      );
-      transform: rotateY(90deg) translateX(32.5px);
-      transform-origin: right;
-      border-radius: 0 10px 10px 0;
-    }
-    
-    .key-left {
-      width: 20px;
-      height: 100%;
-      background: linear-gradient(
-        to left, 
-        var(--key-color, #ffffff), 
-        color-mix(in srgb, var(--key-color, #ffffff) 60%, black)
-      );
-      transform: rotateY(-90deg) translateX(-32.5px);
-      transform-origin: left;
-      border-radius: 10px 0 0 10px;
-    }
-    
-    .key-icon {
-      width: 36px;
-      height: 36px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-      pointer-events: none;
-    }
-    
-    .key-text {
-      font-size: 13px;
-      font-weight: 800;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-      pointer-events: none;
-    }
-    
-    /* Tooltip for tech names */
-    .kb-key::after {
-      content: attr(data-tech);
-      position: absolute;
-      bottom: -45px;
-      left: 50%;
-      transform: translateX(-50%) scale(0);
-      background: #192BC2;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(25, 43, 194, 0.4);
-      opacity: 0;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      pointer-events: none;
-      z-index: 100;
-    }
-    
-    .kb-key:hover::after {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
-    }
-    
-    /* Progress bar */
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #EEF36A 0%, #192BC2 50%, #FF7733 100%);
-      width: 0%;
-      z-index: 100;
-      box-shadow: 0 0 20px rgba(25, 43, 194, 0.5);
-      transition: width 0.05s ease-out;
-    }
-    
-    /* Stagger animation delays for keys */
-    .kb-row:nth-child(1) .kb-key { animation-delay: 0.1s; }
-    .kb-row:nth-child(2) .kb-key { animation-delay: 0.15s; }
-    .kb-row:nth-child(3) .kb-key { animation-delay: 0.2s; }
-    .kb-row:nth-child(4) .kb-key { animation-delay: 0.25s; }
-    
-    .kb-row .kb-key:nth-child(1) { animation-delay: 0.1s; }
-    .kb-row .kb-key:nth-child(2) { animation-delay: 0.12s; }
-    .kb-row .kb-key:nth-child(3) { animation-delay: 0.14s; }
-    .kb-row .kb-key:nth-child(4) { animation-delay: 0.16s; }
-    .kb-row .kb-key:nth-child(5) { animation-delay: 0.18s; }
-    .kb-row .kb-key:nth-child(6) { animation-delay: 0.2s; }
-    
-    @media (max-width: 1200px) {
-      .keyboard-3d {
-        transform: rotateX(45deg) rotateZ(0deg) scale(0.7);
-        padding: 30px;
-      }
-      
-      .kb-key {
-        width: 50px;
-        height: 50px;
-      }
-      
-      .kb-key-lg {
-        width: 75px;
-      }
-      
-      .kb-key-space {
-        width: 250px;
-      }
-      
-      .key-icon {
-        width: 28px;
-        height: 28px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .keyboard-3d {
-        transform: rotateX(45deg) rotateZ(0deg) scale(0.45);
-        padding: 20px;
-      }
-      
-      .kb-key {
-        width: 45px;
-        height: 45px;
-      }
-      
-      .kb-key-lg {
-        width: 65px;
-      }
-      
-      .kb-key-space {
-        width: 200px;
-      }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: clamp(3rem, 12vw, 6rem);
-      }
-      
-      .nav-pills {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .nav-pill {
-        width: 100%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
+
   <!-- Navigation -->
-  <nav class="fixed top-0 right-0 p-6 md:p-8 z-50">
-    <div class="flex flex-col md:flex-row gap-3 md:gap-4">
+  <nav id="nav">
+    <div class="nav-pills">
       <button class="nav-pill yellow">Home</button>
       <button class="nav-pill blue">Work</button>
       <button class="nav-pill orange">About</button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center px-6 md:px-12 lg:px-16 xl:px-24 py-20">
-    <div class="max-w-[1600px] mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-      
-      <!-- Left Side - Bold Typography -->
-      <div class="space-y-6 md:space-y-8">
-        <h1 class="hero-title">
-          Vruddhi<br>Shah
-        </h1>
-        
-        <!-- Yellow star burst icon -->
-        <div class="flex items-start space-x-6 my-8">
-          <svg class="w-20 h-20 md:w-24 md:h-24 star-burst flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Scroll Indicator -->
+  <div id="scroll-indicator">
+    <span>scroll</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- ================================================
+       SECTION 1: HERO
+  ================================================= -->
+  <section id="hero" class="fullpage-section active">
+    <div class="section-inner">
+
+      <!-- LEFT: Title + tagline -->
+      <div class="hero-left">
+        <h1 class="hero-title">Vruddhi<br>Shah</h1>
+        <div class="hero-sub">
+          <svg class="star-burst" viewBox="0 0 100 100" fill="none">
             <path d="M50 0L53.8 46.2L50 50L46.2 46.2L50 0Z" fill="#EEF36A"/>
             <path d="M50 0L65.4 15.4L50 50L46.2 46.2L50 0Z" fill="#EEF36A"/>
             <path d="M100 50L53.8 46.2L50 50L53.8 53.8L100 50Z" fill="#EEF36A"/>
@@ -390,665 +50,88 @@
             <path d="M15.4 84.6L46.2 53.8L50 50L34.6 84.6L15.4 84.6Z" fill="#EEF36A"/>
             <path d="M15.4 15.4L46.2 46.2L50 50L15.4 15.4Z" fill="#EEF36A"/>
           </svg>
+          <p class="hero-tagline">Art direction meets collage chaos.<br>I design bold, layered identities with personality.</p>
         </div>
-        
-        <p class="text-2xl md:text-3xl lg:text-4xl font-medium leading-relaxed max-w-2xl" style="color: #080705;">
-          Art direction meets collage chaos. I design bold, layered identities with personality.
-        </p>
-
-        <div class="pt-6">
-          <p class="text-sm md:text-base text-gray-500 font-medium">Scroll for more</p>
-        </div>
+        <p class="scroll-hint-hero">Scroll or press ↓</p>
       </div>
 
-      <!-- Right Side - Interactive Lanyard Component -->
-      <div class="relative flex justify-center items-start pt-0 min-h-[700px]">
-        <!-- Lanyard Container -->
-        <div id="lanyard-container" class="relative w-full max-w-md" style="height: 650px;">
-          
-          <!-- Clip at top -->
-          <div id="clip" class="absolute left-1/2 transform -translate-x-1/2 z-30" style="top: 0;">
-            <div class="w-16 h-8 rounded-full shadow-lg" style="background-color: #192BC2;"></div>
-          </div>
-          
-          <!-- String/Lanyard -->
-          <svg id="lanyard-string" class="absolute left-0 top-0 w-full h-full pointer-events-none z-10" style="filter: drop-shadow(0 2px 8px rgba(8,7,5,0.1));">
-            <line id="string-line" x1="50%" y1="32" x2="50%" y2="200" stroke="#080705" stroke-width="3" stroke-linecap="round"/>
-          </svg>
-          
-          <!-- Badge Card (draggable) -->
-          <div id="badge-card" class="absolute left-1/2 transform -translate-x-1/2 cursor-grab active:cursor-grabbing z-20" 
-               style="top: 180px; width: 280px; transition: box-shadow 0.3s ease;">
-            
-            <!-- Card Front -->
-            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border-4" style="border-color: #192BC2;">
-              
-              <!-- Card Header -->
-              <div class="px-6 pt-6 pb-4" style="background: linear-gradient(135deg, #192BC2 0%, #2a4de8 100%);">
-                <div class="flex items-center justify-between mb-4">
-                  <div class="text-white font-bold text-sm opacity-80">PORTFOLIO</div>
-                  <div class="text-5xl font-black text-white">25</div>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-1">DESIGN CONF</h3>
-                <p class="text-blue-100 text-sm font-medium">Virtual Attendee</p>
-              </div>
-              
-              <!-- Card Body -->
-              <div class="p-6 space-y-4">
-                <div class="flex items-center space-x-4">
-                  <div class="w-16 h-16 rounded-full flex items-center justify-center text-3xl" style="background-color: #EEF36A;">
-                    🎨
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-xl" style="color: #080705;">Vruddhi Shah</h4>
-                    <p class="text-sm text-gray-600">Creative Designer</p>
-                  </div>
-                </div>
-                
-                <div class="pt-2 border-t-2 border-gray-100">
-                  <p class="text-xs text-gray-500 font-medium mb-2">SPECIALTIES</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color: #EEF36A; color: #080705;">Branding</span>
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color: #192BC2; color: white;">UI/UX</span>
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color: #FF7733; color: white;">Motion</span>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Card Footer -->
-              <div class="px-6 pb-6">
-                <div class="bg-gray-50 rounded-2xl p-4 text-center">
-                  <p class="text-xs text-gray-600 font-medium mb-1">Drag me around!</p>
-                  <p class="text-2xl">👆</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- RIGHT: Lanyard -->
+      <div class="hero-right" id="lanyard-root">
 
-        <!-- Interaction hint -->
-        <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-          <p class="text-sm text-gray-500 font-medium whitespace-nowrap">
-            ✨ Drag the badge
-          </p>
-        </div>
-      </div>
+        <!-- SVG layer: clip hook + rope string -->
+        <svg id="lanyard-svg" xmlns="http://www.w3.org/2000/svg">
+          <!-- Clip / hook at very top -->
+          <g id="clip-group">
+            <!-- hook body -->
+            <rect id="clip-rect" x="0" y="0" width="36" height="18" rx="9" fill="#192BC2"/>
+            <!-- small hole in clip -->
+            <circle id="clip-hole" cx="18" cy="9" r="4" fill="#0f1d8a"/>
+          </g>
+          <!-- Rope drawn as bezier path -->
+          <path id="rope-path" fill="none" stroke="#2a2a3e" stroke-width="3.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <!-- ── BADGE CARD ── -->
+        <div id="badge-card">
+          <!-- Punch hole at top for the rope -->
+          <div class="badge-hole"></div>
+          <!-- Replace "your-photo.jpg" with your actual image path -->
+          <img
+            id="badge-photo"
+            src="vruddhi.jpeg"
+            alt="Vruddhi Shah"
+            class="badge-photo"
+            onerror="this.style.display='none'; document.getElementById('badge-photo-fallback').style.display='flex';"
+          />
+          <!-- Fallback initials if photo not found -->
+          <div id="badge-photo-fallback" class="badge-photo-fallback">VS</div>
+        </div><!-- /.badge-card -->
+      </div><!-- /.hero-right -->
 
     </div>
   </section>
 
-  <!-- About Section - Keyboard starts appearing here -->
-  <section id="about" class="relative min-h-screen flex items-center px-6 md:px-12 lg:px-16 xl:px-24 py-32" style="background-color: #FAFAFF;">
-    <div class="max-w-[1600px] mx-auto w-full">
-      
-      <!-- Left Side - About Text -->
-      <div class="max-w-2xl space-y-6 md:space-y-8">
-        <div class="inline-block px-6 py-2 rounded-full text-sm font-bold mb-4" style="background-color: #EEF36A; color: #080705;">
-          ABOUT ME
-        </div>
-        
-        <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight" style="color: #080705;">
-          Crafting Digital<br/>
-          <span style="color: #192BC2;">Experiences</span>
+  <!-- ================================================
+       SECTION 2: ABOUT
+  ================================================= -->
+  <section id="about" class="fullpage-section">
+    <div class="section-inner">
+
+      <div class="about-left">
+        <div id="lottie-container"></div>
+      </div>
+
+      <div class="about-right">
+        <span class="about-badge">ABOUT ME</span>
+        <h2 class="about-title">
+          Crafting<br>Digital<br>
+          <span class="blue-text">Experiences</span>
         </h2>
-        
-        <p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
-          I'm a creative designer who loves turning bold ideas into layered, personality-driven identities. My work sits at the intersection of art direction and collage chaos.
+        <p class="about-desc">
+          I'm a creative designer who loves turning bold ideas into layered, personality-driven identities.
         </p>
-        
-        <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-          With a passion for vibrant colors, clean typography, and interactive experiences, I create designs that don't just look good—they feel alive. Every project is an opportunity to push boundaries and challenge conventions.
+        <p class="about-desc secondary">
+          With a passion for vibrant colors, clean typography, and interactive experiences — I create designs that feel alive.
         </p>
-        
-        <div class="flex flex-wrap gap-4 pt-6">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: #192BC2;">
-              <span class="text-2xl">🎨</span>
-            </div>
-            <div>
-              <p class="font-bold text-lg" style="color: #080705;">Creative</p>
-              <p class="text-sm text-gray-600">Design Thinking</p>
-            </div>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-icon blue-icon">🎨</div>
+            <div><p class="stat-label">Creative</p><p class="stat-sub">Design Thinking</p></div>
           </div>
-          
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: #FF7733;">
-              <span class="text-2xl">⚡</span>
-            </div>
-            <div>
-              <p class="font-bold text-lg" style="color: #080705;">Dynamic</p>
-              <p class="text-sm text-gray-600">Interactive UX</p>
-            </div>
+          <div class="stat">
+            <div class="stat-icon orange-icon">⚡</div>
+            <div><p class="stat-label">Dynamic</p><p class="stat-sub">Interactive UX</p></div>
           </div>
         </div>
-
-        <div class="pt-8">
-          <p class="text-sm text-gray-500 font-medium">Keep scrolling to see my tech stack 👇</p>
-        </div>
+        <p class="scroll-hint">Press ↓ for my skills</p>
       </div>
 
     </div>
   </section>
 
-  <!-- Skills Section - Keyboard fully visible and interactive -->
-  <section id="skills" class="relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-16 xl:px-24 py-32" style="background: linear-gradient(180deg, #FAFAFF 0%, #192BC2 100%);">
-    <div class="text-center max-w-4xl">
-      <div class="inline-block px-6 py-2 rounded-full text-sm font-bold mb-8" style="background-color: #FF7733; color: white;">
-        TECH STACK
-      </div>
-      
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Hover over the keys to see my skills
-      </h2>
-      
-      <p class="text-xl text-white/80">
-        Each key represents a tool I use daily
-      </p>
-    </div>
-  </section>
-
-  <script>
-    // Keyboard expansion animation on scroll
-    const keyboard = document.getElementById('keyboard');
-    const keyboardContainer = document.getElementById('keyboard-container');
-    const keys = document.querySelectorAll('.key');
-    const tooltip = document.getElementById('key-tooltip');
-    
-    // Scroll animation observer for keyboard
-    const keyboardObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          keyboard.classList.add('expanded');
-          
-          // Stagger animation for keys
-          keys.forEach((key, index) => {
-            setTimeout(() => {
-              key.classList.add('visible');
-            }, index * 20);
-          });
-        }
-      });
-    }, {
-      threshold: 0.3
-    });
-    
-    keyboardObserver.observe(keyboardContainer);
-    
-    // Tooltip functionality
-    keys.forEach(key => {
-      key.addEventListener('mouseenter', (e) => {
-        const tech = key.getAttribute('data-tech');
-        if (tech) {
-          tooltip.querySelector('.tooltip-tech').textContent = tech;
-          tooltip.classList.remove('hidden');
-          
-          const rect = key.getBoundingClientRect();
-          const containerRect = keyboardContainer.getBoundingClientRect();
-          
-          tooltip.style.left = (rect.left - containerRect.left + rect.width / 2) + 'px';
-          tooltip.style.top = (rect.top - containerRect.top - 60) + 'px';
-        }
-      });
-      
-      key.addEventListener('mouseleave', () => {
-        tooltip.classList.add('hidden');
-      });
-      
-      // Click effect
-      key.addEventListener('click', () => {
-        key.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          key.style.transform = '';
-        }, 100);
-      });
-    });
-  </script>
-
-  <style>
-    /* Keyboard styles */
-    .keyboard-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 24px;
-      background: linear-gradient(135deg, rgba(25, 43, 194, 0.05) 0%, rgba(255, 119, 51, 0.05) 100%);
-      border-radius: 24px;
-      transform: scale(0.5);
-      opacity: 0;
-      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .keyboard-wrapper.expanded {
-      transform: scale(1);
-      opacity: 1;
-    }
-    
-    .keyboard-row {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
-    
-    .key {
-      min-width: 48px;
-      height: 48px;
-      background: white;
-      border: 2px solid #e5e7eb;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: #080705;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(8, 7, 5, 0.1);
-      opacity: 0;
-      transform: translateY(20px);
-      user-select: none;
-    }
-    
-    .key.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .key:hover {
-      background: #EEF36A;
-      border-color: #192BC2;
-      transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(25, 43, 194, 0.2);
-    }
-    
-    .key:active {
-      transform: translateY(-2px) scale(0.95);
-    }
-    
-    .key-sm {
-      min-width: 56px;
-    }
-    
-    .key-lg {
-      min-width: 72px;
-    }
-    
-    .key-xl {
-      min-width: 88px;
-    }
-    
-    .key-2xl {
-      min-width: 104px;
-    }
-    
-    .key-space {
-      min-width: 280px;
-    }
-    
-    /* Tooltip */
-    .key-tooltip {
-      position: absolute;
-      background: #192BC2;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      pointer-events: none;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(25, 43, 194, 0.3);
-      z-index: 100;
-      transition: opacity 0.2s ease;
-    }
-    
-    .key-tooltip::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 6px solid #192BC2;
-    }
-    
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .keyboard-wrapper {
-        transform: scale(0.4);
-      }
-      
-      .keyboard-wrapper.expanded {
-        transform: scale(0.7);
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .keyboard-wrapper {
-        transform: scale(0.3);
-      }
-      
-      .keyboard-wrapper.expanded {
-        transform: scale(0.5);
-      }
-      
-      .key {
-        min-width: 40px;
-        height: 40px;
-        font-size: 12px;
-      }
-      
-      .key-space {
-        min-width: 200px;
-      }
-    }
-  </style>
-
-  <section id="footer-spacer" class="h-20"></section>
-
-  <script>
-    // Physics-based Lanyard Component
-    const lanyardContainer = document.getElementById('lanyard-container');
-    const badgeCard = document.getElementById('badge-card');
-    const stringLine = document.getElementById('string-line');
-    const clip = document.getElementById('clip');
-
-    // Physics variables
-    let isDragging = false;
-    let currentX = 0;
-    let currentY = 180;
-    let velocityX = 0;
-    let velocityY = 0;
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    const anchorX = lanyardContainer.offsetWidth / 2;
-    const anchorY = 32;
-    const gravity = 0.5;
-    const damping = 0.92;
-    const stringLength = 200;
-    const tension = 0.05;
-
-    // Initialize position
-    currentX = anchorX;
-
-    // Mouse/Touch event handlers
-    badgeCard.addEventListener('mousedown', startDrag);
-    badgeCard.addEventListener('touchstart', startDrag);
-    
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag);
-    
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
-
-    function startDrag(e) {
-      isDragging = true;
-      badgeCard.style.cursor = 'grabbing';
-      badgeCard.style.transition = 'none';
-      
-      const rect = lanyardContainer.getBoundingClientRect();
-      if (e.type === 'mousedown') {
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-      } else {
-        mouseX = e.touches[0].clientX - rect.left;
-        mouseY = e.touches[0].clientY - rect.top;
-      }
-      
-      e.preventDefault();
-    }
-
-    function drag(e) {
-      if (!isDragging) return;
-      
-      const rect = lanyardContainer.getBoundingClientRect();
-      if (e.type === 'mousemove') {
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-      } else if (e.touches && e.touches.length > 0) {
-        mouseX = e.touches[0].clientX - rect.left;
-        mouseY = e.touches[0].clientY - rect.top;
-      }
-      
-      e.preventDefault();
-    }
-
-    function endDrag() {
-      if (!isDragging) return;
-      isDragging = false;
-      badgeCard.style.cursor = 'grab';
-      
-      // Add some velocity when released
-      velocityX = (mouseX - currentX) * 0.3;
-      velocityY = (mouseY - currentY) * 0.3;
-    }
-
-    // Physics animation loop
-    function animate() {
-      if (isDragging) {
-        // Follow mouse while dragging with smooth interpolation
-        currentX += (mouseX - currentX) * 0.2;
-        currentY += (mouseY - currentY) * 0.2;
-        velocityX = 0;
-        velocityY = 0;
-      } else {
-        // Apply physics when not dragging
-        
-        // Calculate distance from anchor
-        const dx = currentX - anchorX;
-        const dy = currentY - anchorY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Apply tension to pull back to string length
-        if (distance > stringLength) {
-          const angle = Math.atan2(dy, dx);
-          const force = (distance - stringLength) * tension;
-          velocityX -= Math.cos(angle) * force;
-          velocityY -= Math.sin(angle) * force;
-        }
-        
-        // Apply gravity
-        velocityY += gravity;
-        
-        // Apply damping
-        velocityX *= damping;
-        velocityY *= damping;
-        
-        // Update position
-        currentX += velocityX;
-        currentY += velocityY;
-        
-        // Constraint to string length (circular boundary)
-        const constrainedDistance = Math.sqrt(
-          Math.pow(currentX - anchorX, 2) + 
-          Math.pow(currentY - anchorY, 2)
-        );
-        
-        if (constrainedDistance > stringLength) {
-          const angle = Math.atan2(currentY - anchorY, currentX - anchorX);
-          currentX = anchorX + Math.cos(angle) * stringLength;
-          currentY = anchorY + Math.sin(angle) * stringLength;
-          
-          // Bounce off the constraint
-          velocityX *= 0.8;
-          velocityY *= 0.8;
-        }
-      }
-      
-      // Update DOM
-      updatePosition();
-      
-      requestAnimationFrame(animate);
-    }
-
-    function updatePosition() {
-      // Update badge position
-      badgeCard.style.left = currentX + 'px';
-      badgeCard.style.top = currentY + 'px';
-      badgeCard.style.transform = `translate(-50%, 0) rotate(${velocityX * 2}deg)`;
-      
-      // Update string line
-      stringLine.setAttribute('x2', currentX);
-      stringLine.setAttribute('y2', currentY + 20);
-      
-      // Update shadow based on movement
-      const moveIntensity = Math.abs(velocityX) + Math.abs(velocityY);
-      const shadowBlur = 20 + Math.min(moveIntensity * 2, 30);
-      badgeCard.style.boxShadow = `0 ${10 + moveIntensity}px ${shadowBlur}px rgba(8, 7, 5, 0.2)`;
-    }
-
-    // Start animation
-    animate();
-
-    // Add subtle initial swing
-    setTimeout(() => {
-      velocityX = 3;
-    }, 500);
-
-    // Navigation pills scroll behavior
-    document.querySelectorAll('.nav-pill').forEach(pill => {
-      pill.addEventListener('click', function() {
-        const section = this.textContent.trim().toLowerCase();
-        console.log(`Navigating to ${section}`);
-        // Add your navigation logic here
-      });
-    });
-
-    // 3D Keyboard Scroll Animations - Appears from About section
-    const keyboard3D = document.getElementById('keyboard-3d');
-    const keyboard3DContainer = document.getElementById('keyboard-3d-container');
-    const aboutSection = document.getElementById('about');
-    const skillsSection = document.getElementById('skills');
-    const keys3D = document.querySelectorAll('.kb-key');
-    const progressBar = document.querySelector('.progress-bar');
-    
-    let keyboardAnimationTriggered = false;
-    
-    // Scroll-based keyboard animation
-    function updateKeyboardOnScroll() {
-      if (!aboutSection || !skillsSection || !keyboard3D || !keyboard3DContainer) return;
-      
-      const aboutRect = aboutSection.getBoundingClientRect();
-      const skillsRect = skillsSection.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      // Calculate total scroll range (from middle of About to end of Skills)
-      const scrollStart = aboutRect.top + aboutRect.height * 0.3;
-      const scrollEnd = skillsRect.bottom;
-      const scrollRange = scrollEnd - scrollStart;
-      const scrollProgress = Math.max(0, Math.min(1, -scrollStart / scrollRange));
-      
-      // Show/hide keyboard container
-      if (scrollProgress > 0 && scrollProgress < 1) {
-        keyboard3DContainer.classList.add('visible');
-      } else if (scrollProgress >= 1) {
-        keyboard3DContainer.classList.add('visible');
-      } else {
-        keyboard3DContainer.classList.remove('visible');
-      }
-      
-      // Trigger key animations once
-      if (!keyboardAnimationTriggered && scrollProgress > 0.1) {
-        keyboardAnimationTriggered = true;
-        setTimeout(() => simulateRandomKeyPresses(), 1000);
-      }
-      
-      // Phase 1: Entrance (0 - 0.3)
-      if (scrollProgress < 0.3) {
-        const phase1 = scrollProgress / 0.3;
-        const rotateX = 60 - (phase1 * 20); // 60 to 40
-        const rotateZ = -10 + (phase1 * 10); // -10 to 0
-        const scale = 0.6 + (phase1 * 0.5); // 0.6 to 1.1
-        
-        keyboard3D.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
-      }
-      // Phase 2: Center and flatten (0.3 - 0.6)
-      else if (scrollProgress < 0.6) {
-        const phase2 = (scrollProgress - 0.3) / 0.3;
-        const rotateX = 40 - (phase2 * 25); // 40 to 15
-        const rotateZ = 0;
-        const scale = 1.1 + (phase2 * 0.2); // 1.1 to 1.3
-        
-        keyboard3D.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
-      }
-      // Phase 3: Face camera directly (0.6 - 1.0)
-      else {
-        const phase3 = (scrollProgress - 0.6) / 0.4;
-        const rotateX = 15 - (phase3 * 15); // 15 to 0
-        const scale = 1.3 + (phase3 * 0.2); // 1.3 to 1.5
-        
-        keyboard3D.style.transform = `rotateX(${rotateX}deg) rotateZ(0deg) scale(${scale})`;
-      }
-      
-      // Update progress bar
-      if (progressBar) {
-        progressBar.style.width = (scrollProgress * 100) + '%';
-      }
-    }
-    
-    // Simulate random key presses
-    function simulateRandomKeyPresses() {
-      const keys = Array.from(keys3D);
-      let pressCount = 0;
-      const maxPresses = 20;
-      
-      function pressRandomKey() {
-        if (pressCount >= maxPresses) return;
-        
-        const randomKey = keys[Math.floor(Math.random() * keys.length)];
-        const originalTransform = randomKey.style.transform;
-        
-        randomKey.style.transform = 'translateZ(-5px) scale(0.95)';
-        randomKey.style.boxShadow = '0 0 20px var(--key-color)';
-        
-        setTimeout(() => {
-          randomKey.style.transform = originalTransform || '';
-          randomKey.style.boxShadow = '';
-        }, 150);
-        
-        pressCount++;
-        setTimeout(pressRandomKey, 80 + Math.random() * 200);
-      }
-      
-      pressRandomKey();
-    }
-    
-    // Key interactions
-    keys3D.forEach(key => {
-      key.addEventListener('click', function() {
-        const tech = this.getAttribute('data-tech');
-        console.log(`Clicked: ${tech}`);
-        
-        // Pulse effect
-        this.style.transform = 'translateZ(-5px) scale(0.95)';
-        this.style.boxShadow = `0 0 30px var(--key-color)`;
-        
-        setTimeout(() => {
-          this.style.transform = '';
-          this.style.boxShadow = '';
-        }, 200);
-      });
-    });
-    
-    // Scroll listener with throttling
-    let ticking2 = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking2) {
-        window.requestAnimationFrame(() => {
-          updateKeyboardOnScroll();
-          ticking2 = false;
-        });
-        ticking2 = true;
-      }
-    });
-    
-    // Initial call
-    updateKeyboardOnScroll();
-  </script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

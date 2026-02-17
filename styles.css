@@ -1,0 +1,298 @@
+/* ================================================================
+   PORTFOLIO — FULLPAGE SCROLL  (fully responsive)
+   ================================================================ */
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --black:  #080705;
+  --white:  #FAFAFF;
+  --yellow: #EEF36A;
+  --blue:   #192BC2;
+  --orange: #FF7733;
+  --green:  #00A86B;
+}
+
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  font-family:'Space Grotesk', sans-serif;
+  background:var(--white);
+  color:var(--black);
+}
+
+/* ================================================================
+   FULLPAGE ENGINE
+   ================================================================ */
+
+.fullpage-section {
+  position:fixed; inset:0;
+  width:100%; height:100vh;
+  opacity:0; visibility:hidden;
+  overflow:hidden; z-index:0;
+}
+.fullpage-section.active { opacity:1; visibility:visible; z-index:1; }
+
+.section-inner {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  height:100%; width:100%;
+}
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+
+#nav {
+  position:fixed; top:0; right:0;
+  padding:clamp(.75rem,2vw,1.5rem) clamp(1rem,2vw,2rem);
+  z-index:200;
+}
+.nav-pills { display:flex; gap:.6rem; flex-wrap:wrap; justify-content:flex-end; }
+
+.nav-pill {
+  height:clamp(38px,5vh,52px);
+  padding:0 clamp(.75rem,2vw,1.4rem);
+  border-radius:9999px;
+  font-weight:600; font-size:clamp(.72rem,1.1vw,.95rem);
+  font-family:inherit; border:none; cursor:pointer;
+  transition:transform .22s ease, box-shadow .22s ease;
+  white-space:nowrap;
+}
+.nav-pill:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,.15); }
+.nav-pill.yellow { background:var(--yellow); color:var(--black); }
+.nav-pill.blue   { background:var(--blue);   color:var(--white); }
+.nav-pill.orange { background:var(--orange); color:var(--white); }
+
+/* ================================================================
+   SCROLL INDICATOR
+   ================================================================ */
+
+#scroll-indicator {
+  position:fixed; bottom:1.5rem; left:50%;
+  transform:translateX(-50%);
+  z-index:200;
+  display:flex; flex-direction:column; align-items:center; gap:.3rem;
+  color:#94a3b8; font-size:.7rem; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+  animation:bob 2s ease-in-out infinite;
+  transition:opacity .4s;
+}
+@keyframes bob {
+  0%,100% { transform:translateX(-50%) translateY(0); }
+  50%      { transform:translateX(-50%) translateY(5px); }
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+
+#hero { background:linear-gradient(135deg,#f8fafc 0%,#fff 55%,#e8f0fe 100%); }
+
+/* LEFT */
+.hero-left {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(4rem,8vh,7rem) clamp(1.5rem,3vw,3rem) clamp(2rem,4vh,5rem) clamp(2rem,4vw,5rem);
+  opacity:0; transform:translateY(28px); /* animated in by JS */
+}
+
+.hero-title {
+  font-size:clamp(3rem,7vw,8.5rem);
+  font-weight:700; line-height:.88;
+  color:var(--green); letter-spacing:-.03em;
+  margin-bottom:clamp(1.2rem,3vh,2rem);
+}
+
+.hero-sub {
+  display:flex; align-items:flex-start;
+  gap:clamp(.75rem,1.5vw,1.25rem);
+  margin-bottom:clamp(.8rem,2vh,1.5rem);
+}
+
+.star-burst {
+  width:clamp(42px,5.5vw,68px); height:clamp(42px,5.5vw,68px);
+  flex-shrink:0; animation:spin 20s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.hero-tagline {
+  font-size:clamp(.88rem,1.25vw,1.3rem);
+  font-weight:500; line-height:1.55; color:var(--black);
+}
+
+.scroll-hint-hero {
+  font-size:.76rem; color:#94a3b8;
+  font-weight:500; letter-spacing:.05em;
+}
+
+/* RIGHT — lanyard panel */
+.hero-right {
+  position:relative; overflow:hidden;
+}
+
+/* ================================================================
+   LANYARD SVG (rope + clip)
+   ================================================================ */
+
+#lanyard-svg {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  pointer-events:none; z-index:5;
+  overflow:visible;
+}
+
+/* ================================================================
+   BADGE CARD
+   ================================================================ */
+
+#badge-card {
+  position:absolute;
+  width:clamp(180px,18vw,230px);
+  height:clamp(240px,26vw,310px);  /* portrait ratio */
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--yellow);        /* shows as fallback bg */
+  border:3px solid #fff;
+  box-shadow:
+    0 12px 40px rgba(8,7,5,.22),
+    0 3px 10px rgba(8,7,5,.1);
+  cursor:grab;
+  user-select:none; -webkit-user-select:none;
+  touch-action:none;
+  transform:translate(-50%, -50%);
+  z-index:20;
+  opacity:0;
+  transition:box-shadow .2s ease;
+}
+#badge-card:active { cursor:grabbing; }
+
+/* ── Badge: image-only card ── */
+
+/* Punch hole at top for rope attachment */
+.badge-hole {
+  position:absolute;
+  top:10px; left:50%;
+  transform:translateX(-50%);
+  width:14px; height:14px;
+  border-radius:50%;
+  background:#d1d5db;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.35);
+  z-index:3;
+}
+
+/* The photo fills the entire card */
+.badge-photo {
+  display:block;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:17px; /* match card radius minus border */
+}
+
+/* Fallback shown when photo not found */
+.badge-photo-fallback {
+  display:none;
+  width:100%; height:100%;
+  min-height:300px;
+  align-items:center; justify-content:center;
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:700; letter-spacing:-.02em;
+  color:var(--black);
+  background:var(--yellow);
+  border-radius:17px;
+}
+
+/* ================================================================
+   ABOUT
+   ================================================================ */
+
+#about { background:var(--white); }
+
+.about-left {
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(1.5rem,4vw,3rem);
+  background:linear-gradient(135deg,#f0f4ff 0%,#e8f4ef 100%);
+}
+
+#lottie-container {
+  width:100%;
+  max-width:clamp(180px,38vw,480px);
+  aspect-ratio:1;
+}
+
+.about-right {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(2rem,5vh,5rem) clamp(2rem,4vw,5rem) clamp(2rem,5vh,5rem) clamp(1.5rem,3vw,4rem);
+  gap:clamp(.8rem,1.8vh,1.3rem);
+}
+
+.about-badge {
+  display:inline-block;
+  padding:.35rem 1.1rem; border-radius:9999px;
+  background:var(--yellow); color:var(--black);
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.08em; width:fit-content;
+}
+
+.about-title {
+  font-size:clamp(2.2rem,4.5vw,4.8rem);
+  font-weight:700; line-height:1.02;
+  color:var(--black); letter-spacing:-.02em;
+}
+.blue-text { color:var(--blue); }
+
+.about-desc {
+  font-size:clamp(.88rem,1.2vw,1.12rem);
+  line-height:1.65; color:#374151; max-width:440px;
+}
+.about-desc.secondary { color:#6b7280; }
+
+.about-stats { display:flex; gap:1.25rem; flex-wrap:wrap; }
+
+.stat { display:flex; align-items:center; gap:.7rem; }
+
+.stat-icon {
+  width:clamp(34px,3.8vw,44px); height:clamp(34px,3.8vw,44px);
+  border-radius:9999px; display:flex;
+  align-items:center; justify-content:center;
+  font-size:clamp(.85rem,1.3vw,1.15rem); flex-shrink:0;
+}
+.blue-icon   { background:var(--blue); }
+.orange-icon { background:var(--orange); }
+
+.stat-label { font-weight:700; font-size:.9rem; color:var(--black); }
+.stat-sub   { font-size:.72rem; color:#6b7280; }
+
+.scroll-hint { font-size:.74rem; color:#94a3b8; font-weight:500; }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width:768px) {
+  .section-inner { grid-template-columns:1fr; }
+
+  /* Hero */
+  .hero-left {
+    order:1; padding:5rem 1.5rem 1rem;
+    align-items:center; text-align:center;
+  }
+  .hero-sub { justify-content:center; }
+  .hero-right { order:2; height:58vw; min-height:280px; max-height:420px; }
+  #badge-card { width:clamp(170px,44vw,220px); }
+
+  /* About */
+  .about-left { order:1; min-height:44vw; }
+  .about-right { order:2; padding:1.5rem; }
+  #lottie-container { max-width:clamp(130px,55vw,260px); }
+  .about-title { font-size:clamp(2rem,6vw,3rem); }
+}
+
+@media (max-width:480px) {
+  .hero-title { font-size:clamp(2.5rem,13vw,4rem); }
+  .hero-right { height:72vw; }
+  #badge-card { width:clamp(155px,52vw,195px); }
+  .badge-year { font-size:1.7rem; }
+  .nav-pill { height:36px; padding:0 .85rem; font-size:.68rem; }
+  .about-title { font-size:clamp(1.8rem,8vw,2.4rem); }
+}
