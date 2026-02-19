@@ -60,23 +60,17 @@
 
         <!-- SVG layer: clip hook + rope string -->
         <svg id="lanyard-svg" xmlns="http://www.w3.org/2000/svg">
-          <!-- Clip / hook at very top -->
           <g id="clip-group">
-            <!-- hook body -->
             <rect id="clip-rect" x="0" y="0" width="36" height="18" rx="9" fill="#192BC2"/>
-            <!-- small hole in clip -->
             <circle id="clip-hole" cx="18" cy="9" r="4" fill="#0f1d8a"/>
           </g>
-          <!-- Rope drawn as bezier path -->
           <path id="rope-path" fill="none" stroke="#2a2a3e" stroke-width="3.5"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <!-- ── BADGE CARD ── -->
+        <!-- BADGE CARD -->
         <div id="badge-card">
-          <!-- Punch hole at top for the rope -->
           <div class="badge-hole"></div>
-          <!-- Replace "your-photo.jpg" with your actual image path -->
           <img
             id="badge-photo"
             src="vruddhi.jpeg"
@@ -84,47 +78,140 @@
             class="badge-photo"
             onerror="this.style.display='none'; document.getElementById('badge-photo-fallback').style.display='flex';"
           />
-          <!-- Fallback initials if photo not found -->
           <div id="badge-photo-fallback" class="badge-photo-fallback">VS</div>
-        </div><!-- /.badge-card -->
-      </div><!-- /.hero-right -->
+        </div>
+      </div>
 
     </div>
   </section>
 
   <!-- ================================================
-       SECTION 2: ABOUT
+       SECTION 2: ABOUT  (carousel lives inside, bottom)
   ================================================= -->
   <section id="about" class="fullpage-section">
-    <div class="section-inner">
+    <div class="about-wrap">
 
-      <div class="about-left">
-        <div id="lottie-container"></div>
-      </div>
+      <div class="section-inner">
+        <div class="about-left">
+          <div id="lottie-container"></div>
+        </div>
 
-      <div class="about-right">
-        <span class="about-badge">ABOUT ME</span>
-        <h2 class="about-title">
-          Crafting<br>Digital<br>
-          <span class="blue-text">Experiences</span>
-        </h2>
-        <p class="about-desc">
-          I'm a creative designer who loves turning bold ideas into layered, personality-driven identities.
-        </p>
-        <p class="about-desc secondary">
-          With a passion for vibrant colors, clean typography, and interactive experiences — I create designs that feel alive.
-        </p>
-        <div class="about-stats">
-          <div class="stat">
-            <div class="stat-icon blue-icon">🎨</div>
-            <div><p class="stat-label">Creative</p><p class="stat-sub">Design Thinking</p></div>
-          </div>
-          <div class="stat">
-            <div class="stat-icon orange-icon">⚡</div>
-            <div><p class="stat-label">Dynamic</p><p class="stat-sub">Interactive UX</p></div>
+        <div class="about-right">
+          <span class="about-badge">ABOUT ME</span>
+          <h2 class="about-title">
+            Crafting<br>Digital<br>
+            <span class="blue-text">Experiences</span>
+          </h2>
+          <p class="about-desc">
+            I'm a creative designer who loves turning bold ideas into layered, personality-driven identities.
+          </p>
+          <p class="about-desc secondary">
+            With a passion for vibrant colors, clean typography, and interactive experiences — I create designs that feel alive.
+          </p>
+          <div class="about-stats">
+            <div class="stat">
+              <div class="stat-icon blue-icon">🎨</div>
+              <div><p class="stat-label">Creative</p><p class="stat-sub">Design Thinking</p></div>
+            </div>
+            <div class="stat">
+              <div class="stat-icon orange-icon">⚡</div>
+              <div><p class="stat-label">Dynamic</p><p class="stat-sub">Interactive UX</p></div>
+            </div>
           </div>
         </div>
-        <p class="scroll-hint">Press ↓ for my skills</p>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+           TECH CAROUSEL
+           To add a tool: copy any <div class="tech-tool"> block.
+           Use an <img> with a CDN logo URL, or swap in
+           <div class="tech-tool-glyph"> for custom glyphs.
+           Update the <span> with the name. Done!
+      ═════════════════════════════════════════════════════ -->
+      <div class="tech-carousel">
+        <div class="tech-track">
+
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+            <span>Python</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch">
+            <span>PyTorch</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+            <span>React</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+            <span>Figma</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+            <span>Git</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy">
+            <span>NumPy</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+            <span>Pandas</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI">
+            <span>FastAPI</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS">
+            <span>AWS</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+            <span>JavaScript</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
+            <span>Illustrator</span>
+          </div>
+          <div class="tech-tool">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
+            <span>Tailwind</span>
+          </div>
+          <div class="tech-tool">
+            <div class="tech-tool-glyph" style="background:#192BC2;color:#EEF36A">🤖</div>
+            <span>Smolagents</span>
+          </div>
+          <div class="tech-tool">
+            <div class="tech-tool-glyph" style="background:#00A86B;color:#fff">🔗</div>
+            <span>LangChain</span>
+          </div>
+          <div class="tech-tool">
+            <div class="tech-tool-glyph" style="background:#080705;color:#fff">✦</div>
+            <span>OpenAI API</span>
+          </div>
+
+          <!-- ↑ ADD NEW TOOLS ABOVE THIS LINE (before the duplicates) ↑ -->
+
+          <!-- Seamless loop duplicates — mirror the list above exactly -->
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"><span>PyTorch</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><span>React</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma"><span>Figma</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><span>Git</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy"><span>NumPy</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas"><span>Pandas</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI"><span>FastAPI</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS"><span>AWS</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><span>JavaScript</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator"><span>Illustrator</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind"><span>Tailwind</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#192BC2;color:#EEF36A">🤖</div><span>Smolagents</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#00A86B;color:#fff">🔗</div><span>LangChain</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#080705;color:#fff">✦</div><span>OpenAI API</span></div>
+
+        </div>
       </div>
 
     </div>
