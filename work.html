@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Vruddhi Shah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="work.css">
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- ── NAV ── -->
+  <header id="header">
+    <a href="../" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="header-title">Selected Work</div>
+
+    <nav class="header-nav">
+      <a href="../" class="hn-link">Home</a>
+      <a href="../#projects" class="hn-link">Projects</a>
+      <a href="mailto:hello@vruddhi.dev" class="hn-cta">Let's Talk ↗</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="work-hero">
+    <div class="wh-eyebrow">
+      <span class="wh-tag">2023 — 2025</span>
+      <span class="wh-tag">Brand · UI · Motion</span>
+    </div>
+    <h1 class="wh-title">
+      Work that<br>
+      <em>speaks</em> for<br>
+      itself
+    </h1>
+    <p class="wh-sub">A curated selection of brand identities, product interfaces, and motion experiments.</p>
+
+    <div class="wh-stats">
+      <div class="wh-stat">
+        <span class="wh-stat-num">12+</span>
+        <span class="wh-stat-label">Projects</span>
+      </div>
+      <div class="wh-divider"></div>
+      <div class="wh-stat">
+        <span class="wh-stat-num">3</span>
+        <span class="wh-stat-label">Disciplines</span>
+      </div>
+      <div class="wh-divider"></div>
+      <div class="wh-stat">
+        <span class="wh-stat-num">∞</span>
+        <span class="wh-stat-label">Iterations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FILTER BAR ── -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="brand">Brand Identity</button>
+    <button class="filter-btn" data-filter="ui">UI / UX</button>
+    <button class="filter-btn" data-filter="motion">Motion</button>
+    <button class="filter-btn" data-filter="ai">AI + Dev</button>
+  </div>
+
+  <!-- ── WORK GRID ── -->
+  <main class="work-grid" id="work-grid">
+
+    <!-- Project 1 — Full width featured -->
+    <article class="work-card featured" data-cat="brand" data-index="01">
+      <div class="wc-bg" style="background: #192BC2;"></div>
+      <div class="wc-content">
+        <div class="wc-meta">
+          <span class="wc-num">01</span>
+          <span class="wc-cat">Brand Identity</span>
+          <span class="wc-year">2025</span>
+        </div>
+        <h2 class="wc-title">Nocturne Studio</h2>
+        <p class="wc-desc">A bold identity for a creative studio built around depth, texture, and typographic contrast. Collage-led visual language with a dark editorial tone.</p>
+        <div class="wc-footer">
+          <div class="wc-tags">
+            <span>Figma</span><span>Illustrator</span><span>After Effects</span>
+          </div>
+          <a href="#" class="wc-cta">View Case Study ↗</a>
+        </div>
+      </div>
+      <div class="wc-visual featured-vis">
+        <div class="vis-block" style="background:#EEF36A; top:15%; right:8%; width:42%; aspect-ratio:3/4; border-radius:4px; transform:rotate(2.5deg);"></div>
+        <div class="vis-block" style="background:#FAFAFF; top:30%; right:22%; width:28%; aspect-ratio:1; border-radius:50%;"></div>
+        <div class="vis-text" style="top:55%; right:10%; color:#EEF36A;">Nocturne®</div>
+      </div>
+    </article>
+
+    <!-- Project 2 -->
+    <article class="work-card half" data-cat="ui" data-index="02">
+      <div class="wc-bg" style="background: #EEF36A;"></div>
+      <div class="wc-content dark">
+        <div class="wc-meta">
+          <span class="wc-num">02</span>
+          <span class="wc-cat">UI / UX</span>
+          <span class="wc-year">2024</span>
+        </div>
+        <h2 class="wc-title dark-title">Bloom App</h2>
+        <p class="wc-desc dark-desc">Habit tracker redesign — stripped back to a single daily ritual. Minimal UI, maximal clarity.</p>
+        <div class="wc-footer">
+          <div class="wc-tags dark-tags">
+            <span>Figma</span><span>Prototyping</span>
+          </div>
+          <a href="#" class="wc-cta dark-cta">View ↗</a>
+        </div>
+      </div>
+      <div class="wc-visual half-vis">
+        <div class="vis-phone">
+          <div class="vis-phone-screen">
+            <div class="vps-dot"></div>
+            <div class="vps-bar" style="width:60%; margin-top:.8rem;"></div>
+            <div class="vps-bar" style="width:40%; margin-top:.4rem; opacity:.5;"></div>
+            <div class="vps-ring"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 3 -->
+    <article class="work-card half" data-cat="motion" data-index="03">
+      <div class="wc-bg" style="background: #FF7733;"></div>
+      <div class="wc-content">
+        <div class="wc-meta">
+          <span class="wc-num">03</span>
+          <span class="wc-cat">Motion</span>
+          <span class="wc-year">2024</span>
+        </div>
+        <h2 class="wc-title">Kinetic Type</h2>
+        <p class="wc-desc">A series of animated typographic posters exploring rhythm, tension, and motion as composition tools.</p>
+        <div class="wc-footer">
+          <div class="wc-tags">
+            <span>After Effects</span><span>Illustrator</span>
+          </div>
+          <a href="#" class="wc-cta">View ↗</a>
+        </div>
+      </div>
+      <div class="wc-visual half-vis">
+        <div class="motion-letters">
+          <span style="--d:0s">K</span>
+          <span style="--d:.08s">I</span>
+          <span style="--d:.16s">N</span>
+          <span style="--d:.24s">E</span>
+          <span style="--d:.32s">T</span>
+          <span style="--d:.40s">I</span>
+          <span style="--d:.48s">C</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 4 -->
+    <article class="work-card third" data-cat="brand" data-index="04">
+      <div class="wc-bg" style="background: #00A86B;"></div>
+      <div class="wc-content">
+        <div class="wc-meta">
+          <span class="wc-num">04</span>
+          <span class="wc-cat">Brand</span>
+          <span class="wc-year">2024</span>
+        </div>
+        <h2 class="wc-title">Verde Co.</h2>
+        <p class="wc-desc">Sustainable brand identity — earthy, forward-looking, and typographically precise.</p>
+        <div class="wc-footer">
+          <div class="wc-tags"><span>Figma</span><span>Illustrator</span></div>
+          <a href="#" class="wc-cta">View ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 5 -->
+    <article class="work-card third" data-cat="ai" data-index="05">
+      <div class="wc-bg" style="background: #080705;"></div>
+      <div class="wc-content">
+        <div class="wc-meta">
+          <span class="wc-num">05</span>
+          <span class="wc-cat">AI + Dev</span>
+          <span class="wc-year">2024</span>
+        </div>
+        <h2 class="wc-title">Research Agent</h2>
+        <p class="wc-desc">Multi-agent pipeline that automates deep research with LangChain + Smolagents.</p>
+        <div class="wc-footer">
+          <div class="wc-tags"><span>Python</span><span>FastAPI</span><span>React</span></div>
+          <a href="#" class="wc-cta">View ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 6 -->
+    <article class="work-card third" data-cat="ui" data-index="06">
+      <div class="wc-bg" style="background: #f5f0e8;"></div>
+      <div class="wc-content dark">
+        <div class="wc-meta">
+          <span class="wc-num">06</span>
+          <span class="wc-cat">UI / UX</span>
+          <span class="wc-year">2023</span>
+        </div>
+        <h2 class="wc-title dark-title">Folio OS</h2>
+        <p class="wc-desc dark-desc">Desktop-style portfolio OS interface — draggable windows, fake terminal, real personality.</p>
+        <div class="wc-footer">
+          <div class="wc-tags dark-tags"><span>React</span><span>GSAP</span></div>
+          <a href="#" class="wc-cta dark-cta">View ↗</a>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ── PROCESS STRIP ── -->
+  <section class="process-section">
+    <p class="process-label">How I work</p>
+    <div class="process-steps">
+      <div class="ps-step">
+        <span class="ps-num">01</span>
+        <span class="ps-name">Discover</span>
+        <p class="ps-desc">Deep dive into the brief, the audience, and the gaps.</p>
+      </div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step">
+        <span class="ps-num">02</span>
+        <span class="ps-name">Explore</span>
+        <p class="ps-desc">Wild ideation, mood boards, and lo-fi sketches.</p>
+      </div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step">
+        <span class="ps-num">03</span>
+        <span class="ps-name">Refine</span>
+        <p class="ps-desc">Tighten, iterate, and polish until it sings.</p>
+      </div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step">
+        <span class="ps-num">04</span>
+        <span class="ps-name">Ship</span>
+        <p class="ps-desc">Deliver production-ready, documented work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FOOTER ── -->
+  <section class="work-footer">
+    <div class="wf-inner">
+      <div class="wf-left">
+        <p class="wf-eyebrow">Got a project?</p>
+        <h2 class="wf-title">Let's make<br>something <em>great</em></h2>
+      </div>
+      <div class="wf-right">
+        <a href="mailto:hello@vruddhi.dev" class="wf-cta">
+          Start a conversation
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="wf-note">Usually responds within 24h</p>
+      </div>
+    </div>
+    <div class="wf-bar">
+      <a href="../" class="wf-back">← Back to portfolio</a>
+      <span class="wf-copy">© 2025 Vruddhi Shah</span>
+      <div class="wf-socials">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Dribbble</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="work.js"></script>
+</body>
+</html>
