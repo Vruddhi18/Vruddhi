@@ -12,9 +12,9 @@
   <!-- Navigation -->
   <nav id="nav">
     <div class="nav-pills">
-      <button class="nav-pill yellow">Home</button>
-      <button class="nav-pill blue">Work</button>
-      <button class="nav-pill orange">About</button>
+      <button class="nav-pill yellow" data-section="0">Home</button>
+      <button class="nav-pill blue"   data-section="2">Work</button>
+      <button class="nav-pill orange" data-section="1">About</button>
     </div>
   </nav>
 
@@ -26,13 +26,22 @@
     </svg>
   </div>
 
+  <!-- Section dots -->
+  <div id="section-dots">
+    <button class="dot active" data-section="0"></button>
+    <button class="dot" data-section="1"></button>
+    <button class="dot" data-section="2"></button>
+    <button class="dot" data-section="3"></button>
+    <button class="dot" data-section="4"></button>
+    <button class="dot" data-section="5"></button>
+  </div>
+
   <!-- ================================================
-       SECTION 1: HERO
+       SECTION 0: HERO
   ================================================= -->
   <section id="hero" class="fullpage-section active">
     <div class="section-inner">
 
-      <!-- LEFT: Title + tagline -->
       <div class="hero-left">
         <h1 class="hero-title">Vruddhi<br>Shah</h1>
         <div class="hero-sub">
@@ -55,10 +64,7 @@
         <p class="scroll-hint-hero">Scroll or press ↓</p>
       </div>
 
-      <!-- RIGHT: Lanyard -->
       <div class="hero-right" id="lanyard-root">
-
-        <!-- SVG layer: clip hook + rope string -->
         <svg id="lanyard-svg" xmlns="http://www.w3.org/2000/svg">
           <g id="clip-group">
             <rect id="clip-rect" x="0" y="0" width="36" height="18" rx="9" fill="#192BC2"/>
@@ -68,7 +74,6 @@
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <!-- BADGE CARD -->
         <div id="badge-card">
           <div class="badge-hole"></div>
           <img
@@ -86,11 +91,10 @@
   </section>
 
   <!-- ================================================
-       SECTION 2: ABOUT  (carousel lives inside, bottom)
+       SECTION 1: ABOUT
   ================================================= -->
   <section id="about" class="fullpage-section">
     <div class="about-wrap">
-
       <div class="section-inner">
         <div class="about-left">
           <div id="lottie-container"></div>
@@ -121,80 +125,8 @@
         </div>
       </div>
 
-      <!-- ════════════════════════════════════════════════════
-           TECH CAROUSEL
-           To add a tool: copy any <div class="tech-tool"> block.
-           Use an <img> with a CDN logo URL, or swap in
-           <div class="tech-tool-glyph"> for custom glyphs.
-           Update the <span> with the name. Done!
-      ═════════════════════════════════════════════════════ -->
       <div class="tech-carousel">
         <div class="tech-track">
-
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-            <span>Python</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch">
-            <span>PyTorch</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-            <span>React</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
-            <span>Figma</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-            <span>Git</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy">
-            <span>NumPy</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
-            <span>Pandas</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI">
-            <span>FastAPI</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS">
-            <span>AWS</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-            <span>JavaScript</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
-            <span>Illustrator</span>
-          </div>
-          <div class="tech-tool">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
-            <span>Tailwind</span>
-          </div>
-          <div class="tech-tool">
-            <div class="tech-tool-glyph" style="background:#192BC2;color:#EEF36A">🤖</div>
-            <span>Smolagents</span>
-          </div>
-          <div class="tech-tool">
-            <div class="tech-tool-glyph" style="background:#00A86B;color:#fff">🔗</div>
-            <span>LangChain</span>
-          </div>
-          <div class="tech-tool">
-            <div class="tech-tool-glyph" style="background:#080705;color:#fff">✦</div>
-            <span>OpenAI API</span>
-          </div>
-
-          <!-- ↑ ADD NEW TOOLS ABOVE THIS LINE (before the duplicates) ↑ -->
-
-          <!-- Seamless loop duplicates — mirror the list above exactly -->
           <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
           <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"><span>PyTorch</span></div>
           <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><span>React</span></div>
@@ -210,10 +142,219 @@
           <div class="tech-tool"><div class="tech-tool-glyph" style="background:#192BC2;color:#EEF36A">🤖</div><span>Smolagents</span></div>
           <div class="tech-tool"><div class="tech-tool-glyph" style="background:#00A86B;color:#fff">🔗</div><span>LangChain</span></div>
           <div class="tech-tool"><div class="tech-tool-glyph" style="background:#080705;color:#fff">✦</div><span>OpenAI API</span></div>
+          <!-- duplicates -->
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"><span>PyTorch</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><span>React</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma"><span>Figma</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><span>Git</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy"><span>NumPy</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas"><span>Pandas</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI"><span>FastAPI</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS"><span>AWS</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><span>JavaScript</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator"><span>Illustrator</span></div>
+          <div class="tech-tool"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind"><span>Tailwind</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#192BC2;color:#EEF36A">🤖</div><span>Smolagents</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#00A86B;color:#fff">🔗</div><span>LangChain</span></div>
+          <div class="tech-tool"><div class="tech-tool-glyph" style="background:#080705;color:#fff">✦</div><span>OpenAI API</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ================================================
+       SECTION 2: WORK (teaser → work.html)
+  ================================================= -->
+  <section id="work-section" class="fullpage-section">
+    <div class="work-inner">
+      <div class="work-label">02 — WORK</div>
+      <h2 class="work-title">Selected<br><em>Work</em></h2>
+      <p class="work-sub">Brand identities, UX flows, and design systems — crafted with intention.</p>
+
+      <div class="work-preview-grid">
+        <a href="work.html" class="work-preview-card" style="--c:#192BC2; --ch:#EEF36A;">
+          <div class="wpc-number">01</div>
+          <div class="wpc-label">Brand Identity</div>
+          <div class="wpc-arrow">→</div>
+        </a>
+        <a href="work.html" class="work-preview-card" style="--c:#EEF36A; --ch:#080705;">
+          <div class="wpc-number">02</div>
+          <div class="wpc-label">UI / UX</div>
+          <div class="wpc-arrow">→</div>
+        </a>
+        <a href="work.html" class="work-preview-card" style="--c:#FF7733; --ch:#FAFAFF;">
+          <div class="wpc-number">03</div>
+          <div class="wpc-label">Motion</div>
+          <div class="wpc-arrow">→</div>
+        </a>
+      </div>
+
+      <a href="work.html" class="cta-pill">
+        View all work
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 3: PROJECTS
+  ================================================= -->
+  <section id="projects-section" class="fullpage-section">
+    <div class="projects-inner">
+      <div class="proj-header">
+        <div class="work-label" style="color:var(--green);">03 — PROJECTS</div>
+        <h2 class="projects-title">Things I<br>Built</h2>
+      </div>
+
+      <div class="proj-grid">
+        <!-- Card 1 -->
+        <div class="proj-card" data-index="01">
+          <div class="proj-card-top">
+            <span class="proj-tag">AI / ML</span>
+            <span class="proj-year">2024</span>
+          </div>
+          <h3 class="proj-name">Agentic Research Tool</h3>
+          <p class="proj-desc">Multi-agent system using Smolagents + LangChain to automate research pipelines.</p>
+          <div class="proj-footer">
+            <div class="proj-stack">
+              <span>Python</span><span>Smolagents</span><span>FastAPI</span>
+            </div>
+            <a href="#" class="proj-link">↗</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="proj-card" data-index="02">
+          <div class="proj-card-top">
+            <span class="proj-tag" style="background:var(--blue);color:var(--white)">Design</span>
+            <span class="proj-year">2024</span>
+          </div>
+          <h3 class="proj-name">Layered Identity System</h3>
+          <p class="proj-desc">A bold visual identity built around collage aesthetics and typographic tension.</p>
+          <div class="proj-footer">
+            <div class="proj-stack">
+              <span>Figma</span><span>Illustrator</span>
+            </div>
+            <a href="#" class="proj-link">↗</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="proj-card" data-index="03">
+          <div class="proj-card-top">
+            <span class="proj-tag" style="background:var(--orange);color:var(--white)">Dev</span>
+            <span class="proj-year">2023</span>
+          </div>
+          <h3 class="proj-name">Interactive Portfolio v1</h3>
+          <p class="proj-desc">Physics-driven UI with fullpage scroll, lanyard badge, and GSAP animations.</p>
+          <div class="proj-footer">
+            <div class="proj-stack">
+              <span>React</span><span>GSAP</span><span>Tailwind</span>
+            </div>
+            <a href="#" class="proj-link">↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 4: CERTIFICATIONS
+  ================================================= -->
+  <section id="certs-section" class="fullpage-section">
+    <div class="certs-inner">
+      <div class="work-label" style="color:var(--orange);">04 — CERTIFICATIONS</div>
+      <h2 class="certs-title">Proof of<br>Learning</h2>
+
+      <div class="certs-list">
+        <div class="cert-row">
+          <div class="cert-num">01</div>
+          <div class="cert-body">
+            <p class="cert-name">Deep Learning Specialization</p>
+            <p class="cert-org">Coursera · DeepLearning.AI</p>
+          </div>
+          <div class="cert-badge" style="background:var(--yellow); color:var(--black);">Completed</div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-num">02</div>
+          <div class="cert-body">
+            <p class="cert-name">Google UX Design Certificate</p>
+            <p class="cert-org">Coursera · Google</p>
+          </div>
+          <div class="cert-badge" style="background:var(--blue); color:var(--white);">Completed</div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-num">03</div>
+          <div class="cert-body">
+            <p class="cert-name">AWS Cloud Practitioner</p>
+            <p class="cert-org">Amazon Web Services</p>
+          </div>
+          <div class="cert-badge" style="background:var(--orange); color:var(--white);">Completed</div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-num">04</div>
+          <div class="cert-body">
+            <p class="cert-name">Figma Advanced Design</p>
+            <p class="cert-org">Figma Academy</p>
+          </div>
+          <div class="cert-badge" style="background:var(--green); color:var(--white);">Completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 5: PLAY + FOOTER
+  ================================================= -->
+  <section id="play-section" class="fullpage-section">
+    <div class="play-inner">
+      <!-- Play teaser -->
+      <div class="play-content">
+        <div class="work-label" style="color:var(--yellow);">05 — PLAY</div>
+        <h2 class="play-title">Just for<br>Fun ✦</h2>
+        <p class="play-sub">Experiments, weird ideas, and side-quests that exist purely because I wanted them to.</p>
+        <a href="play.html" class="cta-pill cta-dark">
+          Enter the playground
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <div class="play-chips">
+          <span class="play-chip">🌀 Generative Art</span>
+          <span class="play-chip">🎮 Mini Games</span>
+          <span class="play-chip">🔬 AI Experiments</span>
+          <span class="play-chip">✏️ Type Studies</span>
         </div>
       </div>
 
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <p class="footer-sig">Vruddhi Shah</p>
+            <p class="footer-copy">© 2025 — All rights reserved</p>
+          </div>
+
+          <div class="footer-links">
+            <a href="mailto:hello@vruddhi.dev" class="footer-link">Email</a>
+            <a href="https://linkedin.com" target="_blank" class="footer-link">LinkedIn</a>
+            <a href="https://github.com" target="_blank" class="footer-link">GitHub</a>
+            <a href="https://dribbble.com" target="_blank" class="footer-link">Dribbble</a>
+          </div>
+
+          <div class="footer-right">
+            <a href="#" class="footer-back-top" id="back-to-top">
+              Back to top ↑
+            </a>
+          </div>
+        </div>
+        <div class="footer-marquee-wrap">
+          <div class="footer-marquee">
+            <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
+            <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
+          </div>
+        </div>
+      </footer>
     </div>
   </section>
 

@@ -13,6 +13,7 @@ class FullPageScroll {
     this.current    = 0;
     this.animating  = false;
     this.touchStart = 0;
+    this.dots       = Array.from(document.querySelectorAll('.dot'));
     this.init();
   }
 
@@ -40,6 +41,28 @@ class FullPageScroll {
       const diff = this.touchStart - e.changedTouches[0].clientY;
       if (Math.abs(diff) > 50) this.go(this.current + (diff > 0 ? 1 : -1));
     }, { passive: true });
+
+    // Nav pill buttons
+    document.querySelectorAll('.nav-pill[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => this.go(+btn.dataset.section));
+    });
+
+    // Dot navigation
+    this.dots.forEach(dot => {
+      dot.addEventListener('click', () => this.go(+dot.dataset.section));
+    });
+
+    // Back to top
+    const btt = document.getElementById('back-to-top');
+    if (btt) btt.addEventListener('click', e => { e.preventDefault(); this.go(0); });
+
+    this.updateDots();
+  }
+
+  updateDots() {
+    this.dots.forEach((d, i) => {
+      d.classList.toggle('active', i === this.current);
+    });
   }
 
   go(index) {
@@ -59,8 +82,12 @@ class FullPageScroll {
         gsap.set(leaving, { clearProps: 'all' });
         this.current   = index;
         this.animating = false;
+        this.updateDots();
 
-        // Trigger stack entrance animation when entering section 2 (index 2)
+        // Animate project cards on enter
+        if (index === 3) animateProjCards();
+        // Animate cert rows on enter
+        if (index === 4) animateCertRows();
       }
     });
 
@@ -72,31 +99,35 @@ class FullPageScroll {
 }
 
 // ================================================================
+// PROJECT CARD ENTRANCE
 // ================================================================
 
-let stackAnimated = false;
+let projAnimated = false;
+function animateProjCards() {
+  if (projAnimated) return;
+  projAnimated = true;
+  gsap.fromTo('.proj-card',
+    { opacity: 0, y: 30 },
+    { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1, delay: 0.1 }
+  );
+}
 
-function animateStackEntrance() {
-  if (stackAnimated) return;
-  stackAnimated = true;
+// ================================================================
+// CERT ROW ENTRANCE
+// ================================================================
 
-  const icons = document.querySelectorAll('.sketch-item');
-  gsap.fromTo(icons,
-    { opacity: 0, y: 18, scale: 0.85 },
-    {
-      opacity: 1, y: 0, scale: 1,
-      duration: 0.45,
-      ease: 'back.out(1.5)',
-      stagger: { each: 0.03, from: 'random' },
-      delay: 0.1
-    }
+let certAnimated = false;
+function animateCertRows() {
+  if (certAnimated) return;
+  certAnimated = true;
+  gsap.fromTo('.cert-row',
+    { opacity: 0, x: -24 },
+    { opacity: 1, x: 0, duration: 0.45, ease: 'power3.out', stagger: 0.09, delay: 0.1 }
   );
 }
 
 // ================================================================
 // LANYARD
-// ─ Phase 1: entrance drop animation
-// ─ Phase 2: free physics + pointer drag
 // ================================================================
 
 function initLanyard() {
