@@ -1,451 +1,1314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play — Vruddhi Shah</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="play.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play — Vruddhi Shah</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0D0C09;--paper:#F5F1E8;--cream:#EDE8DA;--white:#FAFAF5;
+  --yellow:#E8F000;--orange:#FF4E00;--blue:#1430FF;--green:#00C85A;--purple:#7B3FFF;
+  --mono:'DM Mono',monospace;--serif:'DM Serif Display',serif;--sans:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:14px;height:14px;border-radius:50%;background:var(--ink);transform:translate(-50%,-50%);transition:width .18s,height .18s;mix-blend-mode:multiply}
+#cur.grow{width:48px;height:48px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:.9rem clamp(1.5rem,6vw,5rem);background:rgba(245,241,232,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(13,12,9,.07)}
+.nav-back{display:flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--ink);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:opacity .18s}
+.nav-back:hover{opacity:.4}
+.nav-ctr{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(13,12,9,.28)}
+.nav-hint{font-family:var(--mono);font-size:.55rem;color:rgba(13,12,9,.18)}
+
+/* HERO */
+.hero{min-height:100svh;background:var(--ink);display:grid;grid-template-rows:1fr auto;padding:clamp(6rem,14vh,9rem) clamp(1.5rem,7vw,6rem) clamp(3rem,6vh,4rem)}
+.hero-eye{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:1.5rem}
+.hero-h1{font-family:var(--serif);font-size:clamp(5rem,15vw,17rem);font-weight:400;line-height:.84;letter-spacing:-.03em;color:#fff;margin-bottom:1.5rem}
+.hero-h1 em{color:var(--yellow);font-style:italic}
+.hero-sub{font-size:clamp(.88rem,1.2vw,1.05rem);color:rgba(255,255,255,.3);max-width:360px;line-height:1.75}
+.hero-scroll{align-self:end;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.18);animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* SECTIONS */
+section.toy{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(7rem,13vh,10rem) clamp(1.5rem,7vw,6rem) clamp(4rem,7vh,6rem)}
+section.dark{background:var(--ink)}
+section.cream{background:var(--cream)}
+
+.tag-row{display:flex;align-items:center;gap:.55rem;margin-bottom:1.1rem}
+.tnum{font-family:var(--mono);font-size:.58rem;color:rgba(13,12,9,.22);letter-spacing:.14em}
+.tpill{font-size:.58rem;font-weight:700;letter-spacing:.09em;padding:.18rem .7rem;border-radius:9999px;border:1.5px solid rgba(13,12,9,.12);color:rgba(13,12,9,.35)}
+.dark .tnum{color:rgba(255,255,255,.2)}
+.dark .tpill{color:rgba(255,255,255,.28);border-color:rgba(255,255,255,.1)}
+.toy-h{font-family:var(--serif);font-size:clamp(2.8rem,5.2vw,6rem);font-weight:400;line-height:.88;letter-spacing:-.022em;margin-bottom:.65rem}
+.dark .toy-h{color:#fff}
+.toy-p{font-size:clamp(.84rem,1.1vw,1rem);color:rgba(13,12,9,.42);max-width:480px;line-height:1.72;margin-bottom:clamp(1.75rem,4vh,3rem)}
+.dark .toy-p{color:rgba(255,255,255,.3)}
+.toy-p code{font-family:var(--mono);background:rgba(13,12,9,.07);padding:.1em .4em;border-radius:3px;font-size:.87em}
+.bp{display:inline-flex;align-items:center;gap:.4rem;padding:.48rem 1.2rem;border-radius:9999px;border:1.5px solid currentColor;background:transparent;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;cursor:none;transition:all .18s ease}
+.bp-dark{color:rgba(255,255,255,.38);border-color:rgba(255,255,255,.16)}
+.bp-dark:hover,.bp-dark.on{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.bp-light{color:rgba(13,12,9,.4);border-color:rgba(13,12,9,.14)}
+.bp-light:hover,.bp-light.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.r{opacity:0;transform:translateY(20px);transition:opacity .48s ease,transform .48s ease}
+.r.in{opacity:1;transform:none}
+
+/* TOY 1 — CASSETTE */
+.cs-wrap{display:flex;align-items:flex-end;gap:clamp(2rem,5vw,5rem);flex-wrap:wrap}
+.tape-shelf{display:flex;gap:1.5rem;align-items:flex-end}
+.tape{cursor:grab;transition:transform .22s cubic-bezier(.34,1.56,.64,1),filter .2s}
+.tape:hover{transform:translateY(-14px) rotate(-4deg);filter:drop-shadow(0 16px 30px rgba(0,0,0,.4))}
+.tape:active{cursor:grabbing}
+.tape-case{width:92px;height:66px;border-radius:6px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:7px;box-shadow:0 0 0 2px rgba(0,0,0,.3),3px 4px 0 rgba(0,0,0,.3),0 12px 28px rgba(0,0,0,.25)}
+.tape-case::after{content:'';position:absolute;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.2) 0%,transparent 50%);pointer-events:none}
+.tape[data-l="A"] .tape-case{background:linear-gradient(135deg,#1430FF,#0E20BB)}
+.tape[data-l="B"] .tape-case{background:linear-gradient(135deg,#FF4E00,#CC3B00)}
+.tape[data-l="C"] .tape-case{background:linear-gradient(135deg,#00C85A,#009842)}
+.tape[data-l="D"] .tape-case{background:linear-gradient(135deg,#7B3FFF,#5E2ECC)}
+.tape-window{width:52px;height:19px;background:#090606;border-radius:3px;border:1.5px solid rgba(0,0,0,.45);position:relative}
+.tape-window::before,.tape-window::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:11px;height:11px;border-radius:50%;background:#1a1a1a;border:1.5px solid #333}
+.tape-window::before{left:4px}.tape-window::after{right:4px}
+.tape-label{display:flex;gap:5px;align-items:center}
+.tape-side,.tape-name{font-family:var(--mono);font-size:.48rem;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:.04em}
+.tape-name{opacity:.65}
+.player-body{width:clamp(240px,29vw,330px);flex-shrink:0;background:linear-gradient(175deg,#DDD8CC,#CBC6B8);border-radius:15px;border:2.5px solid #B8B2A5;box-shadow:5px 7px 0 #A09A8E,0 22px 55px rgba(0,0,0,.2);padding:17px 19px}
+.p-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.p-brand{font-family:var(--mono);font-size:.48rem;letter-spacing:.2em;color:#8a8070;text-transform:uppercase}
+.p-leds{display:flex;gap:5px}
+.led{width:8px;height:8px;border-radius:50%;background:#383838;border:1px solid rgba(0,0,0,.3);transition:all .25s}
+.led.on{background:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.8)}
+.led.amber{background:#e8a020;box-shadow:0 0 6px rgba(232,160,32,.55)}
+.vu-meter{display:flex;gap:5px;justify-content:center;align-items:flex-end;background:#111008;border-radius:6px;padding:7px 12px;margin-bottom:12px;border:1.5px solid rgba(0,0,0,.38)}
+.vu-col{display:flex;flex-direction:column;align-items:center;gap:3px}
+.vu-bar{width:14px;height:38px;background:#0a0a0a;border-radius:3px;border:1px solid rgba(0,0,0,.4);position:relative;overflow:hidden}
+.vu-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:var(--h,4%);background:linear-gradient(to top,#22c55e 0%,#86efac 50%,#fde047 75%,#f87171 100%);transition:height .08s}
+.vu-lbl{font-family:var(--mono);font-size:.44rem;color:#7a7060;font-weight:700}
+.tape-slot{background:#0e0b09;border-radius:8px;height:72px;border:2px solid #060402;margin-bottom:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:box-shadow .2s;box-shadow:inset 0 3px 10px rgba(0,0,0,.55)}
+.tape-slot.dragover{box-shadow:inset 0 0 0 2px var(--yellow),inset 0 3px 10px rgba(0,0,0,.4)}
+.slot-prompt{font-family:var(--mono);font-size:.55rem;color:rgba(255,255,255,.16);letter-spacing:.15em;animation:blink 1.8s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.slot-tape{width:88%;height:70%;border-radius:4px;display:none;align-items:center;justify-content:center;box-shadow:inset 0 2px 5px rgba(0,0,0,.45)}
+.slot-tape.show{display:flex}
+.slot-reels{width:64%;height:52%;background:#050302;border-radius:3px;display:flex;align-items:center;justify-content:space-around;padding:0 10px}
+.reel{width:17px;height:17px;border-radius:50%;border:2.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.reel::after{content:'';width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.25)}
+.reel.spin{animation:rspin .75s linear infinite}
+@keyframes rspin{to{transform:rotate(360deg)}}
+.ctrl-row{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
+.ctrl{width:40px;height:31px;border-radius:6px;background:linear-gradient(to bottom,#CECABC,#B8B3A5);border:1.5px solid #A09890;color:#463E30;font-size:.85rem;cursor:none;box-shadow:0 2.5px 0 #908578;display:flex;align-items:center;justify-content:center;transition:transform .07s,box-shadow .07s}
+.ctrl:active{transform:translateY(2.5px);box-shadow:none}
+.ctrl.play-ctrl{width:50px;background:linear-gradient(to bottom,#FF5E10,#CC3800);border-color:#AA2A00;color:#fff;box-shadow:0 2.5px 0 #881600;font-size:.95rem}
+.ctrl.play-ctrl:active{box-shadow:none}
+.lcd{background:#131008;border-radius:6px;padding:7px 11px;display:flex;align-items:center;justify-content:space-between;border:1.5px solid rgba(0,0,0,.45);box-shadow:inset 0 2px 7px rgba(0,0,0,.4)}
+.lcd-track,.lcd-time{font-family:var(--mono);font-size:.5rem;color:#8aba5a;letter-spacing:.07em}
+.lcd-track{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px}
+
+/* TOY 2 — BURN IT */
+.burn-wrap{display:flex;flex-direction:column;gap:2rem;max-width:580px}
+.paper-outer{position:relative;filter:drop-shadow(0 22px 60px rgba(0,0,0,.7))}
+#burn-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;border-radius:3px}
+.paper{background:#FDF8EC;border-radius:3px;padding:2rem 2rem 1.5rem 3.5rem;position:relative;overflow:hidden;background-image:linear-gradient(90deg,#CCBA98 0,#CCBA98 2px,transparent 2px),repeating-linear-gradient(transparent,transparent 27px,rgba(13,12,9,.065) 27px,rgba(13,12,9,.065) 28px);background-size:100% 100%,100% 28px;background-position:34px 0,0 28px}
+.paper-holes{position:absolute;left:0;top:0;bottom:0;width:34px;background:#E4D4BC;border-right:2px solid rgba(13,12,9,.06);display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;padding:22px 0}
+.hole{width:15px;height:15px;border-radius:50%;background:var(--paper);border:1px solid rgba(13,12,9,.1);box-shadow:inset 0 1px 4px rgba(0,0,0,.2)}
+.paper textarea{width:100%;min-height:170px;background:transparent;border:none;outline:none;resize:none;font-family:var(--sans);font-size:1rem;line-height:1.75;color:#1a1612;caret-color:var(--orange);cursor:none}
+.paper textarea::placeholder{color:rgba(13,12,9,.2);font-style:italic}
+.char-count{font-family:var(--mono);font-size:.58rem;color:rgba(13,12,9,.22);text-align:right;margin-top:.5rem}
+.burn-actions{display:flex;gap:.85rem;align-items:center}
+.burn-btn{display:flex;align-items:center;gap:.45rem;padding:.88rem 2.2rem;border-radius:9999px;border:none;background:var(--orange);color:#fff;font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:none;box-shadow:0 4px 26px rgba(255,78,0,.48);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s}
+.burn-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 36px rgba(255,78,0,.65)}
+.reset-btn{background:transparent;border:1.5px solid rgba(255,255,255,.18);color:rgba(255,255,255,.4);padding:.7rem 1.4rem;border-radius:9999px;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:none;transition:all .18s;display:none}
+.reset-btn:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.reset-btn.show{display:inline-flex}
+
+/* TOY 3 — POLAROID */
+.pol-scene{display:flex;gap:clamp(2rem,5vw,5rem);flex-wrap:wrap;align-items:flex-start}
+.cam-body{width:clamp(215px,25vw,285px);flex-shrink:0;background:linear-gradient(170deg,#1C1814,#141008);border-radius:18px;padding:15px 15px 18px;position:relative;border:2.5px solid #242018;box-shadow:7px 9px 0 #080604,0 32px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.05)}
+.cam-badge{font-family:var(--mono);font-size:.45rem;letter-spacing:.24em;color:rgba(255,255,255,.14);text-align:center;text-transform:uppercase;margin-bottom:11px}
+/* viewfinder: position:relative so idle overlay can be absolute inside */
+.vf-wrap{width:100%;aspect-ratio:4/3;border-radius:9px;overflow:hidden;position:relative;margin-bottom:13px;background:#060402;border:2px solid #0a0806;box-shadow:inset 0 0 24px rgba(0,0,0,.7)}
+/* idle overlay fills the viewfinder */
+.vf-idle{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;background:radial-gradient(ellipse at 50% 45%,#1c1810,#080604)}
+.vf-idle-icon{width:56px;height:56px;border-radius:50%;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 0 8px rgba(255,255,255,.03),0 0 0 16px rgba(255,255,255,.015)}
+.vf-idle p{font-family:var(--mono);font-size:.52rem;color:rgba(255,255,255,.2);text-align:center;line-height:1.7;letter-spacing:.04em}
+/* video hidden until camera starts */
+#cam-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:1}
+.vf-corner{position:absolute;width:13px;height:13px;border-color:rgba(255,255,255,.3);border-style:solid;z-index:3}
+.vf-corner.tl{top:6px;left:6px;border-width:2px 0 0 2px}
+.vf-corner.tr{top:6px;right:6px;border-width:2px 2px 0 0}
+.vf-corner.bl{bottom:6px;left:6px;border-width:0 0 2px 2px}
+.vf-corner.br{bottom:6px;right:6px;border-width:0 2px 2px 0}
+.cam-bar{display:flex;align-items:center;justify-content:space-between;padding:0 3px}
+.film-count{font-family:var(--mono);font-size:.6rem;font-weight:700;color:#8aba5a;background:#0e0b08;padding:.28rem .6rem;border-radius:4px;min-width:28px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.shutter{width:50px;height:50px;border-radius:50%;cursor:none;background:radial-gradient(circle at 36% 30%,#FF7733,#CC2800);border:4px solid #991E00;box-shadow:0 4px 0 #771400,0 7px 18px rgba(200,50,0,.55),inset 0 1px 0 rgba(255,150,70,.4);display:flex;align-items:center;justify-content:center;transition:transform .07s,box-shadow .07s}
+.shutter:active{transform:translateY(4px);box-shadow:0 0 0 #771400}
+.shutter-dot{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#FFAA55,#EE4400)}
+.cam-enable{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);padding:.28rem .65rem;border-radius:6px;font-size:.58rem;font-weight:700;cursor:none;font-family:var(--sans);transition:all .18s}
+.cam-enable:hover{background:rgba(255,255,255,.14);color:#fff}
+.flash-overlay{position:absolute;inset:-4px;border-radius:20px;background:#fff;opacity:0;pointer-events:none}
+.flash-overlay.pop{animation:flashpop .28s ease-out}
+@keyframes flashpop{0%{opacity:.9}100%{opacity:0}}
+.pol-tray{flex:1;display:flex;flex-wrap:wrap;gap:1.2rem;align-items:flex-start;min-height:220px;position:relative}
+.tray-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:.68rem;color:rgba(13,12,9,.22);text-align:center;line-height:1.9;white-space:nowrap}
+.pol-print{background:#fff;padding:9px 9px 36px;box-shadow:0 2px 4px rgba(0,0,0,.1),0 7px 28px rgba(0,0,0,.13);transform:rotate(var(--rot,0deg));transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;cursor:none;position:relative;width:clamp(120px,15vw,158px)}
+.pol-print:hover{transform:rotate(0) scale(1.08) translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.2);z-index:10}
+.pol-photo{width:100%;aspect-ratio:1;background:#ddd4c0;overflow:hidden;position:relative}
+.pol-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pol-photo.dev::after{content:'';position:absolute;inset:0;background:#c8b48a;animation:devphoto 4.5s ease-out forwards}
+@keyframes devphoto{0%{opacity:1}65%{opacity:.3}100%{opacity:0}}
+.pol-caption{position:absolute;bottom:7px;left:9px;right:9px;font-family:var(--mono);font-size:.46rem;color:#8a7868;text-align:center}
+.pol-dl{position:absolute;bottom:9px;right:7px;width:22px;height:22px;border-radius:50%;background:rgba(13,12,9,.07);border:none;font-size:.68rem;cursor:none;opacity:0;transition:opacity .18s;display:flex;align-items:center;justify-content:center}
+.pol-print:hover .pol-dl{opacity:1}
+
+/* TOY 4 — KEYBOARD */
+.kb-scene{display:flex;flex-direction:column;gap:1.6rem;max-width:960px}
+.kb-top-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.kb-oct-lbl{font-family:var(--mono);font-size:.63rem;color:rgba(255,255,255,.38);padding:0 .35rem;min-width:70px;text-align:center;letter-spacing:.04em}
+.kb-sep{width:1px;height:20px;background:rgba(255,255,255,.08);margin:0 .1rem}
+.piano-wrap{background:linear-gradient(to bottom,#141210,#0E0C0A);border-radius:11px;padding:13px 15px 0;overflow-x:auto;border:1.5px solid rgba(255,255,255,.05);box-shadow:inset 0 7px 24px rgba(0,0,0,.5),0 5px 20px rgba(0,0,0,.3)}
+.piano{display:flex;position:relative;user-select:none;height:clamp(135px,18vh,210px);min-width:640px}
+.wkey{flex-shrink:0;height:100%;background:linear-gradient(to bottom,#EDEAE0 0%,#F8F5EE 30%,#FAF8F5 100%);border:1px solid #C8C0B0;border-top:3px solid #DAD3C5;border-bottom:4px solid #9C9485;border-radius:0 0 7px 7px;margin-right:1.5px;cursor:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:.65rem;box-shadow:2px 3px 7px rgba(0,0,0,.18);transition:background .07s,transform .07s}
+.wkey:active,.wkey.on{background:linear-gradient(to bottom,#E5E0D4,#ECE7DA);transform:scaleY(.97)}
+.bkey{flex-shrink:0;height:62%;background:linear-gradient(to bottom,#242018,#16120C);border-radius:0 0 5px 5px;position:absolute;z-index:2;cursor:none;box-shadow:2px 5px 10px rgba(0,0,0,.65),inset 0 2px 0 rgba(255,255,255,.1);display:flex;align-items:flex-end;justify-content:center;padding-bottom:.45rem;transition:background .07s,transform .07s}
+.bkey:active,.bkey.on{background:linear-gradient(to bottom,#342A1E,#1C1610);transform:translateY(2px)}
+.key-lbl{font-family:var(--mono);font-size:.44rem;color:rgba(13,12,9,.25);pointer-events:none}
+.bkey .key-lbl{color:rgba(255,255,255,.22)}
+.chord-row{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.chord-lbl{font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.28);letter-spacing:.07em}
+.chord-btn{padding:.42rem 1.05rem;border-radius:9999px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.48);font-family:var(--sans);font-size:.7rem;font-weight:700;cursor:none;transition:all .17s ease}
+.chord-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-2px)}
+.kb-hint{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.2)}
+.kb-hint kbd{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:.07em .36em;margin:0 1px}
+.kb-vis{width:100%;height:65px;border-radius:8px;background:#050508;border:1.5px solid rgba(255,255,255,.05)}
+
+/* TOY 5 — GUITAR */
+.gtr-scene{display:flex;gap:clamp(1.5rem,4vw,4rem);align-items:flex-start;flex-wrap:wrap}
+.gtr-inst{display:flex;align-items:center;flex:1;min-width:300px}
+.gtr-neck{flex:1;min-width:200px;height:215px;background:linear-gradient(to right,#5A3418,#7A5030,#9A6D48,#8A5F3C,#7A5030,#5A3418);border-radius:10px 0 0 10px;position:relative;overflow:hidden;box-shadow:inset 0 3px 12px rgba(0,0,0,.5)}
+.gtr-nut{position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(to right,#F0E4C4,#DEC89A);z-index:4;box-shadow:2px 0 6px rgba(0,0,0,.4)}
+.fret-l{position:absolute;top:0;bottom:0;width:2px;background:rgba(210,182,112,.5)}
+.fret-d{position:absolute;width:11px;height:11px;border-radius:50%;background:rgba(230,208,132,.32);top:50%;margin-top:-5.5px;transform:translateX(-50%)}
+.strings{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-evenly;padding:15px 0;z-index:3}
+.gstr{position:relative;height:28px;cursor:none;display:flex;align-items:center;transition:filter .1s}
+.gstr:hover{filter:brightness(1.6) drop-shadow(0 0 5px rgba(255,215,70,.75))}
+.str-wire{width:100%;border-radius:9999px;background:linear-gradient(to bottom,rgba(255,255,255,.68),rgba(255,212,72,.92),rgba(255,255,255,.5));box-shadow:0 1px 4px rgba(0,0,0,.5)}
+.str-vib{position:absolute;inset:0;pointer-events:none;border-radius:9999px;opacity:0}
+.gstr.plucked .str-vib{opacity:1;animation:svib .62s ease-out forwards}
+@keyframes svib{0%{transform:scaleY(1)}8%{transform:scaleY(11);filter:blur(2px);background:rgba(255,212,60,.35)}24%{transform:scaleY(5)}50%{transform:scaleY(2.5)}100%{transform:scaleY(1);filter:blur(0)}}
+.gtr-body{width:clamp(110px,14vw,168px);height:215px;flex-shrink:0;background:radial-gradient(ellipse at 38% 32%,#DC9248,#9C6032,#6C3E1C);border-radius:0 42% 42% 0 / 0 54% 54% 0;position:relative;box-shadow:inset -12px -12px 26px rgba(0,0,0,.38),6px 0 26px rgba(0,0,0,.38),0 0 0 3.5px rgba(0,0,0,.27)}
+.soundhole{position:absolute;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,#0c0804,#180e06);top:47%;left:50%;transform:translate(-50%,-57%);box-shadow:inset 0 0 26px rgba(0,0,0,.95),0 0 0 4px rgba(0,0,0,.5),0 0 0 7px rgba(255,185,55,.08)}
+.gtr-bridge{position:absolute;bottom:23%;left:50%;transform:translateX(-50%);width:76px;background:#2A1806;border-radius:4px;padding:5px;display:flex;flex-direction:column;gap:3px;box-shadow:0 3px 10px rgba(0,0,0,.55)}
+.bridge-saddle{height:5px;background:linear-gradient(to bottom,#ECD888,#C6B462);border-radius:2px}
+.bridge-pins{display:flex;justify-content:space-around}
+.bpin{width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#EED888,#C8A455)}
+.gtr-panel{display:flex;flex-direction:column;gap:1.1rem;width:clamp(148px,17vw,198px);flex-shrink:0}
+.gtr-panel-h{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,12,9,.32)}
+.chord-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.gc{padding:.63rem .7rem;border-radius:10px;border:1.5px solid rgba(13,12,9,.1);background:#fff;color:var(--ink);font-family:var(--sans);font-size:.8rem;font-weight:700;cursor:none;box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .17s ease}
+.gc:hover{background:var(--ink);color:#fff;transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.14)}
+.gc.strum{grid-column:span 2;background:var(--yellow);border-color:#CCD000}
+.gc.strum:hover{background:var(--ink);color:var(--yellow)}
+.note-show{font-family:var(--mono);font-size:1.5rem;font-weight:500;color:var(--ink);text-align:center;padding:.78rem 1rem;background:rgba(13,12,9,.04);border-radius:10px;border:1.5px solid rgba(13,12,9,.08);min-height:57px;display:flex;align-items:center;justify-content:center;transition:color .14s,border-color .14s,background .14s}
+.note-show.lit{color:var(--blue);border-color:rgba(20,48,255,.2);background:rgba(20,48,255,.04)}
+
+/* TOY 6 — RASOI */
+.rasoi-scene{display:grid;grid-template-columns:1fr clamp(248px,26vw,305px);gap:2.5rem;align-items:start;max-width:1040px}
+.rasoi-left{display:flex;flex-direction:column;gap:1.65rem}
+.search-row{display:flex;gap:.55rem}
+.search-in{flex:1;background:var(--white);border:1.5px solid rgba(13,12,9,.1);border-radius:11px;padding:.8rem 1.2rem;font-family:var(--sans);font-size:.88rem;color:var(--ink);outline:none;cursor:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:border-color .17s,box-shadow .17s}
+.search-in:focus{border-color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.search-in::placeholder{color:rgba(13,12,9,.28)}
+.search-go{padding:.8rem 1.4rem;border-radius:11px;background:var(--ink);color:#fff;border:none;font-family:var(--sans);font-size:.8rem;font-weight:700;cursor:none;box-shadow:0 3px 0 rgba(0,0,0,.35);transition:background .17s,transform .07s,box-shadow .07s}
+.search-go:hover{background:var(--blue)}
+.search-go:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.dish-shelf{display:flex;flex-direction:column;gap:1rem}
+.dish-group{display:flex;flex-direction:column;gap:.5rem}
+.dish-group-lbl{font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(13,12,9,.32)}
+.dish-row{display:flex;flex-wrap:wrap;gap:.38rem}
+.dbtn{padding:.35rem .88rem;border-radius:9999px;border:1.5px solid rgba(13,12,9,.1);background:var(--white);color:rgba(13,12,9,.6);font-family:var(--sans);font-size:.74rem;font-weight:600;cursor:none;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:all .17s ease}
+.dbtn:hover,.dbtn.sel{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.13)}
+.ncard{background:#fff;border-radius:20px;padding:1.85rem 1.65rem;box-shadow:0 12px 56px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(13,12,9,.05);display:flex;flex-direction:column;gap:1rem;position:sticky;top:86px;transition:opacity .3s,transform .3s}
+.ncard.hide{opacity:0;pointer-events:none;transform:translateX(16px)}
+.ncard:not(.hide){animation:cardIn .35s ease}
+@keyframes cardIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.nc-emoji{font-size:2.7rem;text-align:center}
+.nc-name{font-size:1.1rem;font-weight:700;text-align:center;color:var(--ink)}
+.nc-srv{font-family:var(--mono);font-size:.6rem;color:#9ca3af;text-align:center}
+.nc-cal-box{text-align:center;display:flex;align-items:baseline;justify-content:center;gap:.28rem;background:rgba(13,12,9,.03);border-radius:11px;padding:.75rem;border:1px solid rgba(13,12,9,.05)}
+#nc-cal{font-family:var(--mono);font-size:3rem;font-weight:500;line-height:1;color:var(--ink)}
+.nc-unit{font-size:.73rem;color:#9ca3af;font-weight:600}
+.nc-macros{display:flex;flex-direction:column;gap:.72rem;border-top:1px solid rgba(13,12,9,.06);padding-top:.95rem}
+.nm-row{display:grid;grid-template-columns:50px 1fr 36px;align-items:center;gap:.45rem}
+.nm-lbl{font-size:.59rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(13,12,9,.32)}
+.nm-track{height:7px;background:rgba(13,12,9,.06);border-radius:9999px;overflow:hidden}
+.nm-fill{height:100%;border-radius:9999px;width:0;transition:width .6s cubic-bezier(.34,1.56,.64,1)}
+.nm-val{font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--ink);text-align:right}
+.nc-tags{display:flex;flex-wrap:wrap;gap:.35rem;border-top:1px solid rgba(13,12,9,.06);padding-top:.78rem}
+.ntag{font-size:.56rem;font-weight:700;letter-spacing:.06em;padding:.2rem .65rem;border-radius:9999px}
+.nc-tip{font-size:.7rem;color:#6b7280;line-height:1.55;font-style:italic;border-top:1px solid rgba(13,12,9,.06);padding-top:.78rem}
+
+/* TOY 7 — TYPE TAPPER */
+.tapper{max-width:640px}
+.t-hud{display:flex;gap:2rem;margin-bottom:.9rem;font-family:var(--mono);font-size:.77rem;font-weight:500}
+.hud-i{color:rgba(255,255,255,.3)}.hud-i span{color:#fff}
+.arena{width:100%;height:clamp(320px,43vh,480px);background:rgba(255,255,255,.02);border-radius:15px;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;box-shadow:inset 0 0 50px rgba(0,0,0,.25)}
+.game-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;z-index:10;background:rgba(13,12,9,.97)}
+.game-screen.off{display:none}
+.gs-title{font-family:var(--serif);font-size:clamp(2.8rem,6.5vw,5rem);font-weight:400;text-align:center;line-height:.87;color:#fff;letter-spacing:-.022em}
+.gs-sub{font-size:.8rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.7;max-width:270px}
+.gs-btn{padding:.78rem 2.2rem;border-radius:9999px;background:var(--yellow);color:var(--ink);font-family:var(--sans);font-size:.88rem;font-weight:700;border:none;cursor:none;box-shadow:0 4px 20px rgba(232,240,0,.32);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s}
+.gs-btn:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(232,240,0,.45)}
+.fall-word{position:absolute;font-family:var(--mono);font-size:clamp(.8rem,1.25vw,1rem);font-weight:500;padding:.3rem .85rem;border-radius:9999px;border:2px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);white-space:nowrap;pointer-events:none}
+.fall-word.hit{background:var(--green);color:#fff;border-color:var(--green);animation:whit .26s ease-out forwards}
+@keyframes whit{0%{transform:scale(1.2)}100%{transform:scale(0);opacity:0}}
+.arena-in{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:82%;max-width:305px;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.12);border-radius:9999px;padding:.65rem 1.2rem;font-family:var(--mono);font-size:.88rem;color:#fff;outline:none;cursor:none;transition:border-color .17s}
+.arena-in:focus{border-color:rgba(255,255,255,.36)}
+
+/* TOY 8 — TERMINAL */
+.term{width:100%;max-width:730px;background:#0A0A0A;border-radius:13px;border:1.5px solid rgba(255,255,255,.07);box-shadow:0 36px 80px rgba(0,0,0,.58);overflow:hidden;font-family:var(--mono)}
+.term-bar{background:#1C1C1C;border-bottom:1px solid rgba(255,255,255,.05);padding:.72rem 1rem;display:flex;align-items:center;gap:.48rem}
+.dot{width:12px;height:12px;border-radius:50%}
+.dot.r{background:#FF5F57}.dot.y{background:#FEBC2E}.dot.g{background:#28C840}
+.bar-title{font-size:.58rem;color:rgba(255,255,255,.2);margin-left:auto;letter-spacing:.04em}
+.term-out{padding:1rem 1.2rem;max-height:clamp(230px,33vh,390px);overflow-y:auto;display:flex;flex-direction:column;gap:.36rem}
+.term-out::-webkit-scrollbar{width:3px}
+.term-out::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
+.tline{font-size:.75rem;line-height:1.65}
+.t-out{color:rgba(255,255,255,.6)}.t-code{color:#A8D8A8;white-space:pre}.t-err{color:#FF5F57}.t-cmd{color:#FEBC2E}.t-prompt{color:#28C840;font-size:.7rem}
+.term-in-row{display:flex;align-items:center;gap:.72rem;padding:.74rem 1.2rem;border-top:1px solid rgba(255,255,255,.05);background:#060606}
+.term-in{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:.77rem;color:#FEBC2E;caret-color:#28C840;cursor:none}
+.term-in::placeholder{color:rgba(255,255,255,.14)}
+
+/* TOY 9 — SMOG CLOCK */
+.clock-scene{display:flex;flex-direction:column;align-items:center;gap:1.25rem}
+#clock-c{width:clamp(268px,37vw,358px);height:clamp(268px,37vw,358px);filter:drop-shadow(0 0 40px rgba(0,200,70,.13))}
+.clk-dig{font-family:var(--mono);font-size:clamp(1.8rem,4vw,3.1rem);font-weight:500;letter-spacing:.2em;color:#fff;background:rgba(0,200,70,.06);padding:.52rem 1.7rem;border-radius:8px;border:1.5px solid rgba(0,200,70,.14)}
+.clk-date{font-family:var(--mono);font-size:.63rem;color:rgba(255,255,255,.25);letter-spacing:.09em}
+.clk-tz{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.4rem}
+
+/* EASTER EGG + FOOTER */
+#egg{position:fixed;inset:0;z-index:9000;background:rgba(13,12,9,.86);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center}
+#egg.off{display:none}
+.egg-box{background:var(--yellow);border-radius:22px;padding:3.25rem;max-width:410px;width:90%;text-align:center;animation:eggpop .43s cubic-bezier(.34,1.56,.64,1);box-shadow:0 36px 76px rgba(0,0,0,.38)}
+@keyframes eggpop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+.egg-box h2{font-family:var(--serif);font-size:2.5rem;font-weight:400;margin:.45rem 0}
+.egg-box p{font-size:.87rem;color:rgba(13,12,9,.58);line-height:1.7;margin-bottom:1.6rem}
+.egg-close{background:var(--ink);color:#fff;border:none;border-radius:9999px;padding:.65rem 1.65rem;font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:none;transition:opacity .17s}
+.egg-close:hover{opacity:.65}
+footer{background:var(--paper);border-top:1px solid rgba(13,12,9,.08);padding:1.85rem clamp(1.5rem,7vw,5rem)}
+.foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.9rem}
+.foot a{font-size:.76rem;font-weight:700;color:var(--ink);text-decoration:none;transition:color .17s}
+.foot a:hover{color:var(--blue)}
+.foot p{font-size:.67rem;color:#9ca3af}
+
+@media(max-width:800px){
+  #cur{display:none}body{cursor:auto}
+  .cs-wrap,.pol-scene,.gtr-scene{flex-direction:column}
+  .rasoi-scene{grid-template-columns:1fr}.ncard{position:static}
+  .gtr-inst{flex-direction:column}
+  .gtr-neck{width:100%;border-radius:10px 10px 0 0;height:160px}
+  .gtr-body{width:100%;height:112px;border-radius:0 0 22px 22px}
+  .piano{min-width:470px}
+}
+@media(max-width:500px){
+  .hero-h1{font-size:clamp(4.5rem,18vw,7rem)}
+  section.toy{padding:5.5rem 1.25rem 3.5rem}
+  .piano{min-width:370px}
+}
+</style>
 </head>
 <body>
+<div id="cur"></div>
 
-  <!-- Custom cursor -->
-  <div id="cursor"><span id="cursor-emoji">✦</span></div>
+<nav>
+  <a href="../" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</a>
+  <div class="nav-ctr">The Playground ✦</div>
+  <span class="nav-hint">↑↑↓↓←→←→BA</span>
+</nav>
 
-  <!-- ── HEADER ── -->
-  <header id="header">
-    <a href="../" class="back-link">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Back
-    </a>
-    <div class="header-title">The Playground ✦</div>
-    <div class="header-right">
-      <span class="konami-hint" id="konami-hint">↑↑↓↓←→←→BA</span>
+<section class="hero">
+  <div>
+    <div class="hero-eye">05 — Play</div>
+    <h1 class="hero-h1">Just for<br><em>fun.</em></h1>
+    <p class="hero-sub">Real interactive experiments. No demos, no mockups. Actually play with them.</p>
+  </div>
+  <div class="hero-scroll">↓ scroll to play</div>
+</section>
+
+<!-- TOY 1 -->
+<section class="toy" id="toy-cassette">
+  <div class="tag-row r"><span class="tnum">01</span><span class="tpill">Music</span><span class="tpill">Skeuomorphic</span></div>
+  <h2 class="toy-h r">Insert to Play</h2>
+  <p class="toy-p r">Drag a tape into the player. Each loads a real SoundCloud track — no login needed.</p>
+  <div class="cs-wrap r">
+    <div class="tape-shelf">
+      <div class="tape" data-l="A" data-title="Lo-Fi Beats" data-sc="1076190668" draggable="true"><div class="tape-case"><div class="tape-window"></div><div class="tape-label"><span class="tape-side">A</span><span class="tape-name">Lo-Fi</span></div></div></div>
+      <div class="tape" data-l="B" data-title="Ambient Drift" data-sc="1559240706" draggable="true"><div class="tape-case"><div class="tape-window"></div><div class="tape-label"><span class="tape-side">B</span><span class="tape-name">Ambient</span></div></div></div>
+      <div class="tape" data-l="C" data-title="Deep Focus" data-sc="1368827454" draggable="true"><div class="tape-case"><div class="tape-window"></div><div class="tape-label"><span class="tape-side">C</span><span class="tape-name">Focus</span></div></div></div>
+      <div class="tape" data-l="D" data-title="Jazz Vibes" data-sc="935750166" draggable="true"><div class="tape-case"><div class="tape-window"></div><div class="tape-label"><span class="tape-side">D</span><span class="tape-name">Jazz</span></div></div></div>
     </div>
-  </header>
-
-  <!-- ── HERO ── -->
-  <section class="play-hero">
-    <div class="ph-label">05 — PLAY</div>
-    <h1 class="ph-title">Just for<br><em>fun</em></h1>
-    <p class="ph-sub">Real interactive experiments. No demos. No mockups. Actually play with them.</p>
-    <div class="ph-scroll-hint">↓ scroll to play</div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 1: CASSETTE TAPE PLAYER
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section" id="toy-cassette">
-    <div class="toy-label">
-      <span class="toy-num">01</span>
-      <span class="toy-tag">Skeuomorphic</span>
-      <span class="toy-tag">Interaction</span>
-    </div>
-    <h2 class="toy-title">Insert to Play</h2>
-    <p class="toy-desc">Drag a tape into the cassette player. Inspired by Cassette app.</p>
-
-    <div class="cassette-scene">
-      <!-- Tape shelf -->
-      <div class="tape-shelf">
-        <div class="tape" data-title="Lo-Fi Beats" data-color="#192BC2" data-label="A" draggable="true">
-          <div class="tape-body">
-            <div class="tape-window"></div>
-            <div class="tape-label-area">
-              <span class="tape-side">A</span>
-              <span class="tape-name">Lo-Fi Beats</span>
-            </div>
-          </div>
-        </div>
-        <div class="tape" data-title="Chill Vibes" data-color="#FF7733" data-label="B" draggable="true">
-          <div class="tape-body">
-            <div class="tape-window"></div>
-            <div class="tape-label-area">
-              <span class="tape-side">B</span>
-              <span class="tape-name">Chill Vibes</span>
-            </div>
-          </div>
-        </div>
-        <div class="tape" data-title="Study Mode" data-color="#00A86B" data-label="C" draggable="true">
-          <div class="tape-body">
-            <div class="tape-window"></div>
-            <div class="tape-label-area">
-              <span class="tape-side">C</span>
-              <span class="tape-name">Study Mode</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Player -->
-      <div class="cassette-player" id="cassette-player">
-        <div class="player-top">
-          <div class="player-brand">VROO — 1984</div>
-          <div class="player-indicators">
-            <div class="player-led" id="player-led"></div>
-            <div class="player-led orange"></div>
-          </div>
-        </div>
-        <div class="player-slot" id="player-slot">
-          <div class="slot-inner" id="slot-inner">
-            <span class="slot-text" id="slot-text">INSERT TAPE ▶</span>
-            <div class="slot-tape hidden" id="slot-tape">
-              <div class="slot-tape-window">
-                <div class="slot-tape-reel" id="reel-l"></div>
-                <div class="slot-tape-reel" id="reel-r"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="player-controls">
-          <button class="ctrl-btn" id="ctrl-rew" title="Rewind">⏮</button>
-          <button class="ctrl-btn play-btn" id="ctrl-play">▶</button>
-          <button class="ctrl-btn" id="ctrl-ff" title="Fast forward">⏭</button>
-          <button class="ctrl-btn eject-btn" id="ctrl-eject" title="Eject">⏏</button>
-        </div>
-        <div class="player-display">
-          <div class="display-track" id="display-track">— NO TAPE —</div>
-          <div class="display-time" id="display-time">0:00</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 2: BURN YOUR WORRIES (paper burning)
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section dark-toy" id="toy-burn">
-    <div class="toy-label light">
-      <span class="toy-num">02</span>
-      <span class="toy-tag">Animation</span>
-      <span class="toy-tag">Cathartic</span>
-    </div>
-    <h2 class="toy-title light-title">Burn It</h2>
-    <p class="toy-desc light-desc">Write something you want to let go of. Then burn it. Inspired by How We Feel.</p>
-
-    <div class="burn-scene">
-      <div class="paper-wrap" id="paper-wrap">
-        <div class="paper" id="burn-paper">
-          <div class="paper-lines">
-            <textarea id="burn-input" placeholder="Write what's weighing on you..." maxlength="120" spellcheck="false"></textarea>
-          </div>
-          <div class="paper-burn-overlay" id="burn-overlay"></div>
-          <div class="paper-char-count" id="char-count">0 / 120</div>
-        </div>
-      </div>
-
-      <div class="burn-controls">
-        <button class="burn-btn" id="burn-btn">
-          <span class="burn-flame">🔥</span>
-          Burn it
-        </button>
-        <button class="burn-reset" id="burn-reset" style="display:none">Write again</button>
-      </div>
-
-      <canvas id="ember-canvas"></canvas>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 3: POLAROID CAMERA
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section" id="toy-polaroid">
-    <div class="toy-label">
-      <span class="toy-num">03</span>
-      <span class="toy-tag">Skeuomorphic</span>
-      <span class="toy-tag">Camera</span>
-    </div>
-    <h2 class="toy-title">Snap a Polaroid</h2>
-    <p class="toy-desc">Click the shutter. Watch it develop. Shake it if you're impatient. Inspired by FigJam's instant camera widget.</p>
-
-    <div class="polaroid-scene">
-      <!-- Camera -->
-      <div class="pol-camera" id="pol-camera">
-        <div class="cam-body">
-          <div class="cam-lens-ring">
-            <div class="cam-lens">
-              <div class="cam-aperture" id="cam-aperture"></div>
-            </div>
-          </div>
-          <div class="cam-controls">
-            <div class="cam-viewfinder"></div>
-            <button class="cam-shutter" id="cam-shutter">
-              <span></span>
-            </button>
-          </div>
-          <div class="cam-slot"></div>
-        </div>
-        <div class="cam-flash" id="cam-flash"></div>
-      </div>
-
-      <!-- Polaroid output tray -->
-      <div class="pol-tray" id="pol-tray">
-        <!-- polaroids stack up here -->
-      </div>
-    </div>
-    <p class="toy-hint" id="shake-hint" style="display:none">📷 Shake it to develop faster! (wiggle your mouse over it)</p>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 4: CURSOR TOY — gravity particles
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section dark-toy" id="toy-cursor">
-    <div class="toy-label light">
-      <span class="toy-num">04</span>
-      <span class="toy-tag">Generative</span>
-      <span class="toy-tag">Physics</span>
-    </div>
-    <h2 class="toy-title light-title">Paint with Motion</h2>
-    <p class="toy-desc light-desc">Move your cursor. Particles follow and drift with gravity. Click to burst.</p>
-
-    <div class="cursor-canvas-wrap">
-      <canvas id="particle-canvas"></canvas>
-      <div class="cursor-canvas-hint" id="canvas-hint">move your cursor here</div>
-    </div>
-
-    <div class="particle-controls">
-      <button class="pctr-btn active" data-mode="trail">Trail</button>
-      <button class="pctr-btn" data-mode="burst">Burst</button>
-      <button class="pctr-btn" data-mode="orbit">Orbit</button>
-      <button class="pctr-btn clear-btn" id="clear-canvas">Clear ✕</button>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 5: MINI WORD GAME — Type Tapper
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section" id="toy-game">
-    <div class="toy-label">
-      <span class="toy-num">05</span>
-      <span class="toy-tag">Game</span>
-      <span class="toy-tag">Type Fast</span>
-    </div>
-    <h2 class="toy-title">Type Tapper</h2>
-    <p class="toy-desc">Type the design words before they fall. How many can you catch?</p>
-
-    <div class="game-wrap">
-      <div class="game-hud">
-        <div class="hud-item">Score <span id="game-score">0</span></div>
-        <div class="hud-item">Best <span id="game-best">0</span></div>
-        <div class="hud-item">Lives <span id="game-lives">❤️❤️❤️</span></div>
-      </div>
-      <div class="game-arena" id="game-arena">
-        <div class="game-start-screen" id="game-start">
-          <p class="gss-title">TYPE<br>TAPPER</p>
-          <p class="gss-sub">Design words fall from the top.<br>Type them to catch them.</p>
-          <button class="gss-btn" id="game-start-btn">Start ▶</button>
-        </div>
-        <div class="game-over-screen hidden" id="game-over">
-          <p class="gss-title">GAME<br>OVER</p>
-          <p class="gss-sub" id="go-score">You scored 0</p>
-          <button class="gss-btn" id="game-restart-btn">Try Again</button>
-        </div>
-        <input type="text" id="game-input" class="game-input" placeholder="type here..." autocomplete="off" spellcheck="false">
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 6: MATRIX / CODE RAIN
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section dark-toy smog-toy" id="toy-matrix">
-    <div class="toy-label light">
-      <span class="toy-num">06</span>
-      <span class="toy-tag">Generative</span>
-      <span class="toy-tag">Code Rain</span>
-    </div>
-    <h2 class="toy-title light-title">Code Rain</h2>
-    <p class="toy-desc light-desc">Click anywhere to spawn a new stream. Hover to interrupt. Your cursor cuts through the rain.</p>
-
-    <div class="matrix-wrap">
-      <canvas id="matrix-canvas"></canvas>
-      <div class="matrix-overlay-ui">
-        <div class="matrix-stat" id="mx-streams">streams: 0</div>
-        <div class="matrix-stat" id="mx-chars">chars/s: 0</div>
-      </div>
-    </div>
-
-    <div class="matrix-controls">
-      <button class="pctr-btn active" data-mx-color="green">Green</button>
-      <button class="pctr-btn" data-mx-color="blue">Blue</button>
-      <button class="pctr-btn" data-mx-color="yellow">Gold</button>
-      <button class="pctr-btn" data-mx-color="red">Red</button>
-      <button class="pctr-btn clear-btn" id="mx-clear">Reset ✕</button>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 7: TERMINAL — fake interactive shell
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section smog-toy" id="toy-terminal">
-    <div class="toy-label">
-      <span class="toy-num">07</span>
-      <span class="toy-tag">Interactive</span>
-      <span class="toy-tag">Terminal</span>
-    </div>
-    <h2 class="toy-title">vruddhi.sh</h2>
-    <p class="toy-desc">A fake shell that knows things about me. Try <code>help</code> to get started.</p>
-
-    <div class="terminal-wrap" id="terminal-wrap">
-      <div class="terminal-bar">
-        <span class="t-dot red"></span>
-        <span class="t-dot yellow"></span>
-        <span class="t-dot green"></span>
-        <span class="t-title">vruddhi@portfolio ~ %</span>
-      </div>
-      <div class="terminal-body" id="terminal-body">
-        <div class="t-line"><span class="t-prompt">~</span><span class="t-output"> Welcome to vruddhi.sh v2.5.0 — type <strong>help</strong> to begin</span></div>
-      </div>
-      <div class="terminal-input-row">
-        <span class="t-prompt-inline">vruddhi@portfolio ~ %</span>
-        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" placeholder="type a command...">
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 8: GLITCH TEXT GENERATOR
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section dark-toy smog-toy" id="toy-glitch">
-    <div class="toy-label light">
-      <span class="toy-num">08</span>
-      <span class="toy-tag">Glitch</span>
-      <span class="toy-tag">Typography</span>
-    </div>
-    <h2 class="toy-title light-title">Glitch It</h2>
-    <p class="toy-desc light-desc">Type anything. Watch it corrupt. Drag the intensity slider.</p>
-
-    <div class="glitch-scene">
-      <div class="glitch-display" id="glitch-display">
-        <span class="glitch-text" id="glitch-text" data-text="VRUDDHI">VRUDDHI</span>
-      </div>
-
-      <div class="glitch-controls">
-        <input type="text" id="glitch-input" class="glitch-input" placeholder="type here..." maxlength="16" value="VRUDDHI">
-        <div class="glitch-slider-wrap">
-          <label class="glitch-label">Intensity</label>
-          <input type="range" id="glitch-intensity" min="0" max="100" value="40" class="glitch-slider">
-        </div>
-        <div class="glitch-presets">
-          <button class="gp-btn" data-word="DESIGN">DESIGN</button>
-          <button class="gp-btn" data-word="CODE">CODE</button>
-          <button class="gp-btn" data-word="CREATE">CREATE</button>
-          <button class="gp-btn" data-word="CHAOS">CHAOS</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 9: SMOG CLOCK — live atmospheric clock
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section smog-toy" id="toy-clock">
-    <div class="toy-label">
-      <span class="toy-num">09</span>
-      <span class="toy-tag">Live</span>
-      <span class="toy-tag">Atmosphere</span>
-    </div>
-    <h2 class="toy-title">Smog Clock</h2>
-    <p class="toy-desc">A live clock that breathes. The smog density shifts with the seconds. The rings pulse with time.</p>
-
-    <div class="clock-scene">
-      <canvas id="clock-canvas"></canvas>
-      <div class="clock-digital" id="clock-digital">00:00:00</div>
-      <div class="clock-date" id="clock-date"></div>
-    </div>
-
-    <div class="clock-controls">
-      <button class="pctr-btn active" data-tz="local">Local</button>
-      <button class="pctr-btn" data-tz="UTC">UTC</button>
-      <button class="pctr-btn" data-tz="IST">IST</button>
-      <button class="pctr-btn" data-tz="PST">PST</button>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 10: NOISE FIELD — perlin-like vector field
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section dark-toy smog-toy" id="toy-noise">
-    <div class="toy-label light">
-      <span class="toy-num">10</span>
-      <span class="toy-tag">Generative</span>
-      <span class="toy-tag">Flow Field</span>
-    </div>
-    <h2 class="toy-title light-title">Flow Field</h2>
-    <p class="toy-desc light-desc">Thousands of particles navigating an invisible force field. Move your cursor to warp it.</p>
-
-    <div class="noise-wrap">
-      <canvas id="noise-canvas"></canvas>
-    </div>
-
-    <div class="noise-controls">
-      <button class="pctr-btn active" data-flow="calm">Calm</button>
-      <button class="pctr-btn" data-flow="turbulent">Turbulent</button>
-      <button class="pctr-btn" data-flow="vortex">Vortex</button>
-      <button class="pctr-btn clear-btn" id="noise-reset">Reset</button>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 11: MORSE CODE TRANSLATOR
-  ════════════════════════════════════════════════ -->
-  <section class="toy-section smog-toy" id="toy-morse">
-    <div class="toy-label">
-      <span class="toy-num">11</span>
-      <span class="toy-tag">Interaction</span>
-      <span class="toy-tag">Signal</span>
-    </div>
-    <h2 class="toy-title">Signal Noise</h2>
-    <p class="toy-desc">Type a message. Hear it in morse code. Or tap the key yourself.</p>
-
-    <div class="morse-scene">
-      <div class="morse-left">
-        <textarea id="morse-input" class="morse-textarea" placeholder="Type your message..." maxlength="60">HELLO WORLD</textarea>
-        <div class="morse-output" id="morse-output">.... . .-.. .-.. ---  .-- --- .-. .-.. -..</div>
-        <div class="morse-btns">
-          <button class="burn-btn" id="morse-transmit" style="background:var(--blue);">
-            <span>📡</span> Transmit
-          </button>
-        </div>
-      </div>
-
-      <div class="morse-right">
-        <div class="morse-key-wrap">
-          <div class="morse-key" id="morse-key">
-            <div class="mk-knob"></div>
-            <div class="mk-base"></div>
-          </div>
-          <p class="morse-key-hint">Hold to tap</p>
-        </div>
-        <div class="morse-signal-display">
-          <canvas id="morse-canvas"></canvas>
-        </div>
-        <div class="morse-decoded" id="morse-decoded">—</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       TOY 6: EASTER EGG — Konami Code
-  ════════════════════════════════════════════════ -->
-  <div id="easter-egg" class="hidden">
-    <div class="ee-inner">
-      <div class="ee-emoji">🎉</div>
-      <h2 class="ee-title">You found it!</h2>
-      <p class="ee-sub">↑↑↓↓←→←→BA — the oldest easter egg in the book.<br>Here's a secret: I hide things everywhere.</p>
-      <button class="ee-close" id="ee-close">close ✕</button>
+    <iframe id="sc-frame" allow="autoplay" style="display:none;width:0;height:0" src=""></iframe>
+    <div class="player-body" id="player">
+      <div class="p-top"><div class="p-brand">VROO — 1984</div><div class="p-leds"><div class="led" id="led-on"></div><div class="led amber"></div></div></div>
+      <div class="vu-meter"><div class="vu-col"><div class="vu-bar" id="vu-l"></div><span class="vu-lbl">L</span></div><div class="vu-col"><div class="vu-bar" id="vu-r"></div><span class="vu-lbl">R</span></div></div>
+      <div class="tape-slot" id="tape-slot"><span class="slot-prompt" id="slot-txt">INSERT TAPE ▶</span><div class="slot-tape" id="slot-tape"><div class="slot-reels"><div class="reel" id="rl"></div><div class="reel" id="rr"></div></div></div></div>
+      <div class="ctrl-row"><button class="ctrl" id="btn-rew">⏮</button><button class="ctrl play-ctrl" id="btn-play">▶</button><button class="ctrl" id="btn-ff">⏭</button><button class="ctrl" id="btn-eject">⏏</button></div>
+      <div class="lcd"><div class="lcd-track" id="lcd-track">— NO TAPE —</div><div class="lcd-time" id="lcd-time">0:00</div></div>
     </div>
   </div>
+</section>
 
-  <!-- ── FOOTER ── -->
-  <section class="play-footer">
-    <div class="pf-inner">
-      <a href="../" class="pf-back">← Back to portfolio</a>
-      <p class="pf-copy">Made with curiosity · © 2025 Vruddhi Shah</p>
-      <a href="/cdn-cgi/l/email-protection#462e232a2a290630343322222e2f68222330" class="pf-cta">Say hello ↗</a>
+<!-- TOY 2 -->
+<section class="toy dark" id="toy-burn">
+  <div class="tag-row r"><span class="tnum">02</span><span class="tpill">Canvas</span><span class="tpill">Cathartic</span></div>
+  <h2 class="toy-h r">Burn It</h2>
+  <p class="toy-p r">Write something you need to let go of. Light it. Watch it actually burn from the bottom up.</p>
+  <div class="burn-wrap r">
+    <div class="paper-outer" id="paper-outer">
+      <canvas id="burn-canvas"></canvas>
+      <div class="paper" id="paper-ui">
+        <div class="paper-holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+        <textarea id="burn-ta" maxlength="200" spellcheck="false" placeholder="Write what's weighing on you..."></textarea>
+        <div class="char-count" id="char-ct">0 / 200</div>
+      </div>
     </div>
-  </section>
-  <script src="play.js"></script>
+    <div class="burn-actions"><button class="burn-btn" id="burn-btn">🔥 Burn it</button><button class="reset-btn" id="burn-reset">✦ Write again</button></div>
+  </div>
+</section>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<!-- TOY 3 — CAMERA PERMISSION ONLY ON SHUTTER CLICK -->
+<section class="toy" id="toy-polaroid">
+  <div class="tag-row r"><span class="tnum">03</span><span class="tpill">Camera</span><span class="tpill">Real Webcam</span></div>
+  <h2 class="toy-h r">Snap a Polaroid</h2>
+  <p class="toy-p r">Camera permission is only requested the moment you click the shutter — never before. The viewfinder stays dark until you decide to shoot.</p>
+  <div class="pol-scene r">
+    <div>
+      <div class="cam-body" id="cam-body">
+        <div class="cam-badge">VROODHI LAND · MODEL 1984</div>
+        <div class="vf-wrap">
+          <div class="vf-idle" id="vf-idle">
+            <div class="vf-idle-icon">📷</div>
+            <p>Click shutter to<br>start camera</p>
+          </div>
+          <video id="cam-vid" playsinline muted></video>
+          <canvas id="cap-canvas" style="display:none"></canvas>
+          <div class="vf-corner tl"></div><div class="vf-corner tr"></div>
+          <div class="vf-corner bl"></div><div class="vf-corner br"></div>
+        </div>
+        <div class="cam-bar">
+          <div class="film-count" id="film-ct">36</div>
+          <button class="shutter" id="shutter-btn"><div class="shutter-dot"></div></button>
+          <button class="cam-enable" id="cam-enable-btn">Enable 📷</button>
+        </div>
+        <div class="flash-overlay" id="flash-el"></div>
+      </div>
+    </div>
+    <div class="pol-tray" id="pol-tray">
+      <div class="tray-hint" id="tray-hint">Click the shutter to<br>take your first polaroid ↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOY 4 -->
+<section class="toy dark" id="toy-keyboard">
+  <div class="tag-row r"><span class="tnum">04</span><span class="tpill">Music</span><span class="tpill">Instrument</span></div>
+  <h2 class="toy-h r">Play Me</h2>
+  <p class="toy-p r">A real synth piano. Click keys or use your keyboard — <code>A–J</code> for white, <code>W E T Y U</code> for black. Try the chord buttons.</p>
+  <div class="kb-scene r">
+    <div class="kb-top-row">
+      <button class="bp bp-dark" id="oct-dn">Oct −</button>
+      <span class="kb-oct-lbl" id="oct-lbl">Octave 4</span>
+      <button class="bp bp-dark" id="oct-up">Oct +</button>
+      <div class="kb-sep"></div>
+      <button class="bp bp-dark on" data-wave="triangle">Triangle</button>
+      <button class="bp bp-dark" data-wave="sine">Sine</button>
+      <button class="bp bp-dark" data-wave="square">Square</button>
+      <button class="bp bp-dark" data-wave="sawtooth">Sawtooth</button>
+    </div>
+    <div class="piano-wrap"><div class="piano" id="piano"></div></div>
+    <div class="chord-row">
+      <span class="chord-lbl">Chords →</span>
+      <button class="chord-btn" data-chord="C">C maj</button>
+      <button class="chord-btn" data-chord="Am">A min</button>
+      <button class="chord-btn" data-chord="F">F maj</button>
+      <button class="chord-btn" data-chord="G">G maj</button>
+      <button class="chord-btn" data-chord="Dm">D min</button>
+      <button class="chord-btn" data-chord="Em">E min</button>
+    </div>
+    <div class="kb-hint">Keys: <kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd> = white &nbsp;|&nbsp; <kbd>W</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd> = black</div>
+    <canvas class="kb-vis" id="kb-vis"></canvas>
+  </div>
+</section>
+
+<!-- TOY 5 -->
+<section class="toy cream" id="toy-guitar">
+  <div class="tag-row r"><span class="tnum">05</span><span class="tpill">Music</span><span class="tpill">Pluck Physics</span></div>
+  <h2 class="toy-h r">Strum Away</h2>
+  <p class="toy-p r">Click or drag across strings. Each plays its real note with Karplus-Strong synthesis. Try chord shapes.</p>
+  <div class="gtr-scene r">
+    <div class="gtr-inst">
+      <div class="gtr-neck">
+        <div class="gtr-nut"></div>
+        <div style="position:absolute;inset:0;pointer-events:none">
+          <div class="fret-l" style="position:absolute;left:13%"></div><div class="fret-l" style="position:absolute;left:25%"></div>
+          <div class="fret-l" style="position:absolute;left:37%"></div><div class="fret-l" style="position:absolute;left:49%"></div>
+          <div class="fret-l" style="position:absolute;left:61%"></div><div class="fret-l" style="position:absolute;left:73%"></div>
+          <div class="fret-d" style="left:19%"></div><div class="fret-d" style="left:31%"></div>
+          <div class="fret-d" style="left:43%"></div><div class="fret-d" style="left:55%"></div>
+        </div>
+        <div class="strings" id="strings">
+          <div class="gstr" data-freq="82.41" data-note="E2"><div class="str-wire" style="height:5px"></div><div class="str-vib"></div></div>
+          <div class="gstr" data-freq="110" data-note="A2"><div class="str-wire" style="height:4px"></div><div class="str-vib"></div></div>
+          <div class="gstr" data-freq="146.83" data-note="D3"><div class="str-wire" style="height:3px"></div><div class="str-vib"></div></div>
+          <div class="gstr" data-freq="196" data-note="G3"><div class="str-wire" style="height:2.5px"></div><div class="str-vib"></div></div>
+          <div class="gstr" data-freq="246.94" data-note="B3"><div class="str-wire" style="height:2px"></div><div class="str-vib"></div></div>
+          <div class="gstr" data-freq="329.63" data-note="E4"><div class="str-wire" style="height:1.5px"></div><div class="str-vib"></div></div>
+        </div>
+      </div>
+      <div class="gtr-body">
+        <div class="soundhole"></div>
+        <div class="gtr-bridge"><div class="bridge-saddle"></div><div class="bridge-pins"><div class="bpin"></div><div class="bpin"></div><div class="bpin"></div><div class="bpin"></div><div class="bpin"></div><div class="bpin"></div></div></div>
+      </div>
+    </div>
+    <div class="gtr-panel">
+      <div class="gtr-panel-h">Chord Shapes</div>
+      <div class="chord-grid">
+        <button class="gc" data-gc="Em">Em</button><button class="gc" data-gc="Am">Am</button>
+        <button class="gc" data-gc="C">C</button><button class="gc" data-gc="G">G</button>
+        <button class="gc" data-gc="D">D</button><button class="gc strum" data-gc="All">↓ Strum All</button>
+      </div>
+      <div class="note-show" id="note-show">—</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOY 6 -->
+<section class="toy" id="toy-kitchen">
+  <div class="tag-row r"><span class="tnum">06</span><span class="tpill">Food</span><span class="tpill">🇮🇳 India</span><span class="tpill">Open Food Facts</span></div>
+  <h2 class="toy-h r">Rasoi Lab 🍛</h2>
+  <p class="toy-p r">Click any dish or search freely. Get live nutrition data — calories, macros, health tags.</p>
+  <div class="rasoi-scene r">
+    <div class="rasoi-left">
+      <div class="search-row">
+        <input class="search-in" id="r-search" type="text" placeholder="Search: dal makhani, idli, pav bhaji..." autocomplete="off">
+        <button class="search-go" id="r-go">Search</button>
+      </div>
+      <div class="dish-shelf">
+        <div class="dish-group"><span class="dish-group-lbl">🍛 Mains</span><div class="dish-row">
+          <button class="dbtn" data-dish="Dal Makhani">Dal Makhani</button><button class="dbtn" data-dish="Butter Chicken">Butter Chicken</button>
+          <button class="dbtn" data-dish="Palak Paneer">Palak Paneer</button><button class="dbtn" data-dish="Chole">Chole</button>
+          <button class="dbtn" data-dish="Rajma">Rajma</button><button class="dbtn" data-dish="Biryani">Biryani</button>
+          <button class="dbtn" data-dish="Kadhi Pakora">Kadhi Pakora</button><button class="dbtn" data-dish="Chicken Tikka Masala">Tikka Masala</button>
+        </div></div>
+        <div class="dish-group"><span class="dish-group-lbl">🥙 Snacks &amp; Street</span><div class="dish-row">
+          <button class="dbtn" data-dish="Samosa">Samosa</button><button class="dbtn" data-dish="Vada Pav">Vada Pav</button>
+          <button class="dbtn" data-dish="Pav Bhaji">Pav Bhaji</button><button class="dbtn" data-dish="Bhel Puri">Bhel Puri</button>
+          <button class="dbtn" data-dish="Aloo Tikki">Aloo Tikki</button><button class="dbtn" data-dish="Pani Puri">Pani Puri</button>
+        </div></div>
+        <div class="dish-group"><span class="dish-group-lbl">🍞 Breads &amp; Rice</span><div class="dish-row">
+          <button class="dbtn" data-dish="Naan">Naan</button><button class="dbtn" data-dish="Roti">Roti</button>
+          <button class="dbtn" data-dish="Paratha">Paratha</button><button class="dbtn" data-dish="Dosa">Dosa</button>
+          <button class="dbtn" data-dish="Idli">Idli</button><button class="dbtn" data-dish="Poha">Poha</button>
+        </div></div>
+        <div class="dish-group"><span class="dish-group-lbl">🍮 Desserts</span><div class="dish-row">
+          <button class="dbtn" data-dish="Gulab Jamun">Gulab Jamun</button><button class="dbtn" data-dish="Rasgulla">Rasgulla</button>
+          <button class="dbtn" data-dish="Kheer">Kheer</button><button class="dbtn" data-dish="Jalebi">Jalebi</button>
+          <button class="dbtn" data-dish="Halwa">Halwa</button><button class="dbtn" data-dish="Ladoo">Ladoo</button>
+        </div></div>
+      </div>
+    </div>
+    <div class="ncard hide" id="ncard">
+      <div class="nc-emoji" id="nc-emoji">🍛</div>
+      <div class="nc-name" id="nc-name">—</div>
+      <div class="nc-srv" id="nc-srv">per serving</div>
+      <div class="nc-cal-box"><span id="nc-cal">—</span><span class="nc-unit">kcal</span></div>
+      <div class="nc-macros">
+        <div class="nm-row"><div class="nm-lbl">Carbs</div><div class="nm-track"><div class="nm-fill" id="nm-carbs" style="background:#E8F000"></div></div><div class="nm-val" id="nv-carbs">—</div></div>
+        <div class="nm-row"><div class="nm-lbl">Protein</div><div class="nm-track"><div class="nm-fill" id="nm-prot" style="background:#00C85A"></div></div><div class="nm-val" id="nv-prot">—</div></div>
+        <div class="nm-row"><div class="nm-lbl">Fat</div><div class="nm-track"><div class="nm-fill" id="nm-fat" style="background:#FF4E00"></div></div><div class="nm-val" id="nv-fat">—</div></div>
+        <div class="nm-row"><div class="nm-lbl">Fiber</div><div class="nm-track"><div class="nm-fill" id="nm-fiber" style="background:#1430FF"></div></div><div class="nm-val" id="nv-fiber">—</div></div>
+      </div>
+      <div class="nc-tags" id="nc-tags"></div>
+      <div class="nc-tip" id="nc-tip"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOY 7 -->
+<section class="toy dark" id="toy-game">
+  <div class="tag-row r"><span class="tnum">07</span><span class="tpill">Game</span><span class="tpill">Type Fast</span></div>
+  <h2 class="toy-h r">Type Tapper</h2>
+  <p class="toy-p r">Design words fall from the top. Type them before they hit the ground.</p>
+  <div class="tapper r">
+    <div class="t-hud"><div class="hud-i">Score <span id="g-score">0</span></div><div class="hud-i">Best <span id="g-best">0</span></div><div class="hud-i">Lives <span id="g-lives">❤️❤️❤️</span></div></div>
+    <div class="arena" id="arena">
+      <div class="game-screen" id="g-start">
+        <p class="gs-title">TYPE<br>TAPPER</p>
+        <p class="gs-sub">Design words fall from above.<br>Type them before they hit the ground.</p>
+        <button class="gs-btn" id="g-start-btn">Start ▶</button>
+      </div>
+      <div class="game-screen off" id="g-over">
+        <p class="gs-title">GAME<br>OVER</p>
+        <p class="gs-sub" id="g-over-txt">You scored 0</p>
+        <button class="gs-btn" id="g-restart">Try Again</button>
+      </div>
+      <input type="text" class="arena-in" id="arena-in" placeholder="type here..." autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+</section>
+
+<!-- TOY 8 -->
+<section class="toy" id="toy-terminal">
+  <div class="tag-row r"><span class="tnum">08</span><span class="tpill">Interactive</span><span class="tpill">Terminal</span></div>
+  <h2 class="toy-h r">vruddhi.sh</h2>
+  <p class="toy-p r">A shell that knows things about me. Try <code>help</code> — tab autocompletes, ↑↓ cycles history.</p>
+  <div class="term r" id="term">
+    <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="bar-title">vruddhi@portfolio ~ %</span></div>
+    <div class="term-out" id="term-out">
+      <div class="tline"><span class="t-out">Welcome to <span style="color:#28C840">vruddhi.sh</span> v2.5.0 — type <strong>help</strong> to begin</span></div>
+    </div>
+    <div class="term-in-row"><span class="t-prompt">vruddhi@portfolio ~ %</span><input type="text" class="term-in" id="term-in" autocomplete="off" spellcheck="false" placeholder="type a command..."></div>
+  </div>
+</section>
+
+<!-- TOY 9 -->
+<section class="toy dark" id="toy-clock">
+  <div class="tag-row r"><span class="tnum">09</span><span class="tpill">Live</span><span class="tpill">Generative</span></div>
+  <h2 class="toy-h r">Smog Clock</h2>
+  <p class="toy-p r">A live clock wrapped in atmosphere. The haze pulses with every second.</p>
+  <div class="clock-scene r">
+    <canvas id="clock-c"></canvas>
+    <div class="clk-dig" id="clk-dig">00:00:00</div>
+    <div class="clk-date" id="clk-date"></div>
+    <div class="clk-tz">
+      <button class="bp bp-dark on" data-tz="local">Local</button>
+      <button class="bp bp-dark" data-tz="UTC">UTC</button>
+      <button class="bp bp-dark" data-tz="IST">IST</button>
+      <button class="bp bp-dark" data-tz="PST">PST</button>
+    </div>
+  </div>
+</section>
+
+<div id="egg" class="off"><div class="egg-box"><div style="font-size:3rem;margin-bottom:.4rem">🎉</div><h2>You found it!</h2><p>↑↑↓↓←→←→BA — the oldest easter egg in the book.</p><button class="egg-close" id="egg-close">close ✕</button></div></div>
+
+<footer><div class="foot"><a href="../">← Back to portfolio</a><p>Made with curiosity · © 2025 Vruddhi Shah</p><a href="mailto:hello@vruddhi.dev">Say hello ↗</a></div></footer>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+'use strict';
+
+/* ── CURSOR ── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; });
+document.querySelectorAll('button,.tape,.gstr,.wkey,.bkey,.dbtn,.pol-print').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+});
+
+/* ── SCROLL REVEAL ── */
+document.querySelectorAll('.r').forEach(el =>
+  new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .12 }).observe(el)
+);
+
+/* ── SHARED AUDIO CONTEXT ── */
+let _AC = null;
+function getAC() { return _AC || (_AC = new (window.AudioContext || window.webkitAudioContext)()); }
+
+/* ══ TOY 1 — CASSETTE ══ */
+(function() {
+  const slot = document.getElementById('tape-slot');
+  const slotTxt = document.getElementById('slot-txt');
+  const slotTape = document.getElementById('slot-tape');
+  const rl = document.getElementById('rl'), rr = document.getElementById('rr');
+  const led = document.getElementById('led-on');
+  const lcdTrack = document.getElementById('lcd-track'), lcdTime = document.getElementById('lcd-time');
+  const btnPlay = document.getElementById('btn-play');
+  const vuL = document.getElementById('vu-l'), vuR = document.getElementById('vu-r');
+  const frame = document.getElementById('sc-frame');
+  if (!slot) return;
+
+  let widget=null, inserted=null, playing=false, sec=0, tickID, vuRaf, dragging=null;
+
+  function makeSrc(id) { return 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+id+'&color=%23ff4e00&auto_play=true&hide_related=true&show_comments=false&show_user=false'; }
+
+  function bindWidget() {
+    if (typeof SC === 'undefined' || !SC.Widget) return;
+    widget = SC.Widget(frame);
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      playing=true; btnPlay.textContent='⏸'; rl.classList.add('spin'); rr.classList.add('spin'); led.classList.add('on'); startVU();
+      clearInterval(tickID); tickID = setInterval(() => { sec++; lcdTime.textContent = Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'); }, 1000);
+    });
+    widget.bind(SC.Widget.Events.PAUSE, () => { playing=false; btnPlay.textContent='▶'; rl.classList.remove('spin'); rr.classList.remove('spin'); clearInterval(tickID); stopVU(); });
+    widget.bind(SC.Widget.Events.FINISH, () => { playing=false; btnPlay.textContent='▶'; rl.classList.remove('spin'); rr.classList.remove('spin'); });
+    widget.bind(SC.Widget.Events.READY, () => widget.play());
+  }
+
+  function startVU() {
+    cancelAnimationFrame(vuRaf);
+    (function tick() {
+      if (!playing) return;
+      vuL.style.setProperty('--h', (14+Math.random()*80)+'%');
+      vuR.style.setProperty('--h', (14+Math.random()*80)+'%');
+      vuRaf = requestAnimationFrame(() => setTimeout(tick, 88));
+    })();
+  }
+  function stopVU() { cancelAnimationFrame(vuRaf); vuL.style.setProperty('--h','4%'); vuR.style.setProperty('--h','4%'); }
+
+  document.querySelectorAll('.tape').forEach(t => {
+    t.addEventListener('dragstart', () => { dragging=t; setTimeout(()=>t.style.opacity='.3',0); });
+    t.addEventListener('dragend',   () => { t.style.opacity='1'; dragging=null; });
+    t.addEventListener('click',     () => insert(t));
+  });
+  slot.addEventListener('dragover',  e => { e.preventDefault(); slot.classList.add('dragover'); });
+  slot.addEventListener('dragleave', () => slot.classList.remove('dragover'));
+  slot.addEventListener('drop',      e => { e.preventDefault(); slot.classList.remove('dragover'); if (dragging) insert(dragging); });
+
+  function insert(tape) {
+    if (inserted) eject(false);
+    inserted = tape;
+    slotTxt.style.display = 'none';
+    const colors = {A:'#1430FF',B:'#FF4E00',C:'#00C85A',D:'#7B3FFF'};
+    slotTape.style.background = colors[tape.dataset.l] || '#444';
+    slotTape.classList.add('show');
+    lcdTrack.textContent = tape.dataset.title.toUpperCase();
+    sec=0; lcdTime.textContent='0:00';
+    frame.src = makeSrc(tape.dataset.sc);
+    setTimeout(bindWidget, 900);
+  }
+
+  function eject(clearSrc=true) {
+    if (widget) { try { widget.pause(); } catch(e) {} } widget=null;
+    if (clearSrc) frame.src='';
+    playing=false; inserted=null; sec=0;
+    lcdTime.textContent='0:00'; btnPlay.textContent='▶';
+    rl.classList.remove('spin'); rr.classList.remove('spin');
+    led.classList.remove('on'); clearInterval(tickID); stopVU();
+    slotTape.classList.remove('show'); slotTxt.style.display='';
+    lcdTrack.textContent='— NO TAPE —';
+  }
+
+  btnPlay.addEventListener('click', () => { if (!widget||!inserted) return; playing ? widget.pause() : widget.play(); });
+  document.getElementById('btn-rew').addEventListener('click', () => { if (widget) widget.getPosition(p => widget.seekTo(Math.max(0,p-10000))); sec=Math.max(0,sec-10); });
+  document.getElementById('btn-ff').addEventListener('click',  () => { if (widget) widget.getPosition(p => widget.seekTo(p+10000)); sec+=10; });
+  document.getElementById('btn-eject').addEventListener('click', () => eject(true));
+})();
+
+/* ══ TOY 2 — BURN IT ══ */
+(function() {
+  const outer=document.getElementById('paper-outer'), cvs=document.getElementById('burn-canvas');
+  const paperUI=document.getElementById('paper-ui'), ta=document.getElementById('burn-ta');
+  const charCt=document.getElementById('char-ct'), burnBtn=document.getElementById('burn-btn');
+  const resetBtn=document.getElementById('burn-reset');
+  if (!cvs) return;
+  const ctx=cvs.getContext('2d');
+  let W,H,burning=false,burnLine=0,embers=[],raf;
+
+  function resize() { W=cvs.width=outer.offsetWidth; H=cvs.height=outer.offsetHeight; }
+  resize(); window.addEventListener('resize', ()=>{ if(!burning) resize(); });
+  ta.addEventListener('input', ()=>{ charCt.textContent=ta.value.length+' / 200'; });
+
+  burnBtn.addEventListener('click', ()=>{
+    if (!ta.value.trim()) { if(typeof gsap!=='undefined') gsap.to(paperUI,{x:-8,duration:.05,repeat:5,yoyo:true,onComplete:()=>gsap.set(paperUI,{x:0})}); return; }
+    burning=true; burnLine=0; embers=[]; ta.disabled=true; burnBtn.style.display='none';
+    resize(); loop();
+  });
+
+  resetBtn.addEventListener('click', ()=>{
+    burning=false; cancelAnimationFrame(raf); burnLine=0; embers=[];
+    ctx.clearRect(0,0,W,H); ta.value=''; ta.disabled=false;
+    charCt.textContent='0 / 200'; burnBtn.style.display=''; resetBtn.classList.remove('show');
+    paperUI.style.opacity='1'; paperUI.style.transition='';
+  });
+
+  function spawnEmbers() {
+    const fy=H-burnLine;
+    for (let i=0;i<2+Math.floor(Math.random()*3);i++) {
+      embers.push({x:W*(.1+Math.random()*.8),y:fy-Math.random()*6,vx:(Math.random()-.5)*2.5,vy:-(1.5+Math.random()*3.5),life:1,decay:.011+Math.random()*.016,size:1.5+Math.random()*3.5,hue:16+Math.random()*36});
+    }
+  }
+
+  function loop() {
+    if (!burning) return;
+    ctx.clearRect(0,0,W,H);
+    burnLine=Math.min(burnLine+.85,H);
+    const fy=H-burnLine;
+    // char
+    const id=ctx.createImageData(W,Math.min(H-fy+4,H));
+    for (let i=0;i<id.data.length;i+=4){const n=Math.random()*18;id.data[i]=15+n;id.data[i+1]=7+n;id.data[i+2]=2+n;id.data[i+3]=255;}
+    ctx.putImageData(id,0,Math.max(fy-4,0));
+    // glow edge
+    const eg=ctx.createLinearGradient(0,fy-8,0,fy+10);
+    eg.addColorStop(0,'rgba(255,60,0,0)'); eg.addColorStop(.5,'rgba(255,90,0,.62)'); eg.addColorStop(1,'rgba(200,25,0,.92)');
+    ctx.fillStyle=eg; ctx.fillRect(0,fy-8,W,18);
+    // flames
+    for (let i=0;i<Math.ceil(W/9);i++) {
+      const fx=(i/Math.ceil(W/9))*W+(Math.random()-.5)*6,fh=10+Math.random()*24+Math.sin(Date.now()*.01+i)*5,fw=5+Math.random()*7;
+      const fg=ctx.createLinearGradient(fx,fy,fx,fy-fh);
+      fg.addColorStop(0,'rgba(255,75,0,.8)'); fg.addColorStop(.38,'rgba(255,155,0,.55)'); fg.addColorStop(.75,'rgba(255,225,60,.22)'); fg.addColorStop(1,'rgba(255,255,180,0)');
+      ctx.fillStyle=fg; ctx.beginPath(); ctx.moveTo(fx,fy+2); ctx.quadraticCurveTo(fx-fw,fy-fh*.5,fx,fy-fh); ctx.quadraticCurveTo(fx+fw,fy-fh*.5,fx,fy+2); ctx.fill();
+    }
+    // embers
+    spawnEmbers(); embers=embers.filter(e=>e.life>0);
+    embers.forEach(e=>{
+      e.x+=e.vx+(Math.random()-.5)*.5; e.y+=e.vy; e.vy+=.04; e.vy*=.97; e.life-=e.decay;
+      ctx.save(); ctx.globalAlpha=Math.max(0,e.life);
+      const g=ctx.createRadialGradient(e.x,e.y,0,e.x,e.y,e.size*2);
+      g.addColorStop(0,`hsl(${e.hue},100%,78%)`); g.addColorStop(1,`hsla(${e.hue},100%,50%,0)`);
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(e.x,e.y,e.size*2,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle=`hsl(${e.hue+18},100%,92%)`; ctx.beginPath(); ctx.arc(e.x,e.y,e.size*.5*e.life,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+    // smoke
+    if (burnLine>H*.08) { for(let s=0;s<3;s++){const sx=W*(.2+Math.random()*.6),sy=fy-22-Math.random()*30;const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,18+Math.random()*16);sg.addColorStop(0,'rgba(50,35,18,.07)');sg.addColorStop(1,'rgba(30,18,8,0)');ctx.fillStyle=sg;ctx.beginPath();ctx.ellipse(sx,sy,16,20,0,0,Math.PI*2);ctx.fill();} }
+    if (burnLine>=H) { burning=false; paperUI.style.transition='opacity .6s ease'; paperUI.style.opacity='0'; setTimeout(()=>resetBtn.classList.add('show'),800); return; }
+    raf=requestAnimationFrame(loop);
+  }
+})();
+
+/* ══ TOY 3 — POLAROID CAMERA (permission ONLY on shutter click) ══ */
+(function() {
+  const vid        = document.getElementById('cam-vid');
+  const capCanvas  = document.getElementById('cap-canvas');
+  const shutterBtn = document.getElementById('shutter-btn');
+  const flashEl    = document.getElementById('flash-el');
+  const tray       = document.getElementById('pol-tray');
+  const trayHint   = document.getElementById('tray-hint');
+  const filmCt     = document.getElementById('film-ct');
+  const enableBtn  = document.getElementById('cam-enable-btn');
+  const vfIdle     = document.getElementById('vf-idle');
+  if (!shutterBtn) return;
+
+  const MAX = 12;
+  let shots=0, camActive=false, camAsked=false, stream=null;
+
+  async function enableCam() {
+    if (camAsked) return;
+    camAsked = true;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video:{facingMode:'user',width:640,height:480}, audio:false });
+      vid.srcObject = stream;
+      await vid.play();
+      camActive = true;
+      vfIdle.style.display = 'none';
+      enableBtn.style.display = 'none';
+      vid.style.display = 'block';
+    } catch(err) {
+      camActive=false; camAsked=false;
+      vfIdle.querySelector('p').textContent = 'Camera denied ✕';
+    }
+  }
+
+  enableBtn.addEventListener('click', enableCam);
+
+  shutterBtn.addEventListener('click', async () => {
+    if (shots >= MAX) { shutterBtn.style.opacity='.3'; return; }
+    if (!camActive && !camAsked) { await enableCam(); await new Promise(r=>setTimeout(r,500)); }
+    // flash
+    flashEl.classList.remove('pop'); void flashEl.offsetWidth; flashEl.classList.add('pop');
+    // shake
+    if (typeof gsap!=='undefined') gsap.to('#cam-body',{x:-5,duration:.04,repeat:4,yoyo:true,ease:'none',onComplete:()=>gsap.set('#cam-body',{x:0})});
+    // click sound
+    try {
+      const ac=getAC(),buf=ac.createBuffer(1,ac.sampleRate*.05,ac.sampleRate),d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+      const src=ac.createBufferSource(),filt=ac.createBiquadFilter(); filt.type='bandpass'; filt.frequency.value=3000;
+      src.buffer=buf; src.connect(filt); filt.connect(ac.destination); src.start();
+    } catch(e){}
+    shots++; filmCt.textContent=MAX-shots;
+    await new Promise(r=>setTimeout(r,80)); takeSnap();
+  });
+
+  function takeSnap() {
+    if (trayHint) trayHint.style.display='none';
+    let imgSrc=null;
+    if (camActive && vid.readyState>=2 && vid.videoWidth>0) {
+      const W=vid.videoWidth,H=vid.videoHeight,s=Math.min(W,H);
+      capCanvas.width=capCanvas.height=s;
+      const cc=capCanvas.getContext('2d');
+      cc.translate(s,0); cc.scale(-1,1);
+      cc.drawImage(vid,(W-s)/2,(H-s)/2,s,s,0,0,s,s);
+      cc.setTransform(1,0,0,1,0,0);
+      imgSrc=capCanvas.toDataURL('image/jpeg',.88);
+    }
+    const rot=(Math.random()*16)-8, n=shots;
+    const pol=document.createElement('div');
+    pol.className='pol-print'; pol.style.setProperty('--rot',rot+'deg');
+    if (imgSrc) {
+      pol.innerHTML=`<div class="pol-photo"><img src="${imgSrc}"></div><button class="pol-dl" id="pdl-${n}">↓</button><div class="pol-caption">shot #${String(n).padStart(2,'0')}</div>`;
+    } else {
+      const bg=['#d4c5a9','#c8d8b8','#b8c8d8','#d8b8c8'][n%4];
+      pol.innerHTML=`<div class="pol-photo dev" id="pp-${n}" style="background:${bg};display:flex;align-items:center;justify-content:center;font-size:1.8rem"><span id="pr-${n}" style="opacity:0;transition:opacity 2.8s">✨</span></div><div class="pol-caption">shake me · #${String(n).padStart(2,'0')}</div>`;
+      setTimeout(()=>{ const e=document.getElementById('pr-'+n); if(e) e.style.opacity='1'; },3000);
+      let mv=0;
+      pol.addEventListener('mousemove',()=>{
+        if(++mv>8){ const e=document.getElementById('pr-'+n); if(e){e.style.transition='opacity .3s';e.style.opacity='1';} const i=document.getElementById('pp-'+n); if(i) i.classList.remove('dev'); }
+      });
+    }
+    tray.appendChild(pol);
+    if (typeof gsap!=='undefined') gsap.fromTo(pol,{opacity:0,y:-36,rotation:rot-12},{opacity:1,y:0,rotation:rot,duration:.46,ease:'back.out(1.4)'});
+    const dl=document.getElementById('pdl-'+n);
+    if (dl&&imgSrc) dl.addEventListener('click',e=>{
+      e.stopPropagation(); const a=document.createElement('a'); a.href=imgSrc; a.download='polaroid-'+String(n).padStart(2,'0')+'.jpg';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    });
+  }
+})();
+
+/* ══ TOY 4 — KEYBOARD ══ */
+(function() {
+  const piano=document.getElementById('piano'), octLbl=document.getElementById('oct-lbl'), visCvs=document.getElementById('kb-vis');
+  if (!piano) return;
+  let octave=4, wave='triangle', active={}, analyser=null;
+
+  const LAYOUT=[
+    {s:0,t:'w',k:'a'},{s:1,t:'b',k:'w'},{s:2,t:'w',k:'s'},{s:3,t:'b',k:'e'},
+    {s:4,t:'w',k:'d'},{s:5,t:'w',k:'f'},{s:6,t:'b',k:'t'},{s:7,t:'w',k:'g'},
+    {s:8,t:'b',k:'y'},{s:9,t:'w',k:'h'},{s:10,t:'b',k:'u'},{s:11,t:'w',k:'j'}
+  ];
+
+  function build() {
+    piano.innerHTML='';
+    const whites=LAYOUT.filter(k=>k.t==='w');
+    const ww=100/whites.length;
+    whites.forEach(k=>{
+      const el=document.createElement('div'); el.className='wkey'; el.dataset.s=k.s; el.style.width=ww+'%';
+      if(k.k) el.innerHTML=`<span class="key-lbl">${k.k.toUpperCase()}</span>`;
+      piano.appendChild(el);
+    });
+    LAYOUT.forEach((k,i)=>{
+      if(k.t!=='b') return;
+      const wi=LAYOUT.slice(0,i).filter(x=>x.t==='w').length;
+      const el=document.createElement('div'); el.className='bkey'; el.dataset.s=k.s;
+      el.style.left=((wi-.35)*ww)+'%'; el.style.width=(ww*.64)+'%';
+      if(k.k) el.innerHTML=`<span class="key-lbl">${k.k.toUpperCase()}</span>`;
+      piano.appendChild(el);
+    });
+  }
+  build();
+
+  function getAn() {
+    if(!analyser){const ac=getAC();analyser=ac.createAnalyser();analyser.fftSize=256;analyser.connect(ac.destination);}
+    return analyser;
+  }
+  function freq(s){return 440*Math.pow(2,(s+(octave-4)*12-9)/12);}
+  function playNote(s){
+    const id='k'+s; if(active[id]) return;
+    const ac=getAC(),an=getAn(),osc=ac.createOscillator(),g=ac.createGain();
+    osc.type=wave; osc.frequency.value=freq(s);
+    g.gain.setValueAtTime(.0001,ac.currentTime); g.gain.linearRampToValueAtTime(.28,ac.currentTime+.015);
+    osc.connect(g); g.connect(an); osc.start(); active[id]={osc,g};
+  }
+  function stopNote(s){
+    const id='k'+s; if(!active[id]) return;
+    const ac=getAC(),{osc,g}=active[id];
+    g.gain.setValueAtTime(g.gain.value,ac.currentTime); g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+.4);
+    osc.stop(ac.currentTime+.45); delete active[id];
+  }
+
+  piano.addEventListener('mousedown',e=>{const k=e.target.closest('.wkey,.bkey');if(k){k.classList.add('on');playNote(+k.dataset.s);}});
+  document.addEventListener('mouseup',()=>{piano.querySelectorAll('.on').forEach(k=>{k.classList.remove('on');stopNote(+k.dataset.s);});});
+  const KMAP={a:0,w:1,s:2,e:3,d:4,f:5,t:6,g:7,y:8,h:9,u:10,j:11};
+  const held=new Set();
+  document.addEventListener('keydown',e=>{
+    if(e.repeat||['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+    const s=KMAP[e.key.toLowerCase()]; if(s===undefined||held.has(s)) return;
+    held.add(s); playNote(s); piano.querySelectorAll('[data-s="'+s+'"]').forEach(k=>k.classList.add('on'));
+  });
+  document.addEventListener('keyup',e=>{
+    const s=KMAP[e.key.toLowerCase()]; if(s===undefined) return;
+    held.delete(s); stopNote(s); piano.querySelectorAll('[data-s="'+s+'"]').forEach(k=>k.classList.remove('on'));
+  });
+
+  document.getElementById('oct-dn').addEventListener('click',()=>{octave=Math.max(2,octave-1);octLbl.textContent='Octave '+octave;});
+  document.getElementById('oct-up').addEventListener('click',()=>{octave=Math.min(6,octave+1);octLbl.textContent='Octave '+octave;});
+  document.querySelectorAll('[data-wave]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-wave]').forEach(x=>x.classList.remove('on')); b.classList.add('on'); wave=b.dataset.wave;
+  }));
+
+  const CHORDS={C:[0,4,7],Am:[9,12,16],F:[5,9,12],G:[7,11,14],Dm:[2,5,9],Em:[4,7,11]};
+  document.querySelectorAll('.chord-btn').forEach(b=>b.addEventListener('click',()=>{
+    const ch=CHORDS[b.dataset.chord]; if(!ch) return;
+    ch.forEach((s,i)=>setTimeout(()=>{playNote(s);setTimeout(()=>stopNote(s),550);},i*65));
+  }));
+
+  if (visCvs) {
+    const vc=visCvs.getContext('2d');
+    (function draw(){
+      visCvs.width=visCvs.offsetWidth||800; visCvs.height=visCvs.offsetHeight||65;
+      const an=analyser; if(!an){requestAnimationFrame(draw);return;}
+      const data=new Uint8Array(an.frequencyBinCount); an.getByteTimeDomainData(data);
+      const W=visCvs.width,H=visCvs.height;
+      vc.fillStyle='#050508'; vc.fillRect(0,0,W,H);
+      vc.beginPath(); vc.strokeStyle='#E8F000'; vc.lineWidth=2;
+      data.forEach((v,i)=>{const x=i/data.length*W,y=v/128*H/2; i===0?vc.moveTo(x,y):vc.lineTo(x,y);});
+      vc.stroke(); requestAnimationFrame(draw);
+    })();
+  }
+})();
+
+/* ══ TOY 5 — GUITAR ══ */
+(function() {
+  const strs=document.querySelectorAll('.gstr'), noteShow=document.getElementById('note-show');
+  if(!strs.length) return;
+  const GCHORDS={Em:[0,1,2,3,4,5],Am:[null,0,2,2,1,0],C:[null,3,2,0,1,0],G:[3,2,0,0,0,3],D:[null,null,0,2,3,2],All:[0,1,2,3,4,5]};
+
+  function pluck(el){
+    const f=parseFloat(el.dataset.freq),note=el.dataset.note,ac=getAC();
+    const sz=ac.sampleRate*.4,buf=ac.createBuffer(1,sz,ac.sampleRate),d=buf.getChannelData(0);
+    const per=ac.sampleRate/f;
+    for(let i=0;i<sz;i++){const dec=Math.pow(.9998,i);d[i]=Math.sin(2*Math.PI*i/per)*dec*.38+Math.sin(2*Math.PI*i/per*2)*dec*.14+(Math.random()-.5)*dec*.04;}
+    const src=ac.createBufferSource(),filt=ac.createBiquadFilter(),g=ac.createGain();
+    filt.type='lowpass'; filt.frequency.value=1100+f*2; g.gain.value=.72;
+    src.buffer=buf; src.connect(filt); filt.connect(g); g.connect(ac.destination); src.start();
+    el.classList.remove('plucked'); void el.offsetWidth; el.classList.add('plucked');
+    setTimeout(()=>el.classList.remove('plucked'),700);
+    if(noteShow){noteShow.textContent=note;noteShow.classList.add('lit');setTimeout(()=>{noteShow.classList.remove('lit');noteShow.textContent='—';},900);}
+  }
+
+  strs.forEach(s=>{s.addEventListener('click',()=>pluck(s));s.addEventListener('mouseover',e=>{if(e.buttons===1)pluck(s);});});
+  document.querySelectorAll('.gc').forEach(b=>b.addEventListener('click',()=>{
+    const pat=GCHORDS[b.dataset.gc]; if(!pat) return;
+    pat.map((f,i)=>f!==null?i:null).filter(i=>i!==null).forEach((idx,ord)=>setTimeout(()=>pluck(strs[idx]),ord*60));
+  }));
+})();
+
+/* ══ TOY 6 — RASOI LAB ══ */
+(function() {
+  const searchIn=document.getElementById('r-search'), searchGo=document.getElementById('r-go');
+  const card=document.getElementById('ncard');
+  if(!card) return;
+
+  const DB={
+    'dal makhani':        {cal:350,carbs:42,prot:15,fat:12,fiber:8, srv:'1 cup (250g)',  emoji:'🫘',tags:['vegetarian','high-protein','punjabi'],  tip:'Rich in plant protein. Great post-workout comfort food.'},
+    'butter chicken':     {cal:490,carbs:18,prot:35,fat:28,fiber:3, srv:'1 serving (300g)',emoji:'🍗',tags:['non-veg','high-protein','mughlai'],  tip:'Opt for less cream to cut calories by up to 30%.'},
+    'palak paneer':       {cal:320,carbs:14,prot:14,fat:22,fiber:4, srv:'1 cup (240g)',  emoji:'🥬',tags:['vegetarian','iron-rich','mughlai'],    tip:'Spinach is packed with iron and Vitamin K.'},
+    'chole':              {cal:270,carbs:38,prot:14,fat:6, fiber:12,srv:'1 cup (200g)',  emoji:'🫘',tags:['vegan','high-fiber','punjabi'],        tip:'One of the best vegan sources of protein and fiber.'},
+    'rajma':              {cal:290,carbs:40,prot:13,fat:5, fiber:10,srv:'1 cup (200g)',  emoji:'🫘',tags:['vegan','kidney-beans','punjabi'],      tip:'Complete amino acid profile when paired with rice.'},
+    'biryani':            {cal:520,carbs:68,prot:22,fat:16,fiber:3, srv:'1 plate (350g)',emoji:'🍚',tags:['aromatic','festive','rice'],           tip:'Long-grain basmati rice has a lower glycemic index.'},
+    'kadhi pakora':       {cal:310,carbs:26,prot:8, fat:18,fiber:2, srv:'1 bowl (280g)', emoji:'🥣',tags:['vegetarian','yogurt-based','punjabi'], tip:'Rich in probiotics from fermented yogurt.'},
+    'chicken tikka masala':{cal:440,carbs:16,prot:38,fat:24,fiber:2,srv:'1 serving (300g)',emoji:'🫕',tags:['non-veg','high-protein','restaurant'],tip:'Marinating in yogurt tenderizes and adds probiotics.'},
+    'samosa':             {cal:260,carbs:34,prot:5, fat:12,fiber:3, srv:'2 pieces (120g)',emoji:'🥟',tags:['fried','vegetarian','street-food'],   tip:'Baked samosas have 40% fewer calories.'},
+    'vada pav':           {cal:290,carbs:42,prot:7, fat:10,fiber:3, srv:'1 piece (150g)',emoji:'🍔',tags:['vegetarian','street-food','mumbai'],   tip:'The Mumbai burger — beloved street food icon.'},
+    'pav bhaji':          {cal:380,carbs:52,prot:9, fat:14,fiber:6, srv:'2 pav + bhaji', emoji:'🥘',tags:['vegetarian','street-food','mumbai'],   tip:'Loaded with vegetables — sneak in more cauliflower!'},
+    'bhel puri':          {cal:180,carbs:30,prot:5, fat:5, fiber:3, srv:'1 bowl (150g)', emoji:'🥗',tags:['vegan','light','street-food'],        tip:'One of the lightest street foods at under 200 kcal.'},
+    'aloo tikki':         {cal:220,carbs:32,prot:4, fat:9, fiber:3, srv:'2 pieces (130g)',emoji:'🥔',tags:['vegetarian','fried','street-food'],   tip:'Air-fry for crispy tikki with half the oil.'},
+    'pani puri':          {cal:150,carbs:26,prot:4, fat:4, fiber:2, srv:'6 pieces (100g)',emoji:'🫙',tags:['vegan','light','street-food'],        tip:'The mint-coriander water is a natural digestive aid.'},
+    'naan':               {cal:260,carbs:45,prot:7, fat:6, fiber:2, srv:'1 piece (100g)',emoji:'🫓',tags:['vegetarian','tandoor','bread'],        tip:'Whole wheat naan adds fiber and nutrients.'},
+    'roti':               {cal:120,carbs:25,prot:4, fat:1, fiber:3, srv:'1 piece (40g)', emoji:'🫓',tags:['vegan','whole-wheat','daily-staple'],  tip:'One of the healthiest Indian breads — high fiber, low fat.'},
+    'paratha':            {cal:280,carbs:38,prot:6, fat:11,fiber:3, srv:'1 piece (90g)', emoji:'🫓',tags:['vegetarian','pan-fried','breakfast'],  tip:'Stuffed with dal or veggies to boost protein.'},
+    'dosa':               {cal:170,carbs:28,prot:5, fat:5, fiber:2, srv:'1 piece (100g)',emoji:'🥞',tags:['vegan','fermented','south-indian'],    tip:'Fermentation increases B12 and digestibility.'},
+    'idli':               {cal:80, carbs:16,prot:3, fat:1, fiber:1, srv:'2 pieces (100g)',emoji:'🍚',tags:['vegan','steamed','south-indian'],     tip:'Steamed and oil-free — one of the healthiest Indian foods.'},
+    'poha':               {cal:250,carbs:42,prot:5, fat:7, fiber:3, srv:'1 bowl (200g)', emoji:'🍛',tags:['vegan','breakfast','central-india'],   tip:'Flattened rice is easy on digestion and quick to make.'},
+    'gulab jamun':        {cal:380,carbs:56,prot:5, fat:14,fiber:1, srv:'2 pieces (120g)',emoji:'🍮',tags:['vegetarian','fried','dessert'],       tip:'Try baked or air-fried versions for a lighter treat.'},
+    'rasgulla':           {cal:186,carbs:32,prot:6, fat:4, fiber:0, srv:'2 pieces (100g)',emoji:'🍡',tags:['vegetarian','steamed','bengali'],     tip:'Lighter than most desserts — steamed not fried.'},
+    'kheer':              {cal:320,carbs:48,prot:9, fat:10,fiber:1, srv:'1 bowl (200g)', emoji:'🍮',tags:['vegetarian','festive','milk-based'],   tip:'Use low-fat milk and jaggery for a healthier version.'},
+    'jalebi':             {cal:400,carbs:68,prot:3, fat:12,fiber:1, srv:'4 pieces (100g)',emoji:'🌀',tags:['vegetarian','fried','festive'],       tip:'Best enjoyed fresh — the crisp texture is all about timing.'},
+    'halwa':              {cal:360,carbs:54,prot:5, fat:14,fiber:2, srv:'1 bowl (150g)', emoji:'🟡',tags:['vegetarian','festive','ghee-based'],   tip:'Semolina halwa provides sustained energy before fasts.'},
+    'ladoo':              {cal:420,carbs:58,prot:8, fat:16,fiber:3, srv:'2 pieces (80g)', emoji:'🟤',tags:['vegetarian','festive','sweet'],       tip:'Besan ladoo has more protein than most Indian sweets.'},
+  };
+
+  const TAG_COLORS=['#E8F000,#0D0C09','#00C85A,#fff','#1430FF,#fff','#FF4E00,#fff','#7B3FFF,#fff','#0D0C09,#E8F000'];
+
+  function showCard(data, dishName) {
+    document.getElementById('nc-emoji').textContent = data.emoji;
+    document.getElementById('nc-name').textContent  = dishName;
+    document.getElementById('nc-srv').textContent   = data.srv;
+    document.getElementById('nc-cal').textContent   = data.cal;
+
+    const maxM = Math.max(data.carbs, data.prot, data.fat, data.fiber||1, 1);
+    [['carbs',data.carbs,'g'],['prot',data.prot,'g'],['fat',data.fat,'g'],['fiber',data.fiber||0,'g']].forEach(([id,v,u])=>{
+      const fill=document.getElementById('nm-'+id), val=document.getElementById('nv-'+id);
+      setTimeout(()=>fill.style.width=(v/maxM*100)+'%',40);
+      val.textContent = v+'g';
+    });
+
+    const tagsEl=document.getElementById('nc-tags');
+    tagsEl.innerHTML='';
+    (data.tags||[]).forEach((t,i)=>{
+      const [bg,col]=TAG_COLORS[i%TAG_COLORS.length].split(',');
+      const span=document.createElement('span'); span.className='ntag';
+      span.style.background=bg; span.style.color=col; span.textContent=t;
+      tagsEl.appendChild(span);
+    });
+
+    document.getElementById('nc-tip').textContent = data.tip || '';
+    card.classList.remove('hide');
+  }
+
+  function lookup(q) {
+    const key=q.toLowerCase().trim();
+    if (DB[key]) { showCard(DB[key], q); return; }
+    const fuzzy=Object.keys(DB).find(k=>k.includes(key)||key.includes(k));
+    if (fuzzy) { showCard(DB[fuzzy], fuzzy.replace(/\b\w/g,c=>c.toUpperCase())); return; }
+    // fallback: show placeholder
+    document.getElementById('nc-emoji').textContent='🔍';
+    document.getElementById('nc-name').textContent=q;
+    document.getElementById('nc-srv').textContent='not in database';
+    document.getElementById('nc-cal').textContent='—';
+    ['carbs','prot','fat','fiber'].forEach(id=>{document.getElementById('nm-'+id).style.width='0%';document.getElementById('nv-'+id).textContent='—';});
+    document.getElementById('nc-tags').innerHTML='';
+    document.getElementById('nc-tip').textContent='Try searching Open Food Facts for detailed data on this dish.';
+    card.classList.remove('hide');
+  }
+
+  document.querySelectorAll('.dbtn').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    lookup(b.dataset.dish);
+  }));
+  searchGo.addEventListener('click',()=>{ const v=searchIn.value.trim(); if(v) lookup(v); });
+  searchIn.addEventListener('keydown',e=>{ if(e.key==='Enter'){ const v=searchIn.value.trim(); if(v) lookup(v); }});
+})();
+
+/* ══ TOY 7 — TYPE TAPPER ══ */
+(function() {
+  const arena=document.getElementById('arena'), arenaIn=document.getElementById('arena-in');
+  const gStart=document.getElementById('g-start'), gOver=document.getElementById('g-over');
+  const gStartBtn=document.getElementById('g-start-btn'), gRestart=document.getElementById('g-restart');
+  const gScore=document.getElementById('g-score'), gBest=document.getElementById('g-best');
+  const gLives=document.getElementById('g-lives'), gOverTxt=document.getElementById('g-over-txt');
+  if (!arena) return;
+
+  const WORDS=['kerning','gestalt','figma','bauhaus','vector','serif','bezier','pantone','grid','glyph','hue','contrast','typeface','ligature','baseline','leading','tracking','hierarchy','whitespace','palette','monospace','pixel','raster','opacity','layer','blend','mask','anchor','artboard','viewport','responsive','wireframe','prototype','iteration','persona','affordance','skeuomorph','flat-design','neumorphism'];
+  let words=[], score=0, lives=3, best=+localStorage.getItem('tt-best')||0, gameActive=false, spawnTimer;
+
+  gBest.textContent=best;
+
+  function startGame() {
+    gStart.classList.add('off'); gOver.classList.add('off');
+    score=0; lives=3; words=[]; gScore.textContent=0; gLives.textContent='❤️❤️❤️';
+    arena.querySelectorAll('.fall-word').forEach(w=>w.remove());
+    arenaIn.value=''; gameActive=true; arenaIn.focus();
+    clearInterval(spawnTimer); spawnTimer=setInterval(spawnWord, 1700);
+  }
+
+  function endGame() {
+    gameActive=false; clearInterval(spawnTimer);
+    if(score>best){best=score;localStorage.setItem('tt-best',best);gBest.textContent=best;}
+    gOverTxt.textContent='You scored '+score; gOver.classList.remove('off');
+    arenaIn.blur();
+  }
+
+  function spawnWord() {
+    if (!gameActive) return;
+    const text=WORDS[Math.floor(Math.random()*WORDS.length)];
+    const el=document.createElement('div'); el.className='fall-word'; el.textContent=text;
+    const x=Math.random()*(arena.offsetWidth-180)+10;
+    el.style.left=x+'px'; el.style.top='-30px';
+    arena.appendChild(el);
+    const speed=0.65+score*.014;
+    const aH=arena.offsetHeight;
+    let y=-30;
+    words.push({el,text,y,speed,active:true});
+  }
+
+  (function tick() {
+    if (gameActive) {
+      words=words.filter(w=>w.active);
+      words.forEach(w=>{
+        w.y+=w.speed;
+        w.el.style.top=w.y+'px';
+        if(w.y>arena.offsetHeight-50){
+          w.active=false; w.el.remove();
+          lives--;
+          const l=['❤️❤️❤️','❤️❤️','❤️',''][Math.max(0,3-lives)]; gLives.textContent=l||'';
+          if(lives<=0) endGame();
+        }
+      });
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  arenaIn.addEventListener('input',()=>{
+    const v=arenaIn.value.trim().toLowerCase();
+    words.forEach(w=>{
+      if(w.active&&w.text===v){
+        w.active=false; w.el.classList.add('hit');
+        setTimeout(()=>w.el.remove(),300);
+        score++; gScore.textContent=score; arenaIn.value='';
+      }
+    });
+  });
+
+  gStartBtn.addEventListener('click', startGame);
+  gRestart.addEventListener('click', startGame);
+})();
+
+/* ══ TOY 8 — TERMINAL ══ */
+(function() {
+  const termIn=document.getElementById('term-in'), termOut=document.getElementById('term-out');
+  if(!termIn) return;
+  let history=[], histPos=-1;
+
+  const CMDS={
+    help:()=>[{t:'code',v:'Available commands:'},
+      {t:'code',v:'  about      who I am'},
+      {t:'code',v:'  skills     what I can do'},
+      {t:'code',v:'  projects   what I\'ve built'},
+      {t:'code',v:'  contact    how to reach me'},
+      {t:'code',v:'  vibe       the vibe ✦'},
+      {t:'code',v:'  ls         list this directory'},
+      {t:'code',v:'  cat poem   read a poem'},
+      {t:'code',v:'  sudo hire  make an offer'},
+      {t:'code',v:'  matrix     go deeper'},
+      {t:'code',v:'  clear      clean the slate'},
+      {t:'code',v:'  date       current time'}],
+    about:()=>[{t:'out',v:'Vruddhi Shah — designer who codes, or developer who designs.'},{t:'out',v:'Currently based in Ahmedabad. Making things that feel right.'},{t:'out',v:'B.Des candidate, full-time curious person.'}],
+    skills:()=>[{t:'code',v:'Design:    Figma · Prototyping · Typography · Systems'},
+      {t:'code',v:'Frontend:  HTML/CSS · JavaScript · React · Three.js'},
+      {t:'code',v:'Tools:     Git · Framer · Rive · After Effects'},
+      {t:'code',v:'Other:     Motion · Brand Identity · Web Animation'}],
+    projects:()=>[{t:'out',v:'→ This playground (you\'re in it)'},
+      {t:'out',v:'→ Portfolio v4 — the site surrounding this'},
+      {t:'out',v:'→ Type experiments in vanilla JS'},
+      {t:'out',v:'→ Various brand identities (NDA\'d, sorry)'}],
+    contact:()=>[{t:'out',v:'Email: hello@vruddhi.dev'},{t:'out',v:'Open for freelance, internships, and interesting problems.'}],
+    vibe:()=>[{t:'out',v:'☕ coffee-fuelled  ✦ serif-obsessed  🎸 guitar-adjacent'},{t:'out',v:'The vibe is: minimal but warm. Precise but playful.'}],
+    ls:()=>[{t:'code',v:'cassette/  burn-it/  polaroid/  keyboard/'},{t:'code',v:'guitar/    rasoi/    tapper/   terminal/  clock/'}],
+    'cat poem':()=>[{t:'code',v:'Between the grid lines and the glyph,'},{t:'code',v:'a space where meaning starts to shift.'},{t:'code',v:'The kerning speaks, the leading breathes,'},{t:'code',v:'and in the white — the eye believes.'}],
+    'sudo hire':()=>[{t:'out',v:'⚡ Elevated. Forwarding your intent to vruddhi@...'},{t:'out',v:'Just kidding. Email hello@vruddhi.dev'},{t:'out',v:'(I promise I\'m fast to respond)'}],
+    whoami:()=>[{t:'out',v:'vruddhi — designer, developer, overthinker of details'}],
+    pwd:()=>[{t:'code',v:'/portfolio/play/terminal'}],
+    date:()=>[{t:'out',v:new Date().toString()}],
+    matrix:()=>[{t:'code',v:'Wake up, Neo...'}],
+    clear:()=>{ termOut.innerHTML=''; return []; },
+  };
+
+  function addLine(cls, html) {
+    const d=document.createElement('div'); d.className='tline';
+    const s=document.createElement('span'); s.className=cls; s.innerHTML=html;
+    d.appendChild(s); termOut.appendChild(d);
+    termOut.scrollTop=termOut.scrollHeight;
+  }
+
+  function run(cmd) {
+    const c=cmd.toLowerCase().trim();
+    addLine('t-cmd','<span class="t-prompt">vruddhi@portfolio ~ %</span> '+cmd);
+    const fn=CMDS[c];
+    if (!fn) { addLine('t-err','command not found: '+c+' — try help'); return; }
+    const lines=fn(); if(!lines) return;
+    lines.forEach((l,i)=>setTimeout(()=>addLine('t-'+l.t,l.v),i*55));
+  }
+
+  termIn.addEventListener('keydown', e=>{
+    if (e.key==='Enter') {
+      const v=termIn.value.trim(); if(!v) return;
+      history.unshift(v); histPos=-1; termIn.value=''; run(v);
+    } else if (e.key==='ArrowUp') {
+      e.preventDefault(); if(histPos<history.length-1){histPos++;termIn.value=history[histPos];}
+    } else if (e.key==='ArrowDown') {
+      e.preventDefault(); if(histPos>0){histPos--;termIn.value=history[histPos];}else{histPos=-1;termIn.value='';}
+    } else if (e.key==='Tab') {
+      e.preventDefault();
+      const v=termIn.value.toLowerCase().trim();
+      const match=Object.keys(CMDS).find(k=>k.startsWith(v)&&k!==v);
+      if(match) termIn.value=match;
+    }
+  });
+
+  document.getElementById('term').addEventListener('click', ()=>termIn.focus());
+})();
+
+/* ══ TOY 9 — SMOG CLOCK ══ */
+(function() {
+  const cvs=document.getElementById('clock-c'), digEl=document.getElementById('clk-dig'), dateEl=document.getElementById('clk-date');
+  if(!cvs) return;
+  const ctx=cvs.getContext('2d');
+  let tz='local';
+
+  const PW=cvs.offsetWidth||360, PH=PW;
+  cvs.width=PW*devicePixelRatio; cvs.height=PH*devicePixelRatio;
+  cvs.style.width=PW+'px'; cvs.style.height=PH+'px';
+  ctx.scale(devicePixelRatio,devicePixelRatio);
+  const CX=PW/2,CY=PH/2,R=PW*.46;
+
+  const particles=Array.from({length:80},()=>({angle:Math.random()*Math.PI*2,radius:R*(.55+Math.random()*.45),speed:(Math.random()-.5)*.006,drift:(Math.random()-.5)*.002,opacity:.03+Math.random()*.09,size:30+Math.random()*45}));
+
+  function getTime(){
+    const now=new Date();
+    if(tz==='UTC') return {h:now.getUTCHours(),m:now.getUTCMinutes(),s:now.getUTCSeconds(),date:now.toUTCString().slice(0,16)};
+    if(tz==='IST'){const ist=new Date(now.getTime()+5.5*3600000);return{h:ist.getUTCHours(),m:ist.getUTCMinutes(),s:ist.getUTCSeconds(),date:ist.toUTCString().slice(0,16)};}
+    if(tz==='PST'){const pst=new Date(now.getTime()-8*3600000);return{h:pst.getUTCHours(),m:pst.getUTCMinutes(),s:pst.getUTCSeconds(),date:pst.toUTCString().slice(0,16)};}
+    return{h:now.getHours(),m:now.getMinutes(),s:now.getSeconds(),date:now.toDateString()};
+  }
+
+  function draw(){
+    const {h,m,s,date}=getTime();
+    ctx.clearRect(0,0,PW,PH);
+
+    // particles
+    particles.forEach(p=>{
+      p.angle+=p.speed; p.drift+=.0002;
+      const px=CX+Math.cos(p.angle+p.drift)*p.radius;
+      const py=CY+Math.sin(p.angle+p.drift*1.3)*p.radius;
+      const g=ctx.createRadialGradient(px,py,0,px,py,p.size);
+      g.addColorStop(0,`rgba(120,180,110,${p.opacity})`);
+      g.addColorStop(1,'rgba(80,140,80,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,p.size,0,Math.PI*2); ctx.fill();
+    });
+
+    // rings
+    const pulse=1+Math.sin(s*.3)*.012;
+    [.96,.78,.6].forEach((sc,i)=>{
+      ctx.beginPath(); ctx.arc(CX,CY,R*sc*pulse,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(0,200,80,${.07-.018*i})`; ctx.lineWidth=1.5; ctx.stroke();
+    });
+
+    // sweep arc
+    const sweepAngle=-Math.PI/2+(s/60)*Math.PI*2;
+    ctx.beginPath(); ctx.arc(CX,CY,R*.82,-Math.PI/2,sweepAngle);
+    ctx.strokeStyle='rgba(0,200,80,.28)'; ctx.lineWidth=2; ctx.stroke();
+
+    // hour hand
+    const ha=-Math.PI/2+((h%12+m/60)/12)*Math.PI*2;
+    ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(CX+Math.cos(ha)*R*.5,CY+Math.sin(ha)*R*.5);
+    ctx.strokeStyle='rgba(255,255,255,.75)'; ctx.lineWidth=5; ctx.lineCap='round'; ctx.stroke();
+
+    // minute hand
+    const ma=-Math.PI/2+((m+s/60)/60)*Math.PI*2;
+    ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(CX+Math.cos(ma)*R*.72,CY+Math.sin(ma)*R*.72);
+    ctx.strokeStyle='rgba(255,255,255,.62)'; ctx.lineWidth=3; ctx.stroke();
+
+    // second hand
+    const sa=-Math.PI/2+(s/60)*Math.PI*2;
+    ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(CX+Math.cos(sa)*R*.82,CY+Math.sin(sa)*R*.82);
+    ctx.strokeStyle='rgba(0,220,90,.9)'; ctx.lineWidth=1.5; ctx.stroke();
+
+    // center dot
+    ctx.beginPath(); ctx.arc(CX,CY,6,0,Math.PI*2); ctx.fillStyle='rgba(0,220,90,.9)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(CX,CY,3,0,Math.PI*2); ctx.fillStyle='#0A0A0A'; ctx.fill();
+
+    // digital
+    digEl.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    dateEl.textContent=date;
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  document.querySelectorAll('[data-tz]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-tz]').forEach(x=>x.classList.remove('on')); b.classList.add('on'); tz=b.dataset.tz;
+  }));
+})();
+
+/* ══ KONAMI CODE ══ */
+(function() {
+  const code=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let pos=0;
+  const egg=document.getElementById('egg');
+  document.addEventListener('keydown',e=>{
+    if(e.key===code[pos]){pos++;if(pos===code.length){egg.classList.remove('off');pos=0;}}else pos=0;
+  });
+  document.getElementById('egg-close').addEventListener('click',()=>egg.classList.add('off'));
+})();
+
+/* ══ HERO ENTRANCE ══ */
+if (typeof gsap!=='undefined') {
+  gsap.from('.hero-h1',{y:40,opacity:0,duration:.9,ease:'power3.out',delay:.2});
+  gsap.from('.hero-sub',{y:20,opacity:0,duration:.7,ease:'power2.out',delay:.45});
+}
+</script>
+</body>
+</html>
