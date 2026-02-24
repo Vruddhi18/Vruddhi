@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Vruddhi Shah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --black:  #080705;
+      --white:  #FAFAFF;
+      --yellow: #EEF36A;
+      --blue:   #192BC2;
+      --orange: #FF7733;
+      --green:  #00A86B;
+      --bg:     #F5F4EF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,244,239,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(8,7,5,.08);
+      padding: .9rem clamp(1.5rem,6vw,6rem);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 700; font-size: 1rem;
+      color: var(--black); text-decoration: none;
+      letter-spacing: -.02em;
+    }
+    .nav-logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+
+    .nav-link {
+      font-size: .82rem; font-weight: 600;
+      color: rgba(8,7,5,.5); text-decoration: none;
+      letter-spacing: .04em; transition: color .2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--black); }
+
+    .nav-cta {
+      background: var(--blue); color: var(--white);
+      padding: .5rem 1.2rem; border-radius: 9999px;
+      font-size: .8rem; font-weight: 700;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(25,43,194,.35); }
+
+    /* ---- HERO ---- */
+    .blog-hero {
+      padding: clamp(4rem,10vh,7rem) clamp(1.5rem,6vw,6rem) clamp(2rem,5vh,4rem);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: end;
+    }
+
+    .blog-hero-left {}
+
+    .blog-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 1.2rem;
+    }
+    .blog-eyebrow::before {
+      content: ''; width: 24px; height: 2px; background: var(--blue);
+    }
+
+    .blog-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem,7vw,7rem);
+      line-height: .92; letter-spacing: -.02em;
+      color: var(--black);
+    }
+
+    .blog-hero-right {
+      padding-bottom: .5rem;
+    }
+
+    .blog-hero-desc {
+      font-size: clamp(.95rem,1.3vw,1.15rem);
+      color: #6b7280; line-height: 1.7;
+      max-width: 380px; margin-bottom: 1.5rem;
+    }
+
+    .blog-tags {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+    }
+
+    .blog-tag {
+      padding: .35rem .9rem; border-radius: 9999px;
+      border: 1.5px solid rgba(8,7,5,.15);
+      font-size: .72rem; font-weight: 700;
+      color: rgba(8,7,5,.6); cursor: pointer;
+      transition: all .2s; text-decoration: none;
+    }
+    .blog-tag:hover, .blog-tag.active {
+      background: var(--black); color: var(--white); border-color: var(--black);
+    }
+    .blog-tag.active-blue { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .blog-tag.active-orange { background: var(--orange); color: var(--white); border-color: var(--orange); }
+    .blog-tag.active-green { background: var(--green); color: var(--white); border-color: var(--green); }
+
+    /* ---- DIVIDER ---- */
+    .divider {
+      height: 1px; background: rgba(8,7,5,.1);
+      margin: 0 clamp(1.5rem,6vw,6rem);
+    }
+
+    /* ---- FEATURED POST ---- */
+    .featured-section {
+      padding: clamp(2.5rem,6vh,4rem) clamp(1.5rem,6vw,6rem);
+    }
+
+    .section-label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(8,7,5,.35);
+      margin-bottom: 1.4rem;
+    }
+
+    .featured-post {
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 0;
+      border-radius: 24px; overflow: hidden;
+      background: var(--blue);
+      text-decoration: none;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+      min-height: clamp(280px,38vh,420px);
+    }
+    .featured-post:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 60px rgba(25,43,194,.3);
+    }
+
+    .featured-post-content {
+      padding: clamp(2rem,5vh,3.5rem) clamp(2rem,4vw,3.5rem);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .feat-tag {
+      display: inline-block;
+      background: rgba(238,243,106,.18); color: var(--yellow);
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+      padding: .3rem .85rem; border-radius: 9999px;
+      text-transform: uppercase; width: fit-content;
+      margin-bottom: 1.2rem;
+    }
+
+    .feat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem,3vw,2.4rem);
+      line-height: 1.15; color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .feat-excerpt {
+      font-size: clamp(.85rem,1.1vw,1rem);
+      color: rgba(250,250,255,.6); line-height: 1.65;
+      flex: 1; margin-bottom: 1.5rem;
+    }
+
+    .feat-meta {
+      display: flex; gap: 1.2rem; align-items: center;
+    }
+    .feat-meta span {
+      font-size: .75rem; font-weight: 600;
+      color: rgba(250,250,255,.45);
+    }
+    .feat-read {
+      margin-left: auto;
+      background: var(--yellow); color: var(--black);
+      padding: .5rem 1.2rem; border-radius: 9999px;
+      font-size: .78rem; font-weight: 700;
+      transition: transform .2s;
+    }
+    .featured-post:hover .feat-read { transform: translateX(4px); }
+
+    .featured-post-visual {
+      background: linear-gradient(135deg, rgba(238,243,106,.12) 0%, rgba(255,255,255,.04) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .feat-visual-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem,10vw,12rem);
+      font-style: italic;
+      color: rgba(238,243,106,.15);
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ---- POSTS GRID ---- */
+    .posts-section {
+      padding: clamp(2rem,4vh,3rem) clamp(1.5rem,6vw,6rem) clamp(3rem,8vh,5rem);
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem,2vw,1.4rem);
+    }
+
+    .post-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1.5px solid rgba(8,7,5,.08);
+      padding: 1.6rem 1.5rem 1.4rem;
+      display: flex; flex-direction: column; gap: .6rem;
+      text-decoration: none; color: inherit;
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s, border-color .25s;
+      cursor: pointer;
+    }
+    .post-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(8,7,5,.1);
+      border-color: var(--blue);
+    }
+
+    .post-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: .2rem;
+    }
+
+    .pc-tag {
+      font-size: .63rem; font-weight: 700; letter-spacing: .08em;
+      padding: .22rem .75rem; border-radius: 9999px;
+    }
+
+    .pc-year {
+      font-size: .68rem; color: #9ca3af; font-weight: 600;
+    }
+
+    .pc-title {
+      font-size: clamp(.95rem,1.4vw,1.15rem);
+      font-weight: 700; line-height: 1.25; color: var(--black);
+    }
+
+    .pc-excerpt {
+      font-size: .82rem; color: #6b7280;
+      line-height: 1.6; flex: 1;
+    }
+
+    .pc-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(8,7,5,.07); padding-top: .75rem;
+      margin-top: auto;
+    }
+
+    .pc-read-time {
+      font-size: .68rem; color: #9ca3af; font-weight: 600;
+    }
+
+    .pc-arrow {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--black); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .95rem;
+      transition: background .2s, transform .2s;
+    }
+    .post-card:hover .pc-arrow { background: var(--blue); transform: translateX(3px); }
+
+    /* ---- NEWSLETTER ---- */
+    .newsletter-section {
+      margin: 0 clamp(1.5rem,6vw,6rem) clamp(2rem,5vh,4rem);
+      background: var(--black);
+      border-radius: 24px;
+      padding: clamp(2.5rem,6vh,4rem) clamp(2.5rem,5vw,5rem);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+
+    .nl-left {}
+    .nl-eyebrow {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: .7rem;
+    }
+    .nl-title {
+      font-size: clamp(1.5rem,3vw,2.2rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.15;
+    }
+    .nl-sub {
+      font-size: .88rem; color: rgba(250,250,255,.45);
+      margin-top: .5rem; max-width: 360px; line-height: 1.6;
+    }
+
+    .nl-form {
+      display: flex; gap: .6rem; flex-wrap: wrap;
+    }
+
+    .nl-input {
+      flex: 1; min-width: 220px;
+      padding: .75rem 1.2rem; border-radius: 9999px;
+      border: 1.5px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
+      color: var(--white); font-family: inherit;
+      font-size: .88rem; font-weight: 500;
+      outline: none; transition: border-color .2s;
+    }
+    .nl-input::placeholder { color: rgba(255,255,255,.3); }
+    .nl-input:focus { border-color: var(--yellow); }
+
+    .nl-btn {
+      padding: .75rem 1.6rem; border-radius: 9999px;
+      background: var(--yellow); color: var(--black);
+      font-family: inherit; font-size: .88rem; font-weight: 700;
+      border: none; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(238,243,106,.35); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid rgba(8,7,5,.08);
+      padding: 1.5rem clamp(1.5rem,6vw,6rem);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+
+    .footer-sig { font-weight: 700; font-size: .9rem; color: var(--black); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-link {
+      font-size: .78rem; font-weight: 600;
+      color: rgba(8,7,5,.4); text-decoration: none;
+      letter-spacing: .04em; transition: color .2s;
+    }
+    .footer-link:hover { color: var(--black); }
+
+    /* ---- ANIMATIONS ---- */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      animation: fadeUp .6s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up:nth-child(1) { animation-delay: .1s; }
+    .fade-up:nth-child(2) { animation-delay: .2s; }
+    .fade-up:nth-child(3) { animation-delay: .3s; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .blog-hero, .featured-post { grid-template-columns: 1fr; }
+      .featured-post-visual { min-height: 160px; }
+      .posts-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .blog-hero { gap: 1.5rem; }
+      .newsletter-section { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Vruddhi <span>Shah</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html" class="nav-link">Work</a>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="contact.html" class="nav-cta">Contact →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <div class="blog-hero-left fade-up">
+      <div class="blog-eyebrow">Writing</div>
+      <h1 class="blog-hero-title">Words &amp;<br><em>Ideas</em></h1>
+    </div>
+    <div class="blog-hero-right fade-up">
+      <p class="blog-hero-desc">
+        I write about design systems, building with AI, open source contributions, and whatever's currently living rent-free in my head.
+      </p>
+      <div class="blog-tags">
+        <a href="#" class="blog-tag active-blue">All</a>
+        <a href="#" class="blog-tag">Design</a>
+        <a href="#" class="blog-tag">AI / ML</a>
+        <a href="#" class="blog-tag">Dev</a>
+        <a href="#" class="blog-tag">Open Source</a>
+        <a href="#" class="blog-tag">Career</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FEATURED -->
+  <section class="featured-section">
+    <div class="section-label">Featured Post</div>
+    <a href="#" class="featured-post">
+      <div class="featured-post-content">
+        <div>
+          <div class="feat-tag">Design × AI</div>
+          <h2 class="feat-title">Why Every Designer Should Learn to Prompt</h2>
+          <p class="feat-excerpt">
+            The line between design and engineering is dissolving faster than most people realize. 
+            Here's how I think about the overlap — and what it means for how we work.
+          </p>
+        </div>
+        <div class="feat-meta">
+          <span>January 2025</span>
+          <span>5 min read</span>
+          <div class="feat-read">Read →</div>
+        </div>
+      </div>
+      <div class="featured-post-visual">
+        <span class="feat-visual-text">AI</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- POSTS GRID -->
+  <section class="posts-section">
+    <div class="section-label">All Posts</div>
+    <div class="posts-grid">
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--orange);color:#fff">Design</span>
+          <span class="pc-year">Dec 2024</span>
+        </div>
+        <h3 class="pc-title">Collage as a Design System</h3>
+        <p class="pc-excerpt">What happens when you treat layered, intentional chaos as a visual language rather than a mistake.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">4 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--blue);color:#fff">AI / ML</span>
+          <span class="pc-year">Nov 2024</span>
+        </div>
+        <h3 class="pc-title">Building with Smolagents — Week 1</h3>
+        <p class="pc-excerpt">My first week using HuggingFace's Smolagents for a real research pipeline. What broke, what surprised me.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">6 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--yellow);color:var(--black)">Dev</span>
+          <span class="pc-year">Oct 2024</span>
+        </div>
+        <h3 class="pc-title">GSAP vs Framer Motion: My Take</h3>
+        <p class="pc-excerpt">After shipping projects with both, here's how I actually decide which animation library to reach for.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">3 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--green);color:#fff">Open Source</span>
+          <span class="pc-year">Sep 2024</span>
+        </div>
+        <h3 class="pc-title">My First PR to LangChain</h3>
+        <p class="pc-excerpt">Contributing to a 89k-star repo for the first time was terrifying. Here's what the process actually looked like.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">7 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--orange);color:#fff">Design</span>
+          <span class="pc-year">Aug 2024</span>
+        </div>
+        <h3 class="pc-title">Typography That Screams (On Purpose)</h3>
+        <p class="pc-excerpt">An exploration of editorial typographic tension — when contrast, weight, and scale are doing the talking.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">5 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-top">
+          <span class="pc-tag" style="background:var(--black);color:#fff">Career</span>
+          <span class="pc-year">Jul 2024</span>
+        </div>
+        <h3 class="pc-title">Learning in Public — 6 Months In</h3>
+        <p class="pc-excerpt">What building and sharing publicly has taught me, changed in me, and occasionally embarrassed me about.</p>
+        <div class="pc-footer">
+          <span class="pc-read-time">8 min read</span>
+          <div class="pc-arrow">↗</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-section">
+    <div class="nl-left">
+      <div class="nl-eyebrow">Stay in the Loop</div>
+      <div class="nl-title">New posts, no spam.<br>Unsubscribe anytime.</div>
+      <p class="nl-sub">Roughly twice a month. Thoughts on design, code, and building things.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input type="email" class="nl-input" placeholder="your@email.com">
+        <button class="nl-btn">Subscribe →</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-sig">Vruddhi Shah</span>
+    <div class="footer-links">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="mailto:hello@vruddhi.dev" class="footer-link">Email</a>
+      <a href="https://linkedin.com" class="footer-link">LinkedIn</a>
+      <a href="https://github.com" class="footer-link">GitHub</a>
+    </div>
+    <span class="footer-link">© 2025 Vruddhi Shah</span>
+  </footer>
+
+</body>
+</html>

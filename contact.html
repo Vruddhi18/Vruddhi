@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Vruddhi Shah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --black: #080705; --white: #FAFAFF; --yellow: #EEF36A;
+      --blue: #192BC2; --orange: #FF7733; --green: #00A86B;
+    }
+    html, body { width:100%; height:100%; font-family:'Space Grotesk',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
+    body::before {
+      content:''; position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:0; opacity:.4;
+    }
+    .bg-glow { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    .glow-blob { position:absolute; border-radius:50%; filter:blur(100px); }
+    .glow-blob:nth-child(1) { width:600px; height:600px; background:var(--blue); top:-10%; left:-10%; opacity:.12; }
+    .glow-blob:nth-child(2) { width:400px; height:400px; background:var(--yellow); bottom:10%; right:-5%; opacity:.07; }
+    .glow-blob:nth-child(3) { width:300px; height:300px; background:var(--orange); top:50%; left:60%; opacity:.06; }
+
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:.9rem clamp(1.5rem,6vw,6rem);
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(8,7,5,.7); backdrop-filter:blur(16px);
+    }
+    .nav-logo { font-weight:700; font-size:1rem; color:var(--white); text-decoration:none; }
+    .nav-logo span { color:var(--yellow); }
+    .nav-links { display:flex; gap:1.5rem; align-items:center; }
+    .nav-link { font-size:.82rem; font-weight:600; color:rgba(255,255,255,.4); text-decoration:none; letter-spacing:.04em; transition:color .2s; }
+    .nav-link:hover { color:var(--white); }
+    .nav-pill-back { background:rgba(255,255,255,.1); color:var(--white); padding:.5rem 1.2rem; border-radius:9999px; font-size:.8rem; font-weight:700; text-decoration:none; letter-spacing:.04em; border:1px solid rgba(255,255,255,.15); transition:background .2s, border-color .2s; }
+    .nav-pill-back:hover { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.3); }
+
+    main {
+      position:relative; z-index:1; min-height:100vh;
+      display:grid; grid-template-columns:1fr 1fr; padding-top:72px;
+    }
+    .contact-left {
+      padding:clamp(3rem,8vh,6rem) clamp(2rem,5vw,6rem);
+      display:flex; flex-direction:column; justify-content:center;
+      border-right:1px solid rgba(255,255,255,.07);
+      min-height:calc(100vh - 72px);
+    }
+    .contact-eyebrow {
+      font-size:.7rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+      color:var(--yellow); margin-bottom:1.5rem;
+      display:flex; align-items:center; gap:.6rem;
+    }
+    .contact-eyebrow::before { content:''; width:20px; height:2px; background:var(--yellow); }
+    .contact-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(3.5rem,7vw,7.5rem); line-height:.9; letter-spacing:-.02em;
+      color:var(--white); margin-bottom:1.5rem;
+    }
+    .contact-title .accent { color:var(--yellow); font-style:italic; }
+    .contact-desc { font-size:clamp(.9rem,1.2vw,1.1rem); color:rgba(255,255,255,.45); line-height:1.7; max-width:380px; margin-bottom:2.5rem; }
+    .contact-info-list { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.5rem; }
+    .contact-info-item {
+      display:flex; align-items:center; gap:1rem; padding:1rem 1.2rem;
+      border-radius:14px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04);
+      text-decoration:none; transition:border-color .25s, background .25s, transform .25s;
+    }
+    .contact-info-item:hover { border-color:var(--yellow); background:rgba(238,243,106,.06); transform:translateX(6px); }
+    .ci-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .ci-label { font-size:.65rem; font-weight:700; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.15rem; }
+    .ci-value { font-size:.9rem; font-weight:600; color:var(--white); }
+    .ci-arrow { margin-left:auto; font-size:1rem; color:rgba(255,255,255,.2); transition:color .2s, transform .2s; }
+    .contact-info-item:hover .ci-arrow { color:var(--yellow); transform:translateX(3px); }
+    .availability { display:inline-flex; align-items:center; gap:.6rem; padding:.5rem 1.1rem; border-radius:9999px; background:rgba(0,168,107,.12); border:1px solid rgba(0,168,107,.3); font-size:.78rem; font-weight:700; color:#4ade80; }
+    .avail-dot { width:8px; height:8px; border-radius:50%; background:var(--green); animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+    .contact-right { padding:clamp(3rem,8vh,6rem) clamp(2rem,5vw,6rem); display:flex; flex-direction:column; justify-content:center; }
+    .form-title { font-size:clamp(1.3rem,2.5vw,1.8rem); font-weight:700; color:var(--white); margin-bottom:2rem; }
+    .form-title span { color:var(--yellow); }
+    .contact-form { display:flex; flex-direction:column; gap:1.1rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .form-group { display:flex; flex-direction:column; gap:.5rem; }
+    .form-label { font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+    .form-input, .form-select, .form-textarea {
+      padding:.85rem 1.1rem; border-radius:12px; border:1.5px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.05); color:var(--white); font-family:inherit;
+      font-size:.9rem; font-weight:500; outline:none; transition:border-color .2s, background .2s;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color:rgba(255,255,255,.25); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--yellow); background:rgba(238,243,106,.05); }
+    .form-input.error, .form-select.error, .form-textarea.error { border-color:#ef4444; background:rgba(239,68,68,.05); }
+    .form-select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; padding-right:2.5rem; }
+    .form-select option { background:#1a1a2e; color:var(--white); }
+    .form-textarea { resize:vertical; min-height:130px; line-height:1.6; }
+
+    .form-submit {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1rem 1.5rem; border-radius:14px; background:var(--yellow); color:var(--black);
+      font-family:inherit; font-size:1rem; font-weight:700; border:none; cursor:pointer;
+      transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, background .25s;
+      margin-top:.3rem;
+    }
+    .form-submit:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 14px 36px rgba(238,243,106,.3); }
+    .form-submit:disabled { opacity:.7; cursor:not-allowed; }
+    .submit-icon { width:36px; height:36px; border-radius:50%; background:rgba(8,7,5,.15); display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:transform .25s; }
+    .form-submit:hover:not(:disabled) .submit-icon { transform:translateX(4px); }
+
+    .spinner { width:16px; height:16px; border:2px solid rgba(8,7,5,.25); border-top-color:var(--black); border-radius:50%; animation:spin .7s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    #toast {
+      position:fixed; bottom:2rem; left:50%;
+      transform:translateX(-50%) translateY(20px);
+      z-index:9999; padding:.9rem 1.8rem; border-radius:14px;
+      font-size:.9rem; font-weight:700;
+      display:flex; align-items:center; gap:.75rem;
+      opacity:0; transition:opacity .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+      pointer-events:none; white-space:nowrap; max-width:90vw;
+    }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    #toast.success { background:#00A86B; color:#fff; box-shadow:0 10px 30px rgba(0,168,107,.35); }
+    #toast.error   { background:#ef4444; color:#fff; box-shadow:0 10px 30px rgba(239,68,68,.35); }
+
+    .marquee-strip { position:fixed; bottom:0; left:0; right:0; z-index:50; border-top:1px solid rgba(255,255,255,.06); overflow:hidden; padding:.55rem 0; background:rgba(8,7,5,.5); backdrop-filter:blur(10px); }
+    .marquee-inner { display:flex; width:max-content; animation:marqueeScroll 20s linear infinite; }
+    .marquee-inner span { font-size:.62rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:rgba(250,250,255,.18); white-space:nowrap; }
+    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    .slide-in { opacity:0; transform:translateX(-20px); animation:slideIn .6s ease forwards; }
+    .slide-in-right { opacity:0; transform:translateX(20px); animation:slideInRight .65s .25s ease forwards; }
+    @keyframes slideIn { to{opacity:1;transform:translateX(0)} }
+    @keyframes slideInRight { to{opacity:1;transform:translateX(0)} }
+    .slide-in:nth-child(1){animation-delay:.1s} .slide-in:nth-child(2){animation-delay:.2s} .slide-in:nth-child(3){animation-delay:.3s}
+
+    @media(max-width:900px) {
+      main { grid-template-columns:1fr; }
+      .contact-left { border-right:none; border-bottom:1px solid rgba(255,255,255,.07); min-height:auto; }
+    }
+    @media(max-width:600px) { .form-row{grid-template-columns:1fr} main{padding-bottom:50px} }
+  </style>
+</head>
+<body>
+
+<div class="bg-glow">
+  <div class="glow-blob"></div>
+  <div class="glow-blob"></div>
+  <div class="glow-blob"></div>
+</div>
+
+<div id="toast"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Vruddhi <span>Shah</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="index.html" class="nav-pill-back">← Back to portfolio</a>
+  </div>
+</nav>
+
+<main>
+  <div class="contact-left">
+    <div class="contact-eyebrow slide-in">Say Hello</div>
+    <h1 class="contact-title slide-in">Let's Make<br>Something<br><span class="accent">Great.</span></h1>
+    <p class="contact-desc slide-in">Open to freelance projects, creative collaborations, full-time roles, and interesting conversations. If you have an idea, let's talk.</p>
+
+    <div class="contact-info-list">
+      <a href="mailto:hello@vruddhi.dev" class="contact-info-item">
+        <div class="ci-icon" style="background:rgba(238,243,106,.1)">✉</div>
+        <div><div class="ci-label">Email</div><div class="ci-value">hello@vruddhi.dev</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-info-item">
+        <div class="ci-icon" style="background:rgba(25,43,194,.2)">in</div>
+        <div><div class="ci-label">LinkedIn</div><div class="ci-value">linkedin.com/in/vruddhi</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+      <a href="https://github.com" target="_blank" class="contact-info-item">
+        <div class="ci-icon" style="background:rgba(255,255,255,.08)">⌥</div>
+        <div><div class="ci-label">GitHub</div><div class="ci-value">github.com/vruddhi</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+      <a href="https://dribbble.com" target="_blank" class="contact-info-item">
+        <div class="ci-icon" style="background:rgba(255,119,51,.15)">◎</div>
+        <div><div class="ci-label">Dribbble</div><div class="ci-value">dribbble.com/vruddhi</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="availability">
+      <div class="avail-dot"></div>
+      Available for new projects
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <h2 class="form-title slide-in-right">Send a <span>message</span> ✦</h2>
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input id="field-name" type="text" class="form-input" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input id="field-email" type="email" class="form-input" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">What's this about?</label>
+        <select id="field-topic" class="form-select">
+          <option value="" disabled selected>Choose a topic</option>
+          <option value="Freelance project">Freelance project</option>
+          <option value="Collaboration">Collaboration</option>
+          <option value="Job opportunity">Job opportunity</option>
+          <option value="Open source">Open source</option>
+          <option value="Blog / writing">Blog / writing</option>
+          <option value="Just saying hi">Just saying hi 👋</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your message</label>
+        <textarea id="field-message" class="form-textarea" placeholder="Tell me what you're working on, what you need, or just say hello..." required></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="submitBtn">
+        <span id="submitText">Send it →</span>
+        <div class="submit-icon" id="submitIcon">✦</div>
+      </button>
+    </form>
+  </div>
+</main>
+
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Design · Code · Create · Collaborate · Build · Ship · Design · Code · Create · Collaborate · Build · Ship · Design · Code · Create · Collaborate · Build · Ship ·&nbsp;</span>
+    <span>Design · Code · Create · Collaborate · Build · Ship · Design · Code · Create · Collaborate · Build · Ship · Design · Code · Create · Collaborate · Build · Ship ·&nbsp;</span>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // ⚠️  STEP 1 — Paste your Supabase credentials here
+  //    supabase.com → your project → Settings → API
+  // ================================================================
+  const SUPABASE_URL  = 'https://vjrvapoxlwcimprhswom.supabase.co';  // ← replace
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqcnZhcG94bHdjaW1wcmhzd29tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NzQ0MTIsImV4cCI6MjA4NzM1MDQxMn0.OHDDz8nXO_UGKJX3oRKq_tWu5f528XYpH94Io08pqXE';                 // ← replace
+  // ================================================================
+
+  const { createClient } = supabase;
+  const db = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  // ---- Toast ----
+  let toastTimer;
+  function showToast(msg, type = 'success', ms = 5000) {
+    const t = document.getElementById('toast');
+    t.className = `show ${type}`;
+    t.innerHTML = `<span>${type === 'success' ? '✓' : '✕'}</span><span>${msg}</span>`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), ms);
+  }
+
+  // ---- Button helpers ----
+  const btn     = document.getElementById('submitBtn');
+  const btnText = document.getElementById('submitText');
+  const btnIcon = document.getElementById('submitIcon');
+
+  function setLoading(on) {
+    btn.disabled = on;
+    btnText.innerHTML = on ? 'Sending…' : 'Send it →';
+    btnIcon.innerHTML = on ? '<span class="spinner"></span>' : '✦';
+  }
+
+  function setSuccess() {
+    btn.style.cssText = 'background:#00A86B;color:#fff;cursor:default';
+    btnText.innerHTML = 'Message sent! 🎉';
+    btnIcon.innerHTML = '✓';
+    btnIcon.style.background = 'rgba(255,255,255,.2)';
+  }
+
+  function resetBtn() {
+    btn.style.cssText = '';
+    btnIcon.style.background = '';
+    setLoading(false);
+  }
+
+  // ---- Validate ----
+  function validate(name, email, message) {
+    let ok = true;
+    [['field-name', name], ['field-email', email], ['field-message', message]].forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!val.trim()) { el.classList.add('error'); ok = false; }
+      else el.classList.remove('error');
+    });
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('field-email').classList.add('error');
+      ok = false;
+    }
+    return ok;
+  }
+
+  // ---- Submit handler ----
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name    = document.getElementById('field-name').value.trim();
+    const email   = document.getElementById('field-email').value.trim();
+    const topic   = document.getElementById('field-topic').value || 'Not specified';
+    const message = document.getElementById('field-message').value.trim();
+
+    if (!validate(name, email, message)) {
+      showToast('Please fill in all required fields.', 'error', 3500);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 1️⃣  Save to Supabase — the DB Webhook fires the email notification
+      //     server-side automatically. No Edge Function call needed from browser.
+      const { error: dbError } = await db
+        .from('contact_submissions')
+        .insert([{ name, email, topic, message }]);
+
+      if (dbError) throw dbError;
+
+      // ✅ Done — webhook handles the email server-side (no CORS issues)
+      setSuccess();
+      showToast(`Thanks ${name.split(' ')[0]}! I'll be in touch soon. ✦`, 'success', 6000);
+      e.target.reset();
+      setTimeout(resetBtn, 4500);
+
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      showToast('Something went wrong — try emailing me directly!', 'error', 6000);
+    }
+  });
+</script>

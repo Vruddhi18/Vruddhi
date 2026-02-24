@@ -15,6 +15,8 @@
       <button class="nav-pill yellow" data-section="0">Home</button>
       <button class="nav-pill blue"   data-section="2">Work</button>
       <button class="nav-pill orange" data-section="1">About</button>
+      <a href="blog.html" class="nav-pill green-pill">Blog</a>
+      <a href="contact.html" class="nav-pill dark-pill">Contact</a>
     </div>
   </nav>
 
@@ -34,6 +36,9 @@
     <button class="dot" data-section="3"></button>
     <button class="dot" data-section="4"></button>
     <button class="dot" data-section="5"></button>
+    <button class="dot" data-section="6"></button>
+    <button class="dot" data-section="7"></button>
+    <button class="dot" data-section="8"></button>
   </div>
 
   <!-- ================================================
@@ -41,7 +46,6 @@
   ================================================= -->
   <section id="hero" class="fullpage-section active">
     <div class="section-inner">
-
       <div class="hero-left">
         <h1 class="hero-title">Vruddhi<br>Shah</h1>
         <div class="hero-sub">
@@ -86,7 +90,6 @@
           <div id="badge-photo-fallback" class="badge-photo-fallback">VS</div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -164,7 +167,7 @@
   </section>
 
   <!-- ================================================
-       SECTION 2: WORK (teaser → work.html)
+       SECTION 2: WORK
   ================================================= -->
   <section id="work-section" class="fullpage-section">
     <div class="work-inner">
@@ -208,7 +211,6 @@
       </div>
 
       <div class="proj-grid">
-        <!-- Card 1 -->
         <div class="proj-card" data-index="01">
           <div class="proj-card-top">
             <span class="proj-tag">AI / ML</span>
@@ -224,7 +226,6 @@
           </div>
         </div>
 
-        <!-- Card 2 -->
         <div class="proj-card" data-index="02">
           <div class="proj-card-top">
             <span class="proj-tag" style="background:var(--blue);color:var(--white)">Design</span>
@@ -240,7 +241,6 @@
           </div>
         </div>
 
-        <!-- Card 3 -->
         <div class="proj-card" data-index="03">
           <div class="proj-card-top">
             <span class="proj-tag" style="background:var(--orange);color:var(--white)">Dev</span>
@@ -305,13 +305,163 @@
   </section>
 
   <!-- ================================================
-       SECTION 5: PLAY + FOOTER
+       SECTION 5: GITHUB CONTRIBUTIONS
+  ================================================= -->
+  <section id="github-section" class="fullpage-section">
+    <div class="github-inner">
+      <div class="work-label" style="color:var(--yellow);">05 — OPEN SOURCE</div>
+      <h2 class="github-title">GitHub<br><em>Contributions</em></h2>
+      <p class="github-sub">Active contributor to AI, tooling, and design-engineering repos.</p>
+
+      <div class="contrib-grid">
+        <!-- Repo Card 1 -->
+        <div class="contrib-card">
+          <div class="contrib-card-header">
+            <svg class="contrib-gh-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.68.82.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="contrib-repo-meta">
+              <span class="contrib-repo-name">huggingface/smolagents</span>
+              <span class="contrib-repo-lang" style="color:#3572A5">● Python</span>
+            </div>
+            <div class="contrib-stars">★ 12.4k</div>
+          </div>
+          <p class="contrib-desc">Added multi-step tool chaining support and improved error handling for async agents.</p>
+          <div class="contrib-footer">
+            <span class="contrib-pr merged">✓ 3 PRs Merged</span>
+            <span class="contrib-type">Feature · Bug Fix</span>
+          </div>
+        </div>
+
+        <!-- Repo Card 2 -->
+        <div class="contrib-card">
+          <div class="contrib-card-header">
+            <svg class="contrib-gh-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.68.82.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="contrib-repo-meta">
+              <span class="contrib-repo-name">langchain-ai/langchain</span>
+              <span class="contrib-repo-lang" style="color:#3572A5">● Python</span>
+            </div>
+            <div class="contrib-stars">★ 89.2k</div>
+          </div>
+          <p class="contrib-desc">Contributed FastAPI integration docs and fixed memory leak in streaming callbacks.</p>
+          <div class="contrib-footer">
+            <span class="contrib-pr merged">✓ 2 PRs Merged</span>
+            <span class="contrib-type">Docs · Bug Fix</span>
+          </div>
+        </div>
+
+        <!-- Repo Card 3 -->
+        <div class="contrib-card">
+          <div class="contrib-card-header">
+            <svg class="contrib-gh-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.68.82.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="contrib-repo-meta">
+              <span class="contrib-repo-name">vitejs/vite</span>
+              <span class="contrib-repo-lang" style="color:#f1e05a">● TypeScript</span>
+            </div>
+            <div class="contrib-stars">★ 66.1k</div>
+          </div>
+          <p class="contrib-desc">Improved HMR stability for CSS modules and added edge case tests for plugin API.</p>
+          <div class="contrib-footer">
+            <span class="contrib-pr open">⟳ 1 PR Open</span>
+            <span class="contrib-type">Enhancement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contribution heatmap preview -->
+      <div class="heatmap-preview">
+        <div class="heatmap-label">2024 Activity</div>
+        <div class="heatmap-grid" id="heatmap-grid"></div>
+        <div class="heatmap-legend">
+          <span>Less</span>
+          <div class="legend-cell" style="background:rgba(238,243,106,.15)"></div>
+          <div class="legend-cell" style="background:rgba(238,243,106,.35)"></div>
+          <div class="legend-cell" style="background:rgba(238,243,106,.6)"></div>
+          <div class="legend-cell" style="background:rgba(238,243,106,.85)"></div>
+          <div class="legend-cell" style="background:#EEF36A"></div>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 6: BLOG PREVIEW
+  ================================================= -->
+  <section id="blog-preview-section" class="fullpage-section">
+    <div class="blog-preview-inner">
+      <div class="blog-preview-left">
+        <div class="work-label" style="color:var(--blue);">06 — BLOG</div>
+        <h2 class="blog-preview-title">Words &amp;<br><em>Ideas</em></h2>
+        <p class="blog-preview-sub">Writing about design systems, AI tools, building in public, and things that excite me.</p>
+        <a href="blog.html" class="cta-pill" style="margin-top:.5rem">
+          Read all posts
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="blog-preview-right">
+        <a href="blog.html" class="blog-card-preview featured">
+          <div class="bcp-tag">Featured</div>
+          <h3 class="bcp-title">Why Every Designer Should Learn to Prompt</h3>
+          <p class="bcp-excerpt">The line between design and engineering is dissolving. Here's how I think about it.</p>
+          <div class="bcp-meta">
+            <span>Jan 2025</span>
+            <span>5 min read</span>
+          </div>
+        </a>
+        <div class="blog-cards-stack">
+          <a href="blog.html" class="blog-card-preview small">
+            <div class="bcp-dot" style="background:var(--orange)"></div>
+            <div>
+              <h4 class="bcp-title-sm">Collage as a Design System</h4>
+              <span class="bcp-meta-sm">Dec 2024 · 4 min</span>
+            </div>
+          </a>
+          <a href="blog.html" class="blog-card-preview small">
+            <div class="bcp-dot" style="background:var(--green)"></div>
+            <div>
+              <h4 class="bcp-title-sm">Building with Smolagents — Week 1</h4>
+              <span class="bcp-meta-sm">Nov 2024 · 6 min</span>
+            </div>
+          </a>
+          <a href="blog.html" class="blog-card-preview small">
+            <div class="bcp-dot" style="background:var(--blue)"></div>
+            <div>
+              <h4 class="bcp-title-sm">GSAP vs Framer Motion: My Take</h4>
+              <span class="bcp-meta-sm">Oct 2024 · 3 min</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 7: CONTACT PREVIEW
+  ================================================= -->
+  <section id="contact-preview-section" class="fullpage-section">
+    <div class="contact-preview-inner">
+      <div class="work-label" style="color:rgba(250,250,255,.4);">07 — CONTACT</div>
+      <h2 class="contact-preview-title">Let's Make<br>Something<br><span class="contact-yellow">Great.</span></h2>
+      <p class="contact-preview-sub">Open to freelance projects, collaborations, and interesting conversations.</p>
+      <a href="contact.html" class="cta-pill contact-cta">
+        Get in touch
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="contact-preview-links">
+        <a href="mailto:hello@vruddhi.dev" class="cp-link">✉ hello@vruddhi.dev</a>
+        <a href="https://linkedin.com" target="_blank" class="cp-link">↗ LinkedIn</a>
+        <a href="https://github.com" target="_blank" class="cp-link">↗ GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 8: PLAY + FOOTER
   ================================================= -->
   <section id="play-section" class="fullpage-section">
     <div class="play-inner">
-      <!-- Play teaser -->
       <div class="play-content">
-        <div class="work-label" style="color:var(--yellow);">05 — PLAY</div>
+        <div class="work-label" style="color:var(--yellow);">08 — PLAY</div>
         <h2 class="play-title">Just for<br>Fun ✦</h2>
         <p class="play-sub">Experiments, weird ideas, and side-quests that exist purely because I wanted them to.</p>
         <a href="play.html" class="cta-pill cta-dark">
@@ -327,25 +477,20 @@
         </div>
       </div>
 
-      <!-- Footer -->
       <footer class="site-footer">
         <div class="footer-inner">
           <div class="footer-left">
             <p class="footer-sig">Vruddhi Shah</p>
             <p class="footer-copy">© 2025 — All rights reserved</p>
           </div>
-
           <div class="footer-links">
             <a href="mailto:hello@vruddhi.dev" class="footer-link">Email</a>
             <a href="https://linkedin.com" target="_blank" class="footer-link">LinkedIn</a>
             <a href="https://github.com" target="_blank" class="footer-link">GitHub</a>
             <a href="https://dribbble.com" target="_blank" class="footer-link">Dribbble</a>
           </div>
-
           <div class="footer-right">
-            <a href="#" class="footer-back-top" id="back-to-top">
-              Back to top ↑
-            </a>
+            <a href="#" class="footer-back-top" id="back-to-top">Back to top ↑</a>
           </div>
         </div>
         <div class="footer-marquee-wrap">

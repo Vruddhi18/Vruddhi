@@ -1,6 +1,6 @@
 // ================================================================
 // PORTFOLIO SCRIPT
-// Fullpage scroll  +  Lanyard drop entrance + physics drag  +  Lottie
+// Fullpage scroll + Lanyard + physics drag + Lottie + GitHub heatmap
 // ================================================================
 
 // ================================================================
@@ -84,10 +84,11 @@ class FullPageScroll {
         this.animating = false;
         this.updateDots();
 
-        // Animate project cards on enter
+        // Section-specific entrance animations
         if (index === 3) animateProjCards();
-        // Animate cert rows on enter
         if (index === 4) animateCertRows();
+        if (index === 5) animateGithub();
+        if (index === 6) animateBlogPreview();
       }
     });
 
@@ -99,7 +100,7 @@ class FullPageScroll {
 }
 
 // ================================================================
-// PROJECT CARD ENTRANCE
+// ENTRANCE ANIMATIONS
 // ================================================================
 
 let projAnimated = false;
@@ -112,10 +113,6 @@ function animateProjCards() {
   );
 }
 
-// ================================================================
-// CERT ROW ENTRANCE
-// ================================================================
-
 let certAnimated = false;
 function animateCertRows() {
   if (certAnimated) return;
@@ -124,6 +121,63 @@ function animateCertRows() {
     { opacity: 0, x: -24 },
     { opacity: 1, x: 0, duration: 0.45, ease: 'power3.out', stagger: 0.09, delay: 0.1 }
   );
+}
+
+let githubAnimated = false;
+function animateGithub() {
+  if (githubAnimated) return;
+  githubAnimated = true;
+  gsap.fromTo('.contrib-card',
+    { opacity: 0, y: 28 },
+    { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1, delay: 0.1 }
+  );
+  // Animate heatmap cells
+  gsap.fromTo('.heatmap-cell',
+    { opacity: 0, scale: 0 },
+    { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.7)', stagger: { amount: 0.8, from: 'start' }, delay: 0.4 }
+  );
+}
+
+let blogAnimated = false;
+function animateBlogPreview() {
+  if (blogAnimated) return;
+  blogAnimated = true;
+  gsap.fromTo('.blog-card-preview',
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.1, delay: 0.15 }
+  );
+}
+
+// ================================================================
+// GITHUB HEATMAP GENERATOR
+// ================================================================
+
+function buildHeatmap() {
+  const grid = document.getElementById('heatmap-grid');
+  if (!grid) return;
+
+  // Generate ~52 weeks × 7 days of fake contribution data
+  const totalWeeks = 42;
+  const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4]; // weight distribution
+
+  for (let w = 0; w < totalWeeks; w++) {
+    const col = document.createElement('div');
+    col.className = 'heatmap-col';
+
+    for (let d = 0; d < 7; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'heatmap-cell';
+
+      const level = levels[Math.floor(Math.random() * levels.length)];
+      const alphas = [0.06, 0.2, 0.45, 0.7, 1];
+      cell.style.background = `rgba(238,243,106,${alphas[level]})`;
+      cell.title = `${level * 2 + Math.floor(Math.random() * 3)} contributions`;
+
+      col.appendChild(cell);
+    }
+
+    grid.appendChild(col);
+  }
 }
 
 // ================================================================
@@ -303,8 +357,9 @@ function initLanyard() {
   }, 350);
 }
 
+
 // ================================================================
-// ENTRANCE — hero text slides up
+// HERO ENTRANCE
 // ================================================================
 
 function playEntrance() {
@@ -340,5 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanyard();
   initLottie();
   playEntrance();
+  buildHeatmap();
   console.log('Portfolio ready 🚀');
 });
