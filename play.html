@@ -3110,428 +3110,936 @@
   </section>
 
   <!-- TOY 10 -->
-  <div class="coffee-brewer-section">
-  <div class="cb-container">
-    
-    <!-- Controls Panel -->
-    <div class="cb-controls">
-      <h3 class="cb-title">Virtual Barista</h3>
-      
-      <div class="cb-group">
-        <label>Coffee Roast / Type</label>
-        <select id="cb-type" class="cb-input">
-          <option value="espresso">Espresso</option>
-          <option value="latte">Latte</option>
-          <option value="cappuccino">Cappuccino</option>
-          <option value="americano">Americano</option>
-          <option value="french-press">French Press</option>
-          <option value="pour-over">Pour Over</option>
-        </select>
-      </div>
+  <div class="premium-coffee-sim">
+    <div class="sim-wrapper">
 
-      <div class="cb-group">
-        <label>
-          <span>Strength Profile</span>
-          <span id="cb-strength-val" class="cb-val">3</span>
-        </label>
-        <input type="range" id="cb-strength" class="cb-input" min="1" max="5" value="3">
-      </div>
+      <!-- Control Panel -->
+      <div class="sim-controls">
+        <h2>Advanced Brewer</h2>
+        <p class="subtitle">Configure your extraction parameters.</p>
 
-      <div class="cb-group">
-        <label class="cb-toggle-label">
-          <span>Add Steamed Milk</span>
-          <input type="checkbox" id="cb-milk">
-          <span class="cb-toggle-slider"></span>
-        </label>
-      </div>
+        <div class="control-block">
+          <label>Extraction Method</label>
+          <select id="sim-method">
+            <option value="espresso">Espresso (High Pressure)</option>
+            <option value="pour-over">Pour Over (V60)</option>
+            <option value="french-press">French Press (Immersion)</option>
+          </select>
+        </div>
 
-      <div class="cb-group">
-        <label>
-          <span>Sugar Cubes</span>
-          <span id="cb-sugar-val" class="cb-val">0</span>
-        </label>
-        <input type="range" id="cb-sugar" class="cb-input" min="0" max="3" value="0">
-      </div>
+        <div class="control-block">
+          <label>Roast Strength <span><span id="str-val">3</span> / 5</span></label>
+          <input type="range" id="sim-strength" min="1" max="5" value="3">
+        </div>
 
-      <button id="cb-start-btn" class="cb-btn">Start Brewing</button>
-    </div>
+        <div class="control-block toggle-block">
+          <label>Steam Milk</label>
+          <label class="switch">
+            <input type="checkbox" id="sim-milk">
+            <span class="slider"></span>
+          </label>
+        </div>
 
-    <!-- Visual Simulation Panel -->
-    <div class="cb-display">
-      <div class="cb-cup-area">
-        <div class="cb-steam" id="cb-steam"></div>
-        <div class="cb-cup">
-          <div class="cb-liquid" id="cb-liquid"></div>
+        <div class="control-block">
+          <label>Sugar Cubes <span><span id="sug-val">0</span></span></label>
+          <input type="range" id="sim-sugar" min="0" max="3" value="0">
+        </div>
+
+        <button id="sim-start" class="btn-primary">Initiate Brew Sequence</button>
+
+        <div class="sim-log-wrap">
+          <p class="log-title">SYSTEM LOG</p>
+          <ul id="sim-log"></ul>
         </div>
       </div>
-      
-      <div class="cb-status-screen">
-        <p id="cb-status-text">Ready to brew. Waiting for order.</p>
-        <div class="cb-progress-bar">
-          <div class="cb-progress-fill" id="cb-progress"></div>
+
+      <!-- Visualizer Panel -->
+      <div class="sim-visuals">
+        <div class="status-overlay" id="sim-status">SYSTEM IDLE</div>
+
+        <!-- The dynamic attachment (Portafilter / V60 / Plunger) -->
+        <div class="brewer-head" id="brewer-head">
+          <div class="stream" id="stream"></div>
         </div>
+
+        <!-- The physically modelled cup -->
+        <div class="glass-cup" id="glass-cup">
+          <div class="liquid-body" id="liquid-body">
+            <div class="liquid-surface" id="liquid-surface"></div>
+            <div class="sugar-cube" id="sugar-cube"></div>
+          </div>
+          <div class="spoon" id="spoon"></div>
+        </div>
+
+        <div class="ambient-steam" id="ambient-steam"></div>
       </div>
     </div>
-    
+
+    <style>
+      /* Premium Coffee Sim Scoped Styles */
+      .premium-coffee-sim {
+        font-family: 'Helvetica Neue', system-ui, sans-serif;
+        background: #111111;
+        color: #EAEAEA;
+        padding: 2rem;
+        border-radius: 16px;
+        max-width: 900px;
+        margin: 2rem auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        --accent: #D4A373;
+        --accent-hover: #A67B5B;
+        --glass: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.1);
+      }
+
+      .premium-coffee-sim * {
+        box-sizing: border-box;
+      }
+
+      .sim-wrapper {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 2rem;
+      }
+
+      @media(max-width: 768px) {
+        .sim-wrapper {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Controls */
+      .sim-controls {
+        background: var(--glass);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .sim-controls h2 {
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: #fff;
+      }
+
+      .sim-controls .subtitle {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 2rem;
+      }
+
+      .control-block {
+        margin-bottom: 1.5rem;
+      }
+
+      .control-block label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #BBB;
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.5px;
+      }
+
+      .control-block select,
+      .control-block input[type="range"] {
+        width: 100%;
+      }
+
+      .control-block select {
+        background: #222;
+        color: #fff;
+        border: 1px solid var(--border);
+        padding: 0.8rem;
+        border-radius: 6px;
+        outline: none;
+        appearance: none;
+        font-size: 0.9rem;
+      }
+
+      /* Toggle Switch */
+      .toggle-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .toggle-block label {
+        margin: 0;
+      }
+
+      .switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        cursor: pointer;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #333;
+        transition: .3s;
+        border-radius: 34px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: #888;
+        transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        border-radius: 50%;
+      }
+
+      .switch input:checked+.slider {
+        background-color: var(--accent);
+      }
+
+      .switch input:checked+.slider:before {
+        transform: translateX(20px);
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(212, 163, 115, 0.8);
+      }
+
+      .btn-primary {
+        width: 100%;
+        background: var(--accent);
+        color: #111;
+        font-weight: 700;
+        border: none;
+        padding: 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.2s;
+        margin-top: 1rem;
+      }
+
+      .btn-primary:not(:disabled):hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(212, 163, 115, 0.2);
+      }
+
+      .btn-primary:disabled {
+        background: #333;
+        color: #666;
+        cursor: not-allowed;
+      }
+
+      .sim-log-wrap {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border);
+        padding-top: 1.5rem;
+      }
+
+      .log-title {
+        font-size: 0.7rem;
+        color: #666;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+      }
+
+      #sim-log {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: #AAA;
+        max-height: 120px;
+        overflow-y: auto;
+      }
+
+      #sim-log li {
+        margin-bottom: 0.4rem;
+        animation: textFade 0.3s ease-in;
+        opacity: 0.6;
+      }
+
+      #sim-log li:last-child {
+        color: var(--accent);
+        opacity: 1;
+        font-weight: bold;
+      }
+
+      @keyframes textFade {
+        from {
+          opacity: 0;
+          transform: translateX(-5px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Visualizer Area */
+      .sim-visuals {
+        background: radial-gradient(circle at 50% 70%, #2A2118 0%, #111 70%);
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 4rem;
+        border: 1px solid var(--border);
+      }
+
+      #sim-status {
+        position: absolute;
+        top: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: monospace;
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        color: var(--accent);
+        background: rgba(212, 163, 115, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: 1px solid rgba(212, 163, 115, 0.2);
+      }
+
+      /* Machine Attachments */
+      .brewer-head {
+        position: absolute;
+        top: 50px;
+        width: 80px;
+        height: 40px;
+        z-index: 10;
+        transition: all 0.5s ease;
+      }
+
+      /* Espresso Portafilter Mode */
+      .brewer-head.mode-espresso {
+        background: linear-gradient(to right, #444, #777, #444);
+        border-radius: 0 0 10px 10px;
+        border-bottom: 4px solid #222;
+      }
+
+      .brewer-head.mode-espresso::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 14px;
+        height: 8px;
+        background: #333;
+        border-radius: 0 0 4px 4px;
+      }
+
+      /* Pour Over Mode */
+      .brewer-head.mode-pour-over {
+        width: 100px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+        clip-path: polygon(0 0, 100% 0, 60% 100%, 40% 100%);
+        border-top: 4px solid #FFF;
+      }
+
+      /* French Press Plunger Mode */
+      .brewer-head.mode-french-press {
+        width: 120px;
+        height: 10px;
+        background: #555;
+        top: 150px;
+        /* starts high */
+        border-radius: 4px;
+        transition: top 3s ease-in-out;
+      }
+
+      .brewer-head.mode-french-press::before {
+        content: '';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 150px;
+        background: #777;
+        /* The rod */
+      }
+
+      /* Streams */
+      .stream {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0px;
+        height: 0px;
+        background: linear-gradient(to bottom, #1B0F08, #3E2413);
+        box-shadow: 0 0 10px rgba(62, 36, 19, 0.5);
+        transition: height 0.4s ease-out, width 0.2s, background 1s;
+        border-radius: 4px;
+        opacity: 0;
+      }
+
+      .stream.active-espresso {
+        width: 4px;
+        height: 110px;
+        opacity: 1;
+        animation: wobble 0.1s infinite alternate;
+      }
+
+      .stream.active-pour-over {
+        width: 6px;
+        height: 110px;
+        opacity: 0.8;
+        background: rgba(92, 58, 33, 0.7);
+        animation: pulseStream 1.5s infinite;
+      }
+
+      @keyframes wobble {
+        0% {
+          transform: translateX(-50%) rotate(-1deg);
+        }
+
+        100% {
+          transform: translateX(-50%) rotate(1deg);
+        }
+      }
+
+      @keyframes pulseStream {
+
+        0%,
+        100% {
+          width: 4px;
+        }
+
+        50% {
+          width: 8px;
+        }
+      }
+
+      /* The Glass Carafe / Cup */
+      .glass-cup {
+        width: 140px;
+        height: 140px;
+        position: relative;
+        border-radius: 5px 5px 20px 20px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.1));
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-top: none;
+        box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.5), 0 20px 30px rgba(0, 0, 0, 0.8);
+        z-index: 5;
+        overflow: hidden;
+      }
+
+      .glass-cup::before {
+        /* Cup Lip */
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -2px;
+        right: -2px;
+        height: 10px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        z-index: 10;
+      }
+
+      /* Advanced Liquid Physics Layers */
+      .liquid-body {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0%;
+        /* FILLS UP */
+        background: #1B0F08;
+        transition: height 0.5s linear, background-color 2s ease;
+        transform-origin: bottom center;
+      }
+
+      /* 3D Surface Layer (Crema/Foam) */
+      .liquid-surface {
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        height: 20px;
+        border-radius: 50%;
+        background: #25160A;
+        /* Dark base surface */
+        transition: background 2s ease;
+        box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Dynamic Liquid States */
+      .state-espresso-start {
+        background: #0A0502;
+      }
+
+      .state-espresso-crema {
+        background: #8C5C38;
+      }
+
+      /* Crema surface */
+      .state-milk-add {
+        background: #C49B76 !important;
+      }
+
+      .state-milk-foam {
+        background: #EFEFEF !important;
+        box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .state-pour-over {
+        background: rgba(62, 36, 19, 0.85);
+      }
+
+      .state-pour-over-surface {
+        background: rgba(74, 46, 27, 0.9);
+      }
+
+      /* Stirring Animation */
+      .spoon {
+        position: absolute;
+        top: -50px;
+        right: 20px;
+        width: 6px;
+        height: 120px;
+        background: linear-gradient(to right, #CCC, #FFF, #AAA);
+        border-radius: 10px;
+        z-index: 8;
+        opacity: 0;
+        transform-origin: top center;
+        transition: opacity 0.3s;
+      }
+
+      .spoon.stirring {
+        opacity: 1;
+        animation: stirMotion 0.8s infinite linear;
+      }
+
+      @keyframes stirMotion {
+        0% {
+          transform: rotate(10deg) translateX(0);
+        }
+
+        25% {
+          transform: rotate(5deg) translateX(-15px);
+        }
+
+        50% {
+          transform: rotate(-5deg) translateX(-20px);
+        }
+
+        75% {
+          transform: rotate(-10deg) translateX(-5px);
+        }
+
+        100% {
+          transform: rotate(10deg) translateX(0);
+        }
+      }
+
+      /* Ambient Steam */
+      .ambient-steam {
+        position: absolute;
+        top: 120px;
+        width: 100%;
+        height: 100px;
+        pointer-events: none;
+        z-index: 15;
+      }
+
+      .steam-cloud {
+        position: absolute;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        filter: blur(12px);
+        opacity: 0;
+        animation: rise 3s ease-in forwards;
+      }
+
+      @keyframes rise {
+        0% {
+          transform: translateY(0) scale(1) rotate(0deg);
+          opacity: 0;
+        }
+
+        20% {
+          opacity: 0.8;
+        }
+
+        100% {
+          transform: translateY(-150px) scale(3) rotate(20deg);
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <script>
+      (function () {
+        // --- CONTROLS ---
+        const metSel = document.getElementById('sim-method');
+        const strSel = document.getElementById('sim-strength');
+        const milSel = document.getElementById('sim-milk');
+        const sugSel = document.getElementById('sim-sugar');
+        const btn = document.getElementById('sim-start');
+        const logUl = document.getElementById('sim-log');
+
+        // --- UI ELEMENTS ---
+        const statusDisp = document.getElementById('sim-status');
+        const head = document.getElementById('brewer-head');
+        const stream = document.getElementById('stream');
+        const liquid = document.getElementById('liquid-body');
+        const surface = document.getElementById('liquid-surface');
+        const spoon = document.getElementById('spoon');
+        const steamArea = document.getElementById('ambient-steam');
+
+        // Live updates
+        strSel.addEventListener('input', e => document.getElementById('str-val').textContent = e.target.value);
+        sugSel.addEventListener('input', e => document.getElementById('sug-val').textContent = e.target.value);
+        metSel.addEventListener('change', e => setupVisuals(e.target.value));
+
+        // --- NATIVE PROCEDURAL ASMR ENGINE (Zero Dependencies) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const activeNodes = {};
+
+        const _createNoise = () => {
+          const bufferSize = audioCtx.sampleRate * 2;
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+          const src = audioCtx.createBufferSource();
+          src.buffer = buffer; src.loop = true; return src;
+        };
+
+        const ASMR = {
+          grind: () => {
+            const src = _createNoise();
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 600;
+            const osc = audioCtx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 55;
+            const gain = audioCtx.createGain(); gain.gain.value = 0.8;
+            src.connect(filter).connect(gain); osc.connect(gain); gain.connect(audioCtx.destination);
+            src.start(); osc.start();
+            return { src, osc, gain };
+          },
+          heat: () => {
+            const src = _createNoise();
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 150;
+            const gain = audioCtx.createGain(); gain.gain.value = 0.5;
+            src.connect(filter).connect(gain).connect(audioCtx.destination);
+            src.start();
+            return { src, gain };
+          },
+          pour: () => {
+            const src = _createNoise();
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'bandpass'; filter.Q.value = 1.0; filter.frequency.value = 800;
+            const gain = audioCtx.createGain(); gain.gain.value = 0.4;
+            src.connect(filter).connect(gain).connect(audioCtx.destination);
+            src.start();
+            return { src, gain };
+          },
+          steam: () => {
+            const src = _createNoise();
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'highpass'; filter.frequency.value = 5000;
+            const gain = audioCtx.createGain(); gain.gain.value = 0.25;
+            src.connect(filter).connect(gain).connect(audioCtx.destination);
+            src.start();
+            return { src, gain };
+          },
+          stir: () => {
+            const osc = audioCtx.createOscillator(); osc.type = 'sine'; osc.frequency.value = 2500;
+            const gain = audioCtx.createGain(); gain.gain.value = 0;
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            let stirInt = setInterval(() => {
+              osc.frequency.setValueAtTime(2000 + Math.random() * 800, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0, audioCtx.currentTime);
+              gain.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.02);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            }, 400);
+            return { osc, gain, interval: stirInt };
+          }
+        };
+
+        const playSfx = (id, loop = false) => {
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          if (activeNodes[id]) stopSfx(id);
+          if (ASMR[id]) activeNodes[id] = ASMR[id]();
+        };
+        const stopSfx = (id) => {
+          if (activeNodes[id]) {
+            const n = activeNodes[id];
+            if (n.gain) n.gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2);
+            setTimeout(() => {
+              if (n.src) n.src.stop(); if (n.osc) n.osc.stop(); if (n.interval) clearInterval(n.interval);
+            }, 250);
+            delete activeNodes[id];
+          }
+        };
+        const stopAllSfx = () => Object.keys(activeNodes).forEach(k => stopSfx(k));
+
+        // --- SIMULATION ENGINE ---
+        const delay = ms => new Promise(r => setTimeout(r, ms));
+
+        const updateLog = (msg) => {
+          const li = document.createElement('li');
+          li.textContent = `> ${msg}`;
+          logUl.appendChild(li);
+          logUl.scrollTop = logUl.scrollHeight;
+          statusDisp.textContent = msg.toUpperCase();
+        };
+
+        let steamInterval;
+        const emitSteam = (intMs = 300) => {
+          clearInterval(steamInterval);
+          steamInterval = setInterval(() => {
+            const c = document.createElement('div');
+            c.className = 'steam-cloud';
+            c.style.left = (Math.random() * 60 + 20) + 'px';
+            const size = Math.random() * 20 + 20;
+            c.style.width = size + 'px'; c.style.height = size + 'px';
+            steamArea.appendChild(c);
+            setTimeout(() => c.remove(), 3000);
+          }, intMs);
+        };
+        const stopSteam = () => clearInterval(steamInterval);
+
+        // Pre-setup visuals based on method
+        function setupVisuals(method) {
+          head.className = `brewer-head mode-${method}`;
+          stream.className = 'stream';
+          liquid.className = 'liquid-body';
+          surface.className = 'liquid-surface';
+          liquid.style.height = '0%';
+        }
+
+        setupVisuals('espresso'); // Init default
+
+        // --- BREW STRATEGIES (EVENT-DRIVEN) ---
+
+        async function brewEspresso(strength, totalFill) {
+          updateLog('Tamping portafilter. Initiating 9-bar pressure...');
+          head.classList.add('mode-espresso');
+          await delay(1000);
+
+          updateLog('Extracting Espresso...');
+          playSfx('pour', true);
+          stream.classList.add('active-espresso');
+          emitSteam(400);
+
+          // Physics logic: 
+          liquid.classList.add('state-espresso-start');
+          surface.classList.add('state-espresso-start');
+
+          let fill = 0;
+          let extTime = 3000 + (strength * 500); // Strength dictates time
+          let interval = 50;
+          let cycles = extTime / interval;
+
+          for (let i = 0; i < cycles; i++) {
+            fill += totalFill / cycles;
+            liquid.style.height = `${fill}%`;
+
+            // Blondeing phase (crema forms) halfway through
+            if (i === Math.floor(cycles * 0.6)) {
+              updateLog('Blondeing phase: crema forming...');
+              surface.classList.remove('state-espresso-start');
+              surface.classList.add('state-espresso-crema');
+            }
+            await delay(interval);
+          }
+
+          stream.classList.remove('active-espresso');
+          stopSfx('pour');
+          stopSteam();
+        }
+
+        async function brewPourOver(strength, totalFill) {
+          updateLog('Rinsing filter and heating carafe...');
+          head.classList.add('mode-pour-over');
+          await delay(1000);
+
+          liquid.classList.add('state-pour-over');
+          surface.classList.add('state-pour-over-surface');
+
+          // Bloom Phase
+          updateLog('Pouring 50g water... Blooming...');
+          playSfx('pour');
+          stream.classList.add('active-pour-over');
+          emitSteam(500);
+          await delay(1000);
+          stream.classList.remove('active-pour-over');
+          liquid.style.height = '10%'; // Bloom drip
+          stopSfx('pour');
+          await delay(2000); // wait for bloom
+
+          // Main Pour Pulses
+          let pulses = strength; // More strength = more pulses
+          let fillPerPulse = (totalFill - 10) / pulses;
+          let currFill = 10;
+
+          for (let p = 1; p <= pulses; p++) {
+            updateLog(`Concentric pour sequence ${p}/${pulses}...`);
+            playSfx('pour');
+            stream.classList.add('active-pour-over');
+
+            let cycleTime = 1500;
+            let interval = 50;
+            for (let i = 0; i < cycleTime / interval; i++) {
+              currFill += fillPerPulse / (cycleTime / interval);
+              liquid.style.height = `${currFill}%`;
+              await delay(interval);
+            }
+            stream.classList.remove('active-pour-over');
+            stopSfx('pour');
+            updateLog('Draining...');
+            await delay(800);
+          }
+          stopSteam();
+        }
+
+        async function brewFrenchPress(strength, totalFill) {
+          updateLog('Adding coarse grounds to press...');
+          head.classList.add('mode-french-press');
+          head.style.top = '10px'; // Reset plunger high
+
+          await delay(1000);
+
+          updateLog('Filling French Press...');
+          playSfx('pour', true);
+          emitSteam(300);
+
+          // Fast fill
+          liquid.classList.add('state-pour-over');
+          surface.classList.add('state-pour-over-surface');
+          liquid.style.transition = "height 2s ease-in-out";
+          liquid.style.height = '100%';
+          await delay(2000);
+          stopSfx('pour');
+
+          // Steeping
+          let steepTime = strength * 2; // Simulated seconds
+          for (let s = steepTime; s > 0; s--) {
+            updateLog(`Steeping extraction: ${s}s remaining...`);
+            await delay(1000);
+          }
+
+          // Plunging
+          updateLog('Plunging filter matrix...');
+          playSfx('grind'); // Using grind sound as mechanical plunge fiction
+          head.style.top = '110px'; // Plunge goes down visually
+          await delay(3000); // Matches CSS transition 'top 3s'
+          stopAllSfx();
+
+          updateLog('Serving...');
+          liquid.style.height = `${totalFill}%`;
+          stopSteam();
+          head.style.opacity = '0'; // Hide attachment
+        }
+
+        // --- MAIN EXECUTION ---
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          logUl.innerHTML = '';
+          stopAllSfx();
+          stopSteam();
+
+          let method = metSel.value;
+          let str = parseInt(strSel.value);
+          let milk = milSel.checked;
+          let sug = parseInt(sugSel.value);
+
+          setupVisuals(method);
+          head.style.opacity = '1';
+
+          try {
+            // 1. Grinding (All methods need grinding)
+            updateLog(`Grinding dose for ${method}...`);
+            playSfx('grind');
+            await delay(1500 + (str * 300));
+            stopSfx('grind');
+
+            // 2. Heating
+            updateLog('Heating thermo-block to target temp...');
+            playSfx('heat');
+            await delay(2000);
+            stopSfx('heat');
+
+            // 3. Brew Method Extraction
+            let baseFill = milk ? 50 : 85;
+
+            if (method === 'espresso') await brewEspresso(str, baseFill);
+            else if (method === 'pour-over') await brewPourOver(str, baseFill);
+            else if (method === 'french-press') await brewFrenchPress(str, baseFill);
+
+            // 4. Steam / Add Milk
+            if (milk) {
+              updateLog('Purging steam wand... Texturing microfoam...');
+              playSfx('steam', true);
+              emitSteam(200);
+              await delay(2500);
+              stopSfx('steam');
+
+              updateLog('Pouring textured milk...');
+              playSfx('pour');
+              liquid.classList.add('state-milk-add');
+              surface.classList.add('state-milk-foam');
+              liquid.style.transition = "height 1.5s ease-out, background 1.5s";
+              surface.style.transition = "background 1.5s, box-shadow 1.5s";
+              liquid.style.height = '90%';
+              await delay(1500);
+              stopSfx('pour');
+              stopSteam();
+            }
+
+            // 5. Sugar Stir
+            if (sug > 0) {
+              updateLog(`Dropping ${sug} sugar units...`);
+              await delay(500);
+              updateLog('Stirring solution...');
+              spoon.classList.add('stirring');
+              playSfx('stir', true);
+              await delay(2000);
+              spoon.classList.remove('stirring');
+              stopSfx('stir');
+            }
+
+            updateLog(`EXTRACTION COMPLETE. ENJOY YOUR ${method.toUpperCase()}.`);
+
+          } catch (err) {
+            console.error(err);
+            updateLog('SYSTEM ERROR: Extraction Interrupted.');
+          } finally {
+            stopAllSfx();
+            btn.disabled = false;
+          }
+        });
+      })();
+    </script>
   </div>
-
-  <!-- SCOPED STYLING -->
-  <style>
-    .coffee-brewer-section {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #FDFBF7;
-      color: #3E2723;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 850px;
-      margin: 2rem auto;
-      box-shadow: 0 16px 40px rgba(78, 52, 46, 0.08);
-      box-sizing: border-box;
-    }
-    .coffee-brewer-section *, .coffee-brewer-section *::before, .coffee-brewer-section *::after {
-      box-sizing: inherit;
-    }
-    .coffee-brewer-section .cb-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      background: #FFFFFF;
-      padding: 2.5rem;
-      border-radius: 16px;
-      border: 1px solid #EFEBE9;
-    }
-    @media (max-width: 700px) {
-      .coffee-brewer-section .cb-container {
-        grid-template-columns: 1fr;
-      }
-    }
-    .coffee-brewer-section .cb-title {
-      margin: 0 0 1.8rem 0;
-      font-size: 1.6rem;
-      color: #3E2723;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .coffee-brewer-section .cb-group {
-      margin-bottom: 1.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .coffee-brewer-section label {
-      font-weight: 600;
-      font-size: 0.92rem;
-      color: #5D4037;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0;
-    }
-    .coffee-brewer-section .cb-val {
-      background: #EFEBE9;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-    }
-    .coffee-brewer-section .cb-input {
-      width: 100%;
-      padding: 0.65rem;
-      border-radius: 8px;
-      border: 1px solid #D7CCC8;
-      background: #FAFAFA;
-      font-family: inherit;
-      color: #3E2723;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .coffee-brewer-section .cb-input:focus {
-      border-color: #8D6E63;
-    }
-    .coffee-brewer-section .cb-toggle-label {
-      cursor: pointer;
-    }
-    .coffee-brewer-section input[type="checkbox"] {
-      display: none;
-    }
-    .coffee-brewer-section .cb-toggle-slider {
-      position: relative;
-      width: 44px;
-      height: 26px;
-      background: #D7CCC8;
-      border-radius: 13px;
-      transition: background 0.3s;
-    }
-    .coffee-brewer-section .cb-toggle-slider::before {
-      content: '';
-      position: absolute;
-      top: 3px; left: 3px;
-      width: 20px; height: 20px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    .coffee-brewer-section input[type="checkbox"]:checked + .cb-toggle-slider {
-      background: #8D6E63;
-    }
-    .coffee-brewer-section input[type="checkbox"]:checked + .cb-toggle-slider::before {
-      transform: translateX(18px);
-    }
-    .coffee-brewer-section .cb-btn {
-      width: 100%;
-      padding: 1.1rem;
-      background: #5D4037;
-      color: #FFF;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-      box-shadow: 0 4px 12px rgba(93, 64, 55, 0.3);
-    }
-    .coffee-brewer-section .cb-btn:hover:not(:disabled) {
-      background: #3E2723;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(62, 39, 35, 0.4);
-    }
-    .coffee-brewer-section .cb-btn:disabled {
-      background: #D7CCC8;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: translateY(0);
-    }
-
-    /* Visualization Area */
-    .coffee-brewer-section .cb-display {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #F5F5F5, #EFEBE9);
-      border-radius: 12px;
-      padding: 2.5rem;
-      position: relative;
-    }
-    .coffee-brewer-section .cb-cup-area {
-      position: relative;
-      width: 120px;
-      height: 140px;
-      margin-bottom: 2.5rem;
-    }
-    .coffee-brewer-section .cb-cup {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 105px;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(4px);
-      border: 4px solid #D7CCC8;
-      border-radius: 4px 4px 34px 34px;
-      overflow: hidden;
-      box-shadow: inset -5px -5px 15px rgba(0,0,0,0.04), 0 15px 25px rgba(0,0,0,0.08);
-      z-index: 2;
-    }
-    .coffee-brewer-section .cb-cup::after {
-      content: '';
-      position: absolute;
-      right: -26px;
-      top: 18px;
-      width: 22px;
-      height: 44px;
-      border: 4px solid #D7CCC8;
-      border-radius: 0 14px 14px 0;
-      border-left: none;
-      z-index: 1;
-    }
-    .coffee-brewer-section .cb-liquid {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0%;
-      background: #3E2723; /* Base coffee color */
-      transition: height 1s ease-in-out, background-color 1.5s ease;
-    }
-
-    /* Steam Physics */
-    .coffee-brewer-section .cb-steam {
-      position: absolute;
-      top: -60px;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .coffee-brewer-section .cb-steam-particle {
-      position: absolute;
-      bottom: 0;
-      width: 18px;
-      height: 18px;
-      background: #FFFFFF;
-      border-radius: 50%;
-      filter: blur(6px);
-      opacity: 0;
-    }
-    @keyframes cbFloatUp {
-      0% { transform: translateY(0) scale(1); opacity: 0; }
-      40% { opacity: 0.6; }
-      100% { transform: translateY(-70px) scale(2.5); opacity: 0; }
-    }
-
-    /* Status Screen */
-    .coffee-brewer-section .cb-status-screen {
-      width: 100%;
-      text-align: center;
-    }
-    .coffee-brewer-section #cb-status-text {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #5D4037;
-      margin: 0 0 0.8rem 0;
-      height: 24px;
-    }
-    .coffee-brewer-section .cb-progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #D7CCC8;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .coffee-brewer-section .cb-progress-fill {
-      width: 0%;
-      height: 100%;
-      background: #8D6E63;
-      transition: width 0.4s ease-out;
-    }
-  </style>
-
-  <!-- SCOPED JAVASCRIPT -->
-  <script>
-    (function() {
-      // Elements
-      const btn = document.getElementById('cb-start-btn');
-      const typeSel = document.getElementById('cb-type');
-      const strInput = document.getElementById('cb-strength');
-      const strVal = document.getElementById('cb-strength-val');
-      const milkToggle = document.getElementById('cb-milk');
-      const sugarInput = document.getElementById('cb-sugar');
-      const sugarVal = document.getElementById('cb-sugar-val');
-      
-      const liquid = document.getElementById('cb-liquid');
-      const statusTxt = document.getElementById('cb-status-text');
-      const progress = document.getElementById('cb-progress');
-      const steamCont = document.getElementById('cb-steam');
-      
-      // Live Updates for inputs
-      strInput.addEventListener('input', e => strVal.textContent = e.target.value);
-      sugarInput.addEventListener('input', e => sugarVal.textContent = e.target.value);
-
-      // Drink aesthetic dictionary
-      const drinkColors = {
-        'espresso': '#271207',
-        'americano': '#3d1b06',
-        'french-press': '#2c1606',
-        'pour-over': '#4a2810',
-        'latte': '#c49b76',       // Defaults lighter
-        'cappuccino': '#a0714e'  // Defaults lighter
-      };
-
-      // Ensure ASMR instances load cleanly from high-quality public static sources 
-      const audios = {
-        grind: new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_73da30c5e7.mp3?filename=coffee-grinder-100230.mp3'),
-        heat:  new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_6509f6eeb8.mp3?filename=steam-hiss-103328.mp3'),
-        brew:  new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_34d1bc978c.mp3?filename=pouring-coffee-liquid-1-45604.mp3')
-      };
-
-      // Helpers
-      const delay = ms => new Promise(r => setTimeout(r, ms));
-      const playSound = (type) => { 
-        if(audios[type]) { 
-           audios[type].currentTime = 0; 
-           audios[type].play().catch(() => console.log('Audio autoplay policy blocked ASMR.')); 
-        } 
-      };
-      const stopSound = (type) => { if(audios[type]) audios[type].pause(); };
-
-      btn.addEventListener('click', async () => {
-        // Reset State
-        btn.disabled = true;
-        liquid.style.height = '0%';
-        steamCont.innerHTML = '';
-        progress.style.width = '0%';
-        
-        // Grab Settings
-        let strength = parseInt(strInput.value); // 1-5
-        let hasMilk = milkToggle.checked;
-        let sugarCount = parseInt(sugarInput.value);
-        let type = typeSel.value;
-        
-        // Dynamic Logic Processing
-        let isMilkStyle = (hasMilk || type === 'latte' || type === 'cappuccino');
-        let finalColor = drinkColors[type] || '#3d1b06';
-        if (hasMilk && type !== 'latte' && type !== 'cappuccino') finalColor = '#8A5A3A';
-
-        // Step definitions mapping dynamic values
-        let steps = [];
-        steps.push({ txt: 'Grinding fresh beans...', time: 1000 + (strength * 400), sound: 'grind', prog: 20 });
-        steps.push({ txt: 'Heating water to 94°C...', time: 1600, sound: 'heat', prog: 40 });
-        steps.push({ txt: 'Extracting & brewing...', time: 2000 + (strength * 300), sound: 'brew', prog: 70, fill: isMilkStyle ? '55%' : '85%' });
-        
-        if (isMilkStyle) {
-          steps.push({ txt: 'Steaming & adding milk...', time: 1800, sound: 'heat', prog: 85, fill: '85%', addColor: true });
-        }
-        if (sugarCount > 0) {
-          let suffix = sugarCount === 1 ? 'cube' : 'cubes';
-          steps.push({ txt: `Stirring in ${sugarCount} sugar ${suffix}...`, time: 1200, prog: 95 });
-        }
-        steps.push({ txt: 'Complete!', time: 600, prog: 100, fill: '90%' });
-
-        // Run the orchestration loop
-        for (let i = 0; i < steps.length; i++) {
-            let step = steps[i];
-            statusTxt.textContent = step.txt;
-            progress.style.width = step.prog + '%';
-            
-            if (step.sound) playSound(step.sound);
-            
-            // Handle Visuals
-            if (step.fill) {
-                liquid.style.height = step.fill;
-                if (i === 2) createSteam(); // Start steam after pouring begins
-            }
-            if (step.addColor) {
-                liquid.style.backgroundColor = finalColor;
-            } else if (i === 2) {
-                liquid.style.backgroundColor = drinkColors['espresso']; // Base dark color first
-            }
-
-            await delay(step.time);
-            if (step.sound) stopSound(step.sound);
-        }
-        
-        statusTxt.textContent = 'Enjoy your ' + type.replace('-', ' ') + '! ☕';
-        btn.disabled = false;
-      });
-
-      function createSteam() {
-        let inter = setInterval(() => {
-            if (!btn.disabled) { clearInterval(inter); return; } // stop steam when brew is finished
-            let p = document.createElement('div');
-            p.className = 'cb-steam-particle';
-            p.style.left = (Math.random() * 50 + 25) + '%';
-            p.style.animation = `cbFloatUp ${Math.random() * 1.5 + 1.5}s ease-in forwards`;
-            steamCont.appendChild(p);
-            setTimeout(() => p.remove(), 3000);
-        }, 400);
-      }
-    })();
-  </script>
-</div>
 
 
   <div id="egg" class="off">
