@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study — Vruddhi Shah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="work.css"> <!-- Reusing global nav/footer styles -->
+  <link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- ── NAV ── -->
+  <header id="header">
+    <a href="work.html" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Work
+    </a>
+
+    <div class="header-title" id="cs-header-title">Case Study</div>
+
+    <nav class="header-nav">
+      <a href="../" class="hn-link">Home</a>
+      <a href="../#projects" class="hn-link">Projects</a>
+      <a href="mailto:hello@vruddhi.dev" class="hn-cta">Let's Talk ↗</a>
+    </nav>
+  </header>
+
+  <!-- Content to be dynamically populated -->
+  <main id="case-study-content" style="display: none;">
+    <!-- ── HERO ── -->
+    <section class="cs-hero" id="cs-hero">
+      <div class="cs-hero-inner">
+        <div class="cs-meta-top">
+          <span class="cs-tag" id="cs-category">Category</span>
+          <span class="cs-tag" id="cs-year">Year</span>
+        </div>
+        <h1 class="cs-title" id="cs-title">Project Title</h1>
+      </div>
+    </section>
+
+    <!-- ── INFO GRID ── -->
+    <section class="cs-info-grid">
+      <div class="cs-info-col">
+        <h3 class="cs-info-label">Role</h3>
+        <p class="cs-info-value" id="cs-role">Role Description</p>
+      </div>
+      <div class="cs-info-col">
+        <h3 class="cs-info-label">Timeline</h3>
+        <p class="cs-info-value" id="cs-timeline">Timeline</p>
+      </div>
+      <div class="cs-info-col">
+        <h3 class="cs-info-label">Tech Stack</h3>
+        <div class="cs-tech-tags" id="cs-tech-stack">
+          <!-- Tech tags injected here -->
+        </div>
+      </div>
+      <div class="cs-info-col">
+        <a href="#demo" class="cs-action-btn" id="cs-action-btn" style="display: none;">View Live Site ↗</a>
+      </div>
+    </section>
+
+    <!-- ── CONTENT BLOCKS ── -->
+    <section class="cs-article">
+      
+      <!-- Problem Statement -->
+      <div class="cs-text-block" id="block-problem">
+        <h2 class="cs-block-heading">The Problem Statement</h2>
+        <p class="cs-block-para" id="cs-problem">Content for problem statement...</p>
+      </div>
+
+      <!-- Video Section (Optional) -->
+      <div class="cs-media-full hide-if-empty" id="block-video" style="display: none;">
+        <div class="cs-video-wrapper">
+          <video id="cs-video" autoplay loop muted playsinline>
+            <source src="" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- How I Did It -->
+      <div class="cs-text-block" id="block-process">
+        <h2 class="cs-block-heading">How I Did It</h2>
+        <p class="cs-block-para" id="cs-process">Content for process...</p>
+      </div>
+
+      <!-- Images Gallery (Optional) -->
+      <div class="cs-gallery-container hide-if-empty" id="block-gallery" style="display: none;">
+        <div class="cs-media-grid" id="cs-gallery-grid">
+          <!-- Images injected here -->
+        </div>
+      </div>
+
+      <!-- Challenges Faced -->
+      <div class="cs-text-block" id="block-challenges">
+        <h2 class="cs-block-heading">Problems Faced & Learnings</h2>
+        <p class="cs-block-para" id="cs-challenges">Content for challenges...</p>
+      </div>
+
+    </section>
+
+    <!-- ── NEXT PROJECT ── -->
+    <section class="cs-next">
+      <a href="work.html" class="cs-next-link" id="cs-next-link">
+        <span class="cs-next-label">Next Project</span>
+        <h2 class="cs-next-title" id="cs-next-title">View more work →</h2>
+      </a>
+    </section>
+  </main>
+
+  <div id="error-screen" style="display: none; padding: 12rem 5%; text-align: center;">
+    <h1>Project Not Found</h1>
+    <p style="margin-top: 1rem; color: #666;">The case study you are looking for doesn't exist or has been removed.</p>
+    <a href="work.html" style="display: inline-block; margin-top: 2rem; color: #fff; background: #000; padding: 1rem 2rem; border-radius: 4px; text-decoration: none;">Return to Work</a>
+  </div>
+
+  <!-- ── CTA FOOTER ── -->
+  <section class="work-footer">
+    <div class="wf-inner">
+      <div class="wf-left">
+        <p class="wf-eyebrow">Got a project?</p>
+        <h2 class="wf-title">Let's make<br>something <em>great</em></h2>
+      </div>
+      <div class="wf-right">
+        <a href="mailto:hello@vruddhi.dev" class="wf-cta">
+          Start a conversation
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="wf-note">Usually responds within 24h</p>
+      </div>
+    </div>
+    <div class="wf-bar">
+      <a href="../" class="wf-back">← Back to portfolio</a>
+      <span class="wf-copy">© 2025 Vruddhi Shah</span>
+      <div class="wf-socials">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Dribbble</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="case-study-data.js"></script>
+  <script src="case-study.js"></script>
+</body>
+</html>
