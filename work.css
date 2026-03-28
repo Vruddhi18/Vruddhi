@@ -564,3 +564,48 @@ body:has(button:hover) #cursor-follower {
   .wf-inner { flex-direction: column; align-items: flex-start; }
   .header-nav .hn-link { display: none; }
 }
+/* ── Animated bar (Project 8) ── */
+.anim-bar {
+  height: var(--h);
+  transform-origin: bottom;
+  animation: barRise 2s ease-in-out infinite;
+}
+@keyframes barRise {
+  0%, 100% { transform: scaleY(1);    opacity: 1; }
+  50%       { transform: scaleY(.55); opacity: .7; }
+}
+
+/* ── Inventory grid visual (Project 11) ── */
+.inv-grid {
+  position: absolute;
+  bottom: 2rem; right: 3rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.inv-col {
+  display: flex; flex-direction: column; gap: .4rem; align-items: center;
+}
+.inv-label {
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(8,7,5,.45); margin-bottom: .2rem;
+}
+.inv-box {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--inv-c);
+  opacity: 0.25;
+  animation: invPulse 2.4s ease-in-out infinite;
+  animation-delay: var(--inv-d);
+}
+@keyframes invPulse {
+  0%, 100% { opacity: .25; transform: scale(1);    }
+  50%       { opacity: .9;  transform: scale(1.08); }
+}
+.inv-arrow {
+  font-size: 1.4rem;
+  color: rgba(8,7,5,.3);
+  animation: arrowPing 2.4s ease-in-out infinite;
+}
+@keyframes arrowPing {
+  0%, 100% { transform: translateX(0);   opacity: .3; }
+  50%       { transform: translateX(4px); opacity: .8; }
+}

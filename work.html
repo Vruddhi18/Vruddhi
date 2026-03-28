@@ -65,154 +65,241 @@
   <!-- ── FILTER BAR ── -->
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="brand">Brand Identity</button>
-    <button class="filter-btn" data-filter="ui">UI / UX</button>
+    <!-- <button class="filter-btn" data-filter="brand">Brand Identity</button> -->
+    <button class="filter-btn" data-filter="aiml">AIML</button>
     <button class="filter-btn" data-filter="automation">Process Automation</button>
-    <button class="filter-btn" data-filter="ai">AI + Dev</button>
+    <button class="filter-btn" data-filter="ui">UI / UX</button>
+
   </div>
 
   <!-- ── WORK GRID ── -->
   <main class="work-grid" id="work-grid">
+<!-- 01 — Automated PDF Processing · FEATURED · blue -->
+<article class="work-card featured" data-cat="aiml" data-index="01">
+  <div class="wc-bg" style="background: var(--blue);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">01</span>
+      <span class="wc-cat">AIML</span>
+      <span class="wc-year">2025</span>
+    </div>
+    <h2 class="wc-title">Automated PDF Processing</h2>
+    <p class="wc-desc">Transforms unstructured ZIP uploads into structured outputs by extracting, classifying, and organizing PDFs using computer vision and rule-based logic.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>Python</span><span>FastAPI</span><span>Computer Vision</span><span>OCR</span>
+      </div>
+      <a href="case-study.html?id=automated-pdf-processing" class="wc-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual featured-vis">
+    <div class="vis-block" style="background: var(--yellow); top:15%; right:8%; width:42%; aspect-ratio:3/4; border-radius:4px; transform:rotate(2.5deg);"></div>
+    <div class="vis-block" style="background: var(--white); top:30%; right:22%; width:28%; aspect-ratio:1; border-radius:50%;"></div>
+  </div>
+</article>
 
-    <!-- Project 1 — Full width featured -->
-    <article class="work-card featured" data-cat="brand" data-index="01">
-      <div class="wc-bg" style="background: #192BC2;"></div>
-      <div class="wc-content">
-        <div class="wc-meta">
-          <span class="wc-num">01</span>
-          <span class="wc-cat">Brand Identity</span>
-          <span class="wc-year">2025</span>
-        </div>
-        <h2 class="wc-title">Nocturne Studio</h2>
-        <p class="wc-desc">A bold identity for a creative studio built around depth, texture, and typographic contrast. Collage-led visual language with a dark editorial tone.</p>
-        <div class="wc-footer">
-          <div class="wc-tags">
-            <span>Figma</span><span>Illustrator</span><span>After Effects</span>
-          </div>
-          <a href="case-study.html?id=nocturne" class="wc-cta">View Case Study ↗</a>
-        </div>
+<!-- 02 — Procurement · HALF · yellow -->
+<article class="work-card half" data-cat="automation" data-index="02">
+  <div class="wc-bg" style="background: var(--yellow);"></div>
+  <div class="wc-content dark">
+    <div class="wc-meta">
+      <span class="wc-num">02</span>
+      <span class="wc-cat">Process Automation</span>
+      <span class="wc-year">2026</span>
+    </div>
+    <h2 class="wc-title dark-title">End-to-End Procurement</h2>
+    <p class="wc-desc dark-desc">Role-based procurement pipeline — engineer requests, manager quotes, PM approvals, auto-generated POs, GRN, quality checks, and payment. Every stage tracked in one system.</p>
+    <div class="wc-footer">
+      <div class="wc-tags dark-tags">
+        <span>React</span><span>PostgreSQL</span><span>Python</span><span>JavaScript</span><span>Tailwind CSS</span>
       </div>
-      <div class="wc-visual featured-vis">
-        <div class="vis-block" style="background:#EEF36A; top:15%; right:8%; width:42%; aspect-ratio:3/4; border-radius:4px; transform:rotate(2.5deg);"></div>
-        <div class="vis-block" style="background:#FAFAFF; top:30%; right:22%; width:28%; aspect-ratio:1; border-radius:50%;"></div>
-        <div class="vis-text" style="top:55%; right:10%; color:#EEF36A;">Nocturne®</div>
+      <a href="case-study.html?id=procurement" class="wc-cta dark-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual half-vis">
+    <div class="vis-phone">
+      <div class="vis-phone-screen">
+        <div class="vps-dot"></div>
+        <div class="vps-bar" style="width:60%; margin-top:.8rem;"></div>
+        <div class="vps-bar" style="width:40%; margin-top:.4rem; opacity:.5;"></div>
+        <div class="vps-ring"></div>
       </div>
-    </article>
+    </div>
+  </div>
+</article>
 
-    <!-- Project 2 -->
-    <article class="work-card half" data-cat="automation" data-index="02">
-      <div class="wc-bg" style="background: #EEF36A;"></div>
-      <div class="wc-content dark">
-        <div class="wc-meta">
-          <span class="wc-num">02</span>
-          <span class="wc-cat">Process Automation</span>
-          <span class="wc-year">2024</span>
-        </div>
-        <h2 class="wc-title dark-title">End-to-End Procurement Management</h2>
-        <p class="wc-desc dark-desc">Automated project procurement system handling requests, approvals, POs, payments, BOMs, and quality checks.</p>
-        <div class="wc-footer">
-          <div class="wc-tags dark-tags">
-            <span>Procurement</span><span>Supply Chain</span>
-          </div>
-          <a href="case-study.html?id=procurement" class="wc-cta dark-cta">View ↗</a>
-        </div>
+<!-- 03 — Enterprise LLM · HALF · orange -->
+<article class="work-card half" data-cat="aiml" data-index="03">
+  <div class="wc-bg" style="background: var(--orange);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">03</span>
+      <span class="wc-cat">AIML</span>
+      <span class="wc-year">2025</span>
+    </div>
+    <h2 class="wc-title">Enterprise LLM</h2>
+    <p class="wc-desc">Multi-agent pipeline exploring how rhythm, tension, and physics can dictate how we read and process information at scale.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>Python</span><span>ML Models</span><span>Hugging Face</span>
       </div>
-      <div class="wc-visual half-vis">
-        <div class="vis-phone">
-          <div class="vis-phone-screen">
-            <div class="vps-dot"></div>
-            <div class="vps-bar" style="width:60%; margin-top:.8rem;"></div>
-            <div class="vps-bar" style="width:40%; margin-top:.4rem; opacity:.5;"></div>
-            <div class="vps-ring"></div>
-          </div>
-        </div>
-      </div>
-    </article>
+      <a href="case-study.html?id=enterprise-llm" class="wc-cta">View ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual half-vis">
+    <div class="motion-letters">
+      <span style="--d:0s">L</span>
+      <span style="--d:.08s">L</span>
+      <span style="--d:.16s">M</span>
+    </div>
+  </div>
+</article>
 
-    <!-- Project 3 -->
-    <article class="work-card half" data-cat="motion" data-index="03">
-      <div class="wc-bg" style="background: #FF7733;"></div>
-      <div class="wc-content">
-        <div class="wc-meta">
-          <span class="wc-num">03</span>
-          <span class="wc-cat">Motion</span>
-          <span class="wc-year">2024</span>
-        </div>
-        <h2 class="wc-title">Kinetic Type</h2>
-        <p class="wc-desc">A series of animated typographic posters exploring rhythm, tension, and motion as composition tools.</p>
-        <div class="wc-footer">
-          <div class="wc-tags">
-            <span>After Effects</span><span>Illustrator</span>
-          </div>
-          <a href="case-study.html?id=kinetic" class="wc-cta">View ↗</a>
-        </div>
+<!-- 04 — Recipe Finder · HALF · green -->
+<article class="work-card half" data-cat="automation" data-index="04">
+  <div class="wc-bg" style="background: var(--green);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">04</span>
+      <span class="wc-cat">Process Automation</span>
+      <span class="wc-year">2025</span>
+    </div>
+    <h2 class="wc-title">On2Cook Recipe Finder</h2>
+    <p class="wc-desc">Automated recipe database explorer — six cooking methods, smart accessory filters, ingredient-based search, and a zoomable canvas map built to convert hesitant buyers in live pitches.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>JavaScript</span><span>Python</span><span>Figma</span>
       </div>
-      <div class="wc-visual half-vis">
-        <div class="motion-letters">
-          <span style="--d:0s">K</span>
-          <span style="--d:.08s">I</span>
-          <span style="--d:.16s">N</span>
-          <span style="--d:.24s">E</span>
-          <span style="--d:.32s">T</span>
-          <span style="--d:.40s">I</span>
-          <span style="--d:.48s">C</span>
-        </div>
-      </div>
-    </article>
+      <a href="case-study.html?id=recipe-finder" class="wc-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual half-vis">
+    <div class="motion-letters">
+      <span style="--d:0s">R</span>
+      <span style="--d:.1s">E</span>
+      <span style="--d:.2s">C</span>
+      <span style="--d:.3s">I</span>
+      <span style="--d:.4s">P</span>
+      <span style="--d:.5s">E</span>
+    </div>
+  </div>
+</article>
 
-    <!-- Project 4 -->
-    <article class="work-card third" data-cat="brand" data-index="04">
-      <div class="wc-bg" style="background: #00A86B;"></div>
-      <div class="wc-content">
-        <div class="wc-meta">
-          <span class="wc-num">04</span>
-          <span class="wc-cat">Brand</span>
-          <span class="wc-year">2024</span>
-        </div>
-        <h2 class="wc-title">Verde Co.</h2>
-        <p class="wc-desc">Sustainable brand identity — earthy, forward-looking, and typographically precise.</p>
-        <div class="wc-footer">
-          <div class="wc-tags"><span>Figma</span><span>Illustrator</span></div>
-          <a href="case-study.html?id=verde" class="wc-cta">View ↗</a>
-        </div>
+<!-- 05 — BOM Portal · HALF · black -->
+<article class="work-card half" data-cat="automation" data-index="05">
+  <div class="wc-bg" style="background: var(--black);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">05</span>
+      <span class="wc-cat">Process Automation</span>
+      <span class="wc-year">2026</span>
+    </div>
+    <h2 class="wc-title">On2Cook BOM Portal</h2>
+    <p class="wc-desc">Replaced a fragmented Excel ecosystem with a single live portal — BOM, store inventory, procurement, multi-currency conversion, lead-time urgency flags, and vendor quotes in one place.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>React</span><span>PostgreSQL</span><span>XLSX Parsing</span>
       </div>
-    </article>
+      <a href="case-study.html?id=bom-portal" class="wc-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual half-vis">
+    <div style="display:flex; align-items:flex-end; gap:6px; padding-bottom:4px;">
+      <div class="anim-bar" style="width:14px; background:var(--yellow); border-radius:4px 4px 0 0; --h:60px;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--orange); border-radius:4px 4px 0 0; --h:90px; animation-delay:.2s;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--yellow); border-radius:4px 4px 0 0; --h:45px; animation-delay:.4s;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--green); border-radius:4px 4px 0 0; --h:75px; animation-delay:.6s;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--orange); border-radius:4px 4px 0 0; --h:35px; animation-delay:.8s;"></div>
+    </div>
+  </div>
+</article>
 
-    <!-- Project 5 -->
-    <article class="work-card third" data-cat="ai" data-index="05">
-      <div class="wc-bg" style="background: #080705;"></div>
-      <div class="wc-content">
-        <div class="wc-meta">
-          <span class="wc-num">05</span>
-          <span class="wc-cat">AI + Dev</span>
-          <span class="wc-year">2024</span>
-        </div>
-        <h2 class="wc-title">Research Agent</h2>
-        <p class="wc-desc">Multi-agent pipeline that automates deep research with LangChain + Smolagents.</p>
-        <div class="wc-footer">
-          <div class="wc-tags"><span>Python</span><span>FastAPI</span><span>React</span></div>
-          <a href="case-study.html?id=research" class="wc-cta">View ↗</a>
-        </div>
+<!-- 06 — Ambassador Portal · HALF · white -->
+<article class="work-card half" data-cat="ui" data-index="06">
+  <div class="wc-bg" style="background: var(--white);"></div>
+  <div class="wc-content dark">
+    <div class="wc-meta">
+      <span class="wc-num">06</span>
+      <span class="wc-cat">UI / UX</span>
+      <span class="wc-year">2025</span>
+    </div>
+    <h2 class="wc-title dark-title">On2Cook Ambassador Portal</h2>
+    <p class="wc-desc dark-desc">Dual-audience platform — a full conversion funnel for prospects and a live earnings dashboard for active ambassadors, switching modes cleanly at the auth gate.</p>
+    <div class="wc-footer">
+      <div class="wc-tags dark-tags">
+        <span>TypeScript</span><span>PostgreSQL</span><span>Figma</span>
       </div>
-    </article>
+      <a href="case-study.html?id=ambassador-program" class="wc-cta dark-cta">View Case Study ↗</a>
+    </div>
+  </div>
+</article>
 
-    <!-- Project 6 -->
-    <article class="work-card third" data-cat="ui" data-index="06">
-      <div class="wc-bg" style="background: #f5f0e8;"></div>
-      <div class="wc-content dark">
-        <div class="wc-meta">
-          <span class="wc-num">06</span>
-          <span class="wc-cat">UI / UX</span>
-          <span class="wc-year">2023</span>
-        </div>
-        <h2 class="wc-title dark-title">Folio OS</h2>
-        <p class="wc-desc dark-desc">Desktop-style portfolio OS interface — draggable windows, fake terminal, real personality.</p>
-        <div class="wc-footer">
-          <div class="wc-tags dark-tags"><span>React</span><span>GSAP</span></div>
-          <a href="case-study.html?id=folio" class="wc-cta dark-cta">View ↗</a>
-        </div>
+<!-- 07 — Culinary Management · HALF · blue -->
+<article class="work-card half" data-cat="automation" data-index="07">
+  <div class="wc-bg" style="background: var(--blue);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">07</span>
+      <span class="wc-cat">Process Automation</span>
+      <span class="wc-year">2026</span>
+    </div>
+    <h2 class="wc-title">Culinary Management System</h2>
+    <p class="wc-desc">Five-module kitchen ops platform — auto-pricing inventory, demo costing, RnD tracking, customer service logs, and a master dashboard tracking every cook, every cost, every day.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>Python</span><span>React</span><span>PostgreSQL</span>
       </div>
-    </article>
+      <a href="case-study.html?id=culinary-management" class="wc-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual half-vis">
+    <div style="display:flex; align-items:flex-end; gap:6px; padding-bottom:4px;">
+      <div class="anim-bar" style="width:14px; background:var(--yellow); border-radius:4px 4px 0 0; --h:70px;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--white); border-radius:4px 4px 0 0; --h:100px; animation-delay:.2s; opacity:.5;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--yellow); border-radius:4px 4px 0 0; --h:55px; animation-delay:.4s;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--white); border-radius:4px 4px 0 0; --h:80px; animation-delay:.6s; opacity:.35;"></div>
+      <div class="anim-bar" style="width:14px; background:var(--yellow); border-radius:4px 4px 0 0; --h:40px; animation-delay:.8s;"></div>
+    </div>
+  </div>
+</article>
+
+<!-- 08 — InventIndia Project Inventory · FEATURED · orange -->
+<article class="work-card featured" data-cat="automation" data-index="08">
+  <div class="wc-bg" style="background: var(--orange);"></div>
+  <div class="wc-content">
+    <div class="wc-meta">
+      <span class="wc-num">08</span>
+      <span class="wc-cat">Process Automation</span>
+      <span class="wc-year">2026</span>
+    </div>
+    <h2 class="wc-title">InventIndia Project Inventory</h2>
+    <p class="wc-desc">Container-level inventory system with a live office map, borrow mechanism, and real-time notifications — built to end the silent misuse of shared storage across concurrent engineering projects.</p>
+    <div class="wc-footer">
+      <div class="wc-tags">
+        <span>React</span><span>PostgreSQL</span><span>JavaScript</span><span>Auth</span><span>Tailwind CSS</span>
+      </div>
+      <a href="case-study.html?id=project-inventory" class="wc-cta">View Case Study ↗</a>
+    </div>
+  </div>
+  <div class="wc-visual featured-vis">
+    <div class="inv-grid">
+      <div class="inv-col">
+        <div class="inv-label">Project A</div>
+        <div class="inv-box" style="--inv-c: var(--white); --inv-d: 0s;"></div>
+        <div class="inv-box" style="--inv-c: var(--white); --inv-d: .15s;"></div>
+        <div class="inv-box" style="--inv-c: var(--white); --inv-d: .3s;"></div>
+        <div class="inv-box" style="--inv-c: var(--yellow); --inv-d: .45s;"></div>
+      </div>
+      <div class="inv-arrow">→</div>
+      <div class="inv-col">
+        <div class="inv-label">Project B</div>
+        <div class="inv-box" style="--inv-c: var(--white); --inv-d: .6s;"></div>
+        <div class="inv-box" style="--inv-c: var(--yellow); --inv-d: .75s;"></div>
+        <div class="inv-box" style="--inv-c: var(--white); --inv-d: .9s;"></div>
+      </div>
+    </div>
+  </div>
+</article>
 
   </main>
 
