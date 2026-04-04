@@ -724,6 +724,11 @@
       .draw-toolbar { justify-content: flex-start; }
     }
   </style>
+  <meta property="og:title" content="Playground — Vruddhi Shah">
+  <meta property="og:description" content="Vruddhi Shah — designer who codes, or developer who designs.">
+  <meta property="og:image" content="https://vruddhishah.vercel.app/assets/og-image.png">
+  <meta property="og:url" content="https://vruddhishah.vercel.app/play.html">
+  <meta property="og:type" content="website">
 </head>
 <body>
   <div id="cur"></div>
@@ -769,7 +774,7 @@
       <div class="tt-deck" id="tt-deck">
         <audio id="tt-audio" crossorigin="anonymous" style="display:none"></audio>
         <div class="tt-body">
-          <div class="tt-brand">VROO SOUND LAB ✦ MODEL 01</div>
+          <div class="tt-brand">Oreo SOUND LAB ✦ MODEL 01</div>
           <div class="tt-platter-zone">
             <div class="tt-platter" id="tt-platter"><div class="tt-pin"></div><div class="tt-ring"></div></div>
             <div class="tt-slot" id="tt-slot"></div>
@@ -823,7 +828,7 @@
     <div class="pol-scene r">
       <div>
         <div class="cam-body" id="cam-body">
-          <div class="cam-badge">VROODHI LAND · MODEL 1984</div>
+          <div class="cam-badge">VRUDDHI LAND · MODEL 1984</div>
           <div class="vf-wrap">
             <div class="vf-idle" id="vf-idle">
               <div class="vf-idle-icon">📷</div>
@@ -923,7 +928,7 @@
   <!-- TOY 7 — KNOWLEDGE BOT -->
   <section class="toy dark" id="toy-companion">
     <div class="tag-row r"><span class="tnum">07</span><span class="tpill">AI</span><span class="tpill">Knowledge Bot</span></div>
-    <h2 class="toy-h r">Meet Vroo</h2>
+    <h2 class="toy-h r">Meet Oreo</h2>
     <p class="toy-p r">A cute little robot that knows things. Ask it factual questions like "Who is Shah Rukh Khan?"</p>
     <div class="companion-scene r">
       <div class="companion-stage" id="companion-stage">
@@ -939,20 +944,20 @@
           </div>
         </div>
         <div class="companion-blob" id="companion-blob">
-          <img id="comp-body-svg" class="comp-body-svg" src="vroo-bot-transparent.png" alt="Vroo Bot" style="width:140px; height:140px; border-radius:12px;">
+          <img id="comp-body-svg" class="comp-body-svg" src="oreo.png" alt="Oreo Bot" style="width:140px; height:140px; border-radius:12px;">
         </div>
         <div class="comp-bubble" id="comp-bubble">
-          <span id="comp-bubble-text">Hi! I'm Vroo 👋 Ask me anything!</span>
+          <span id="comp-bubble-text">Hi! I'm Oreo 👋 Ask me anything!</span>
           <div class="comp-bubble-arrow"></div>
         </div>
       </div>
       <div class="companion-chat">
         <div class="comp-input-row" style="margin-top:20px;">
-          <input class="comp-input" id="comp-input" type="text" placeholder="Ask Vroo something..." autocomplete="off">
+          <input class="comp-input" id="comp-input" type="text" placeholder="Ask Oreo something..." autocomplete="off">
           <button class="comp-send" id="comp-send">Send →</button>
         </div>
         <div class="comp-log" id="comp-log">
-          <div class="comp-msg"><span class="avatar">🟣</span><p>Vroo is connected to a factual knowledge base! Ask me a factual question like "What is artificial intelligence?"</p></div>
+          <div class="comp-msg"><span class="avatar">🟣</span><p>Oreo is connected to a factual knowledge base! Ask me a factual question like "What is artificial intelligence?"</p></div>
         </div>
       </div>
     </div>
@@ -1424,7 +1429,7 @@
         showBubble(parsed.text);
         setMood(parsed.mood);
         if(parsed.animation) animateBlob(parsed.animation);
-        addLog('vroo',parsed.text);
+        addLog('Oreo',parsed.text);
 
         // Voice generation (No API needed, uses browser built-in Web Speech API)
         if ('speechSynthesis' in window) {
@@ -1442,7 +1447,7 @@
         }
       } catch(err){
         showBubble("I'm a bit dizzy... try again?");
-        addLog('vroo',"Signal lost! But I'm still here 💜");
+        addLog('Oreo',"Signal lost! But I'm still here 💜");
       } finally {
         isLoading=false;
       }
@@ -1469,7 +1474,7 @@
     micBtn.className = 'comp-send';
     micBtn.style.background = 'var(--blue)';
     micBtn.innerHTML = '🎤';
-    micBtn.title = 'Speak to Vroo';
+    micBtn.title = 'Speak to Oreo';
     document.querySelector('.comp-input-row').appendChild(micBtn);
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -1506,7 +1511,7 @@
     }
 
     // Initial greeting
-    setTimeout(()=>showBubble("Hi! I'm Vroo 👋 Ask me anything!",5000),1200);
+    setTimeout(()=>showBubble("Hi! I'm Oreo 👋 Ask me anything!",5000),1200);
 
     // Blob tap interaction
     blob.addEventListener('click',()=>{
