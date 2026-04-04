@@ -879,59 +879,9 @@
     </div>
   </section>
 
-  <!-- TOY 5 — DRAW + AI INTERPRETS -->
-  <section class="toy" id="toy-draw">
-    <div class="tag-row r"><span class="tnum">05</span><span class="tpill">AI</span><span class="tpill">Draw</span><span class="tpill">Claude</span></div>
-    <h2 class="toy-h r">Draw Something</h2>
-    <p class="toy-p r">Doodle anything on the canvas. Hit <em>Interpret</em> and Claude gives it a personality — poetic, brutally honest, or completely unhinged.</p>
-    <div class="draw-scene r">
-      <div class="draw-left">
-        <div class="draw-canvas-wrap">
-          <canvas id="draw-canvas" width="500" height="500"></canvas>
-        </div>
-        <div class="draw-toolbar">
-          <button class="draw-tool-btn on" id="draw-pen" title="Pen">✏️</button>
-          <button class="draw-tool-btn" id="draw-eraser" title="Eraser">🧹</button>
-          <div class="draw-colors">
-            <div class="draw-swatch on" style="background:#0D0C09" data-color="#0D0C09"></div>
-            <div class="draw-swatch" style="background:#FF4E00" data-color="#FF4E00"></div>
-            <div class="draw-swatch" style="background:#1430FF" data-color="#1430FF"></div>
-            <div class="draw-swatch" style="background:#00C85A" data-color="#00C85A"></div>
-            <div class="draw-swatch" style="background:#7B3FFF" data-color="#7B3FFF"></div>
-          </div>
-          <div class="draw-size-wrap">
-            Size <input type="range" id="draw-size" min="2" max="28" value="5">
-          </div>
-          <button class="draw-tool-btn" id="draw-clear" title="Clear">🗑️</button>
-        </div>
-      </div>
-      <div class="draw-right">
-        <div>
-          <div class="draw-lbl">Interpretation Style</div>
-          <div class="draw-style-row">
-            <button class="draw-style-btn on" data-style="poetic">Poetic</button>
-            <button class="draw-style-btn" data-style="brutal">Brutally Honest</button>
-            <button class="draw-style-btn" data-style="unhinged">Unhinged</button>
-            <button class="draw-style-btn" data-style="toddler">Toddler Logic</button>
-            <button class="draw-style-btn" data-style="art-critic">Art Critic</button>
-          </div>
-        </div>
-        <button class="draw-interpret-btn" id="draw-interpret-btn">
-          <span>✨</span> Interpret My Drawing
-        </button>
-        <div class="draw-result-box" id="draw-result-box">
-          <div class="draw-idle-state" id="draw-idle">
-            <span style="font-size:2.5rem;opacity:.4">🎨</span>
-            <p>Draw something above,<br>then hit Interpret</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOY 6 — TYPE TAPPER -->
+  <!-- TOY 5 — TYPE TAPPER -->
   <section class="toy dark" id="toy-game">
-    <div class="tag-row r"><span class="tnum">06</span><span class="tpill">Game</span><span class="tpill">Type Fast</span></div>
+    <div class="tag-row r"><span class="tnum">05</span><span class="tpill">Game</span><span class="tpill">Type Fast</span></div>
     <h2 class="toy-h r">Type Tapper</h2>
     <p class="toy-p r">Design words fall from the top. Type them before they hit the ground.</p>
     <div class="tapper r">
@@ -956,9 +906,9 @@
     </div>
   </section>
 
-  <!-- TOY 7 — TERMINAL -->
+  <!-- TOY 6 — TERMINAL -->
   <section class="toy" id="toy-terminal">
-    <div class="tag-row r"><span class="tnum">07</span><span class="tpill">Interactive</span><span class="tpill">Terminal</span></div>
+    <div class="tag-row r"><span class="tnum">06</span><span class="tpill">Interactive</span><span class="tpill">Terminal</span></div>
     <h2 class="toy-h r">vruddhi.sh</h2>
     <p class="toy-p r">A shell that knows things about me. Try <code>help</code> — tab autocompletes, ↑↓ cycles history.</p>
     <div class="term r" id="term">
@@ -970,11 +920,11 @@
     </div>
   </section>
 
-  <!-- TOY 8 — AI COMPANION -->
+  <!-- TOY 7 — KNOWLEDGE BOT -->
   <section class="toy dark" id="toy-companion">
-    <div class="tag-row r"><span class="tnum">08</span><span class="tpill">AI</span><span class="tpill">Companion</span><span class="tpill">Claude</span></div>
+    <div class="tag-row r"><span class="tnum">07</span><span class="tpill">AI</span><span class="tpill">Knowledge Bot</span></div>
     <h2 class="toy-h r">Meet Vroo</h2>
-    <p class="toy-p r">A little floating creature that actually listens. Talk to it, poke it, ask it things — powered by Claude. It has moods.</p>
+    <p class="toy-p r">A cute little robot that knows things. Ask it factual questions like "Who is Shah Rukh Khan?"</p>
     <div class="companion-scene r">
       <div class="companion-stage" id="companion-stage">
         <div class="comp-stars" id="comp-stars"></div>
@@ -989,55 +939,20 @@
           </div>
         </div>
         <div class="companion-blob" id="companion-blob">
-          <svg class="comp-body-svg" id="comp-body-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="blobGrad" cx="40%" cy="30%" r="70%">
-                <stop offset="0%" stop-color="#A97FFF"/>
-                <stop offset="100%" stop-color="#5B1FD6"/>
-              </radialGradient>
-              <radialGradient id="eyeGrad" cx="35%" cy="30%" r="65%">
-                <stop offset="0%" stop-color="#fff"/>
-                <stop offset="100%" stop-color="#e0d8ff"/>
-              </radialGradient>
-            </defs>
-            <!-- Body blob -->
-            <path id="blob-path" d="M70 18C90 14 116 28 122 52C128 76 118 108 96 122C74 136 42 130 28 110C14 90 18 56 32 38C46 20 50 22 70 18Z" fill="url(#blobGrad)"/>
-            <!-- Shine -->
-            <ellipse cx="52" cy="42" rx="14" ry="8" fill="rgba(255,255,255,0.2)" transform="rotate(-20 52 42)"/>
-            <!-- Eyes -->
-            <circle cx="54" cy="68" r="12" fill="url(#eyeGrad)"/>
-            <circle cx="86" cy="68" r="12" fill="url(#eyeGrad)"/>
-            <circle id="pupil-l" cx="56" cy="70" r="7" fill="#1a0a40"/>
-            <circle id="pupil-r" cx="88" cy="70" r="7" fill="#1a0a40"/>
-            <!-- Pupil shine -->
-            <circle cx="59" cy="67" r="2.5" fill="rgba(255,255,255,0.9)"/>
-            <circle cx="91" cy="67" r="2.5" fill="rgba(255,255,255,0.9)"/>
-            <!-- Mouth (default smile) -->
-            <path id="comp-mouth" d="M56 92 Q70 104 84 92" stroke="#3a1a8a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-            <!-- Blush -->
-            <ellipse cx="42" cy="82" rx="9" ry="5" fill="rgba(255,150,200,0.25)"/>
-            <ellipse cx="98" cy="82" rx="9" ry="5" fill="rgba(255,150,200,0.25)"/>
-          </svg>
+          <img id="comp-body-svg" class="comp-body-svg" src="vroo-bot-transparent.png" alt="Vroo Bot" style="width:140px; height:140px; border-radius:12px;">
         </div>
         <div class="comp-bubble" id="comp-bubble">
-          <span id="comp-bubble-text">Hi! I'm Vroo 👋 Talk to me!</span>
+          <span id="comp-bubble-text">Hi! I'm Vroo 👋 Ask me anything!</span>
           <div class="comp-bubble-arrow"></div>
         </div>
       </div>
       <div class="companion-chat">
-        <div class="comp-actions">
-          <button class="comp-act-btn" data-action="poke">👉 Poke</button>
-          <button class="comp-act-btn" data-action="compliment">💛 Compliment</button>
-          <button class="comp-act-btn" data-action="roast">🔥 Roast me</button>
-          <button class="comp-act-btn" data-action="vibe">✨ Check vibe</button>
-          <button class="comp-act-btn" data-action="fact">🧠 Random fact</button>
-        </div>
-        <div class="comp-input-row">
-          <input class="comp-input" id="comp-input" type="text" placeholder="Say something to Vroo..." autocomplete="off">
+        <div class="comp-input-row" style="margin-top:20px;">
+          <input class="comp-input" id="comp-input" type="text" placeholder="Ask Vroo something..." autocomplete="off">
           <button class="comp-send" id="comp-send">Send →</button>
         </div>
         <div class="comp-log" id="comp-log">
-          <div class="comp-msg"><span class="avatar">🟣</span><p>Vroo is ready to chat! Ask me anything, or click one of the buttons above.</p></div>
+          <div class="comp-msg"><span class="avatar">🟣</span><p>Vroo is connected to a factual knowledge base! Ask me a factual question like "What is artificial intelligence?"</p></div>
         </div>
       </div>
     </div>
@@ -1061,6 +976,7 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
   'use strict';
@@ -1326,127 +1242,6 @@
     if(visCvs){ const vc=visCvs.getContext('2d'); (function draw(){ visCvs.width=visCvs.offsetWidth||800; visCvs.height=visCvs.offsetHeight||65; const an=analyser; if(!an){requestAnimationFrame(draw);return;} const data=new Uint8Array(an.frequencyBinCount); an.getByteTimeDomainData(data); const W=visCvs.width,H=visCvs.height; vc.fillStyle='#050508'; vc.fillRect(0,0,W,H); vc.beginPath(); vc.strokeStyle='#E8F000'; vc.lineWidth=2; data.forEach((v,i)=>{ const x=i/data.length*W,y=v/128*H/2; i===0?vc.moveTo(x,y):vc.lineTo(x,y); }); vc.stroke(); requestAnimationFrame(draw); })(); }
   })();
 
-  /* ══ TOY 5 — DRAW + AI INTERPRETS ══ */
-  (function(){
-    const canvas=document.getElementById('draw-canvas');
-    if(!canvas) return;
-    const ctx=canvas.getContext('2d');
-    const btn=document.getElementById('draw-interpret-btn');
-    const resultBox=document.getElementById('draw-result-box');
-    const idleState=document.getElementById('draw-idle');
-    const penBtn=document.getElementById('draw-pen');
-    const eraserBtn=document.getElementById('draw-eraser');
-    const clearBtn=document.getElementById('draw-clear');
-    const sizeSlider=document.getElementById('draw-size');
-
-    // Canvas setup
-    function resizeCanvas(){
-      const rect=canvas.parentElement.getBoundingClientRect();
-      const dpr=window.devicePixelRatio||1;
-      const size=Math.min(rect.width,500);
-      canvas.style.width=size+'px'; canvas.style.height=size+'px';
-      canvas.width=size*dpr; canvas.height=size*dpr;
-      ctx.scale(dpr,dpr);
-      ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,size,size);
-    }
-    resizeCanvas();
-
-    let drawing=false, tool='pen', color='#0D0C09', size=5, hasDoodle=false;
-
-    // Fill white initially
-    ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    function getPos(e){
-      const rect=canvas.getBoundingClientRect();
-      const src=e.touches?e.touches[0]:e;
-      return { x:src.clientX-rect.left, y:src.clientY-rect.top };
-    }
-    function startDraw(e){ drawing=true; const p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); }
-    function doDraw(e){
-      if(!drawing) return;
-      const p=getPos(e);
-      ctx.lineWidth=tool==='eraser'?size*3:size;
-      ctx.lineCap='round'; ctx.lineJoin='round';
-      ctx.strokeStyle=tool==='eraser'?'#ffffff':color;
-      ctx.lineTo(p.x,p.y); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(p.x,p.y);
-      hasDoodle=true;
-    }
-    function endDraw(){ drawing=false; ctx.beginPath(); }
-
-    canvas.addEventListener('mousedown',startDraw);
-    canvas.addEventListener('mousemove',doDraw);
-    canvas.addEventListener('mouseup',endDraw);
-    canvas.addEventListener('mouseleave',endDraw);
-    canvas.addEventListener('touchstart',e=>{e.preventDefault();startDraw(e);},{passive:false});
-    canvas.addEventListener('touchmove',e=>{e.preventDefault();doDraw(e);},{passive:false});
-    canvas.addEventListener('touchend',endDraw);
-
-    penBtn.addEventListener('click',()=>{ tool='pen'; penBtn.classList.add('on'); eraserBtn.classList.remove('on'); });
-    eraserBtn.addEventListener('click',()=>{ tool='eraser'; eraserBtn.classList.add('on'); penBtn.classList.remove('on'); });
-    clearBtn.addEventListener('click',()=>{ ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height); hasDoodle=false; resetResult(); });
-    document.querySelectorAll('.draw-swatch').forEach(s=>s.addEventListener('click',()=>{ document.querySelectorAll('.draw-swatch').forEach(x=>x.classList.remove('on')); s.classList.add('on'); color=s.dataset.color; tool='pen'; penBtn.classList.add('on'); eraserBtn.classList.remove('on'); }));
-    sizeSlider.addEventListener('input',e=>size=+e.target.value);
-    document.querySelectorAll('.draw-style-btn').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('.draw-style-btn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); }));
-
-    function resetResult(){
-      resultBox.innerHTML='<div class="draw-idle-state" id="draw-idle"><span style="font-size:2.5rem;opacity:.4">🎨</span><p>Draw something above,<br>then hit Interpret</p></div>';
-    }
-
-    const STYLE_PROMPTS={
-      poetic: "Respond as a gentle poet. Write a 2-sentence poetic interpretation. Use metaphor and beauty.",
-      brutal: "Respond as a brutally honest art critic. Be direct, slightly harsh, but funny.",
-      unhinged: "Respond completely unhinged, like you've had too much espresso and are seeing patterns everywhere. Be chaotic and funny.",
-      toddler: "Respond with the logic of a 3-year-old who has never seen art before. Be sweetly confused.",
-      'art-critic': "Respond as a pretentious MoMA art critic who finds deep meaning in everything. Use jargon."
-    };
-
-    btn.addEventListener('click',async()=>{
-      if(!hasDoodle){ resultBox.style.animation='none'; setTimeout(()=>resultBox.style.animation='',100); return; }
-      const style=document.querySelector('.draw-style-btn.on')?.dataset.style||'poetic';
-      const imageData=canvas.toDataURL('image/png');
-      const base64=imageData.split(',')[1];
-
-      btn.disabled=true; btn.textContent='Interpreting...';
-      resultBox.innerHTML=''; resultBox.classList.add('loading');
-
-      try {
-        const resp=await fetch('https://api.anthropic.com/v1/messages',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({
-            model:'claude-sonnet-4-20250514',
-            max_tokens:1000,
-            messages:[{
-              role:'user',
-              content:[
-                {type:'image',source:{type:'base64',media_type:'image/png',data:base64}},
-                {type:'text',text:`You are interpreting a hand-drawn doodle on a canvas. First identify what you think it depicts (be creative - it might be abstract). Then: ${STYLE_PROMPTS[style]} Keep response under 60 words. Format as JSON: {"subject":"what you think it is","interpretation":"your interpretation","emoji":"1 relevant emoji","tags":["tag1","tag2","tag3"]}`}
-              ]
-            }]
-          })
-        });
-        const data=await resp.json();
-        const rawText=data.content?.find(b=>b.type==='text')?.text||'{}';
-        let parsed;
-        try { parsed=JSON.parse(rawText.replace(/```json|```/g,'').trim()); }
-        catch(e){ parsed={subject:'Something mysterious',interpretation:rawText.slice(0,100),emoji:'🎨',tags:['abstract','mysterious']}; }
-
-        resultBox.classList.remove('loading');
-        resultBox.innerHTML=`
-          <div class="draw-result-emoji">${parsed.emoji||'🎨'}</div>
-          <div class="draw-result-title">"${parsed.subject||'Untitled'}"</div>
-          <div class="draw-result-desc">${parsed.interpretation||'...'}</div>
-          <div class="draw-result-tags">${(parsed.tags||[]).map(t=>`<span class="draw-rtag">${t}</span>`).join('')}</div>
-        `;
-      } catch(err){
-        resultBox.classList.remove('loading');
-        resultBox.innerHTML=`<div class="draw-result-desc" style="text-align:center;padding:1rem">Could not reach AI — but your doodle is beautiful regardless ✨</div>`;
-      } finally {
-        btn.disabled=false; btn.innerHTML='<span>✨</span> Interpret Again';
-      }
-    });
-  })();
 
   /* ══ TOY 6 — TYPE TAPPER ══ */
   (function(){
@@ -1551,9 +1346,11 @@
 
     function animateBlob(type){
       const sv=document.getElementById('comp-body-svg');
-      sv.classList.remove('excited','surprised');
-      void sv.offsetWidth;
-      if(type) sv.classList.add(type);
+      if(sv){
+        sv.classList.remove('excited','surprised');
+        void sv.offsetWidth;
+        if(type) sv.classList.add(type);
+      }
     }
 
     function addLog(role,text){
@@ -1576,28 +1373,73 @@
       if(isLoading) return;
       isLoading=true;
       showBubble('thinking...', 0);
-      setMouth('neutral');
       try {
-        const resp=await fetch('https://api.anthropic.com/v1/messages',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({
-            model:'claude-sonnet-4-20250514',
-            max_tokens:1000,
-            system:`You are Vroo, an adorable floating blob creature on Vruddhi Shah's design portfolio. You're curious, warm, slightly whimsical. You live on a star-filled stage. Respond ONLY with valid JSON, no markdown.`,
-            messages:[{role:'user',content:prompt}]
-          })
-        });
-        const data=await resp.json();
-        const raw=data.content?.find(b=>b.type==='text')?.text||'{}';
-        let parsed;
-        try { parsed=JSON.parse(raw.replace(/```json|```/g,'').trim()); }
-        catch(e){ parsed={text:"Hmm, something scrambled my circuits! 🫠",mood:3,animation:null,mouth:'surprised'}; }
-        showBubble(parsed.text||'...');
-        setMood(parsed.mood||3);
+        // Voice generation & Wiki Knowledge Base
+        await new Promise(r => setTimeout(r, 400)); // fake delay
+        
+        let parsed = { text: "I'm not sure what you mean, but I'm happy to be here!", mood: 4, animation: null, mouth: "happy" };
+        
+        if (prompt.startsWith("WIKI_QUERY_")) {
+           let q = prompt.replace("WIKI_QUERY_", "");
+           try {
+             let res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q)}`);
+             let json = await res.json();
+             if(json.type === "standard" && json.extract) {
+                parsed = { text: "Oh, I know this! According to my tiny brain... " + (json.extract).split('. ')[0] + ".", mood: 4, animation: "excited", mouth: "happy" };
+             } else {
+                parsed = { text: `Hmm, I searched for ${q} but couldn't quite understand it. Sorry!`, mood: 3, animation: "surprised", mouth: "sad" };
+             }
+           } catch(e) {
+             parsed = { text: `My connection is a little dizzy trying to search for ${q}!`, mood: 3, animation: null, mouth: "sad" };
+           }
+        } 
+        else if (prompt.toLowerCase().includes("hello") || prompt.toLowerCase().includes("hi")) {
+          parsed = { text: "Hello there! Try asking me a factual question like 'Who is Steve Jobs?'", mood: 4, animation: "excited", mouth: "happy" };
+        } else if (prompt.includes("poked you playfully")) {
+          parsed = { text: "Hey! That tickled! Oh my gosh!", mood: 5, animation: "surprised", mouth: "surprised" };
+        } else if (prompt.includes("complimented you")) {
+          parsed = { text: "Aww, you're making me blush! Thank you so much! 💜", mood: 5, animation: "excited", mouth: "happy" };
+        } else if (prompt.includes("Roast the user")) {
+          parsed = { text: "For someone with great taste in websites, your cursor skills are... questionable. Just saying! 😉", mood: 2, animation: null, mouth: "sad" };
+        } else if (prompt.includes("vibe you're getting")) {
+          parsed = { text: "I'm getting 'late night brainstorming with a cozy cup of tea' vibes. ☕", mood: 4, animation: null, mouth: "neutral" };
+        } else if (prompt.includes("random fact")) {
+          const facts = [
+            "Did you know the color orange was named after the fruit, not the other way around?",
+            "Blue is the most universally liked color across different cultures globally!",
+            "Comic Sans was originally designed for a Microsoft program called Bob. It lives on in infamy!"
+          ];
+          parsed = { text: facts[Math.floor(Math.random() * facts.length)], mood: 4, animation: "excited", mouth: "happy" };
+        } else {
+           const responses = [
+             "That's interesting! Tell me more about it.",
+             "I'm just a little knowledge bot, but I totally agree with you.",
+             "Haha, you're funny! Try asking me a factual question.",
+             "Wow, really?! Ask me a question instead maybe? 🤯",
+             "I'm feeling very cozy today, how about you?"
+           ];
+           parsed = { text: responses[Math.floor(Math.random() * responses.length)], mood: 3, animation: "excited", mouth: "happy" };
+        }
+
+        showBubble(parsed.text);
+        setMood(parsed.mood);
         if(parsed.animation) animateBlob(parsed.animation);
-        if(parsed.mouth) setMouth(parsed.mouth);
-        addLog('vroo',parsed.text||'...');
+        addLog('vroo',parsed.text);
+
+        // Voice generation (No API needed, uses browser built-in Web Speech API)
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel(); // clear previous speech
+          const utterance = new SpeechSynthesisUtterance(parsed.text.replace(/[^\x00-\x7F]/g, "")); 
+          
+          let voices = window.speechSynthesis.getVoices();
+          // Pick the cutest local voice automatically - ensuring it handles Google Chrome's built-in female voices cleanly
+          let cuteVoice = voices.find(v => ['google us english', 'google uk english female', 'samantha', 'victoria', 'karen', 'tessa'].some(n => v.name.toLowerCase().includes(n)));
+          if(cuteVoice) utterance.voice = cuteVoice;
+          
+          utterance.pitch = 1.6; // make it sound cute/high pitched
+          utterance.rate = 1.05;
+          window.speechSynthesis.speak(utterance);
+        }
       } catch(err){
         showBubble("I'm a bit dizzy... try again?");
         addLog('vroo',"Signal lost! But I'm still here 💜");
@@ -1606,44 +1448,72 @@
       }
     }
 
-    document.querySelectorAll('.comp-act-btn').forEach(b=>b.addEventListener('click',()=>{
-      const action=b.dataset.action;
-      addLog('user',b.textContent.trim());
-      callCompanion(ACTION_PROMPTS[action]||ACTION_PROMPTS.vibe);
-    }));
-
     async function sendMessage(){
       const val=input.value.trim();
       if(!val||isLoading) return;
       addLog('user',val);
       input.value='';
-      const prompt=`The user said: "${val}". Respond naturally and warmly as Vroo (max 30 words). Return JSON: {text,mood:1-5,animation:'excited'|'surprised'|null,mouth:'happy'|'neutral'|'excited'|'sad'|'surprised'}`;
+      
+      const lc = val.toLowerCase();
+      let prompt = val;
+      if(lc.startsWith("who is ") || lc.startsWith("what is ") || lc.startsWith("what are ")) {
+          let query = val.replace(/^(who is|what is|what are)\s+/i, "").replace(/\?$/, "").trim();
+          prompt = `WIKI_QUERY_${query}`;
+      }
+      
       callCompanion(prompt);
+    }
+    
+    // Add voice recognition!
+    const micBtn = document.createElement('button');
+    micBtn.className = 'comp-send';
+    micBtn.style.background = 'var(--blue)';
+    micBtn.innerHTML = '🎤';
+    micBtn.title = 'Speak to Vroo';
+    document.querySelector('.comp-input-row').appendChild(micBtn);
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRec();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      
+      micBtn.addEventListener('click', () => {
+        micBtn.style.transform = 'scale(1.1)';
+        micBtn.innerHTML = '🛑';
+        recognition.start();
+      });
+      
+      recognition.onresult = (e) => {
+        input.value = e.results[0][0].transcript;
+        sendMessage();
+      };
+      recognition.onend = () => {
+        micBtn.style.transform = 'none';
+        micBtn.innerHTML = '🎤';
+      };
+    } else {
+      micBtn.style.display = 'none';
     }
 
     sendBtn.addEventListener('click',sendMessage);
     input.addEventListener('keydown',e=>{ if(e.key==='Enter') sendMessage(); });
-
-    // Eye follow cursor
-    stage.addEventListener('mousemove',e=>{
-      const rect=stage.getBoundingClientRect();
-      const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
-      const dx=(e.clientX-cx)/rect.width, dy=(e.clientY-cy)/rect.height;
-      const lPupil=document.getElementById('pupil-l');
-      const rPupil=document.getElementById('pupil-r');
-      if(lPupil) lPupil.setAttribute('cx',56+dx*4);
-      if(lPupil) lPupil.setAttribute('cy',70+dy*4);
-      if(rPupil) rPupil.setAttribute('cx',88+dx*4);
-      if(rPupil) rPupil.setAttribute('cy',70+dy*4);
-    });
+    
+    // Fix for Chrome/macOS empty getVoices issue on load
+    if('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+        window.speechSynthesis.getVoices(); // fire it once immediately just in case
+    }
 
     // Initial greeting
-    setTimeout(()=>showBubble("Hi! I'm Vroo 👋 Click the buttons below to interact!",5000),1200);
+    setTimeout(()=>showBubble("Hi! I'm Vroo 👋 Ask me anything!",5000),1200);
 
     // Blob tap interaction
     blob.addEventListener('click',()=>{
-      animateBlob('surprised');
-      showBubble(['Ow! That tickles! 😄','Hey, I\'m floating here!','*boing*','You found my weak spot! 🫠','Whoa whoa whoa!'][Math.floor(Math.random()*5)]);
+      // simple scale pop animation
+      blob.style.transform = 'scale(1.1)';
+      setTimeout(()=>blob.style.transform = 'none', 150);
+      showBubble(['Did you just boop me? 😄','Beep boop!','*boing*','You found my weak spot! 🫠','Whoa whoa whoa!'][Math.floor(Math.random()*5)]);
     });
   })();
 
