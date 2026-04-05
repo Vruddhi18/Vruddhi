@@ -388,7 +388,7 @@ function initLottie() {
     renderer: 'svg',
     loop: true,
     autoplay: true,
-    path: 'girl_working_on_laptop_lottie_animation.json'
+    path: 'assets/girl_working_on_laptop_lottie_animation.json'
   });
 }
 

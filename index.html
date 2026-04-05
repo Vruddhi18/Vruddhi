@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vruddhi Shah - Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <meta property="og:title" content="Vruddhi Shah - Portfolio">
   <meta property="og:description" content="Vruddhi Shah — designer who codes, or developer who designs.">
   <meta property="og:image" content="https://vruddhishah.vercel.app/assets/og-image.png">
@@ -20,8 +20,8 @@
       <button class="nav-pill yellow" data-section="0">Home</button>
       <button class="nav-pill blue"   data-section="2">Work</button>
       <button class="nav-pill orange" data-section="1">About</button>
-      <a href="blog.html" class="nav-pill green-pill">Blog</a>
-      <a href="contact.html" class="nav-pill dark-pill">Contact</a>
+      <a href="pages/blog.html" class="nav-pill green-pill">Blog</a>
+      <a href="pages/contact.html" class="nav-pill dark-pill">Contact</a>
     </div>
   </nav>
 
@@ -87,7 +87,7 @@
           <div class="badge-hole"></div>
           <img
             id="badge-photo"
-            src="vruddhi.jpeg"
+            src="assets/vruddhi.jpeg"
             alt="Vruddhi Shah"
             class="badge-photo"
             onerror="this.style.display='none'; document.getElementById('badge-photo-fallback').style.display='flex';"
@@ -177,24 +177,24 @@
       <p class="work-sub">Brand identities, AI workflows, and design systems — crafted with intention.</p>
 
       <div class="work-preview-grid">
-        <a href="work.html" class="work-preview-card" style="--c:#192BC2; --ch:#EEF36A;">
+        <a href="pages/work.html" class="work-preview-card" style="--c:#192BC2; --ch:#EEF36A;">
           <div class="wpc-number">01</div>
           <div class="wpc-label">AI / ML</div>
           <div class="wpc-arrow">→</div>
         </a>
-        <a href="work.html" class="work-preview-card" style="--c:#EEF36A; --ch:#080705;">
+        <a href="pages/work.html" class="work-preview-card" style="--c:#EEF36A; --ch:#080705;">
           <div class="wpc-number">02</div>
           <div class="wpc-label">Process Automation</div>
           <div class="wpc-arrow">→</div>
         </a>
-        <a href="work.html" class="work-preview-card" style="--c:#FF7733; --ch:#FAFAFF;">
+        <a href="pages/work.html" class="work-preview-card" style="--c:#FF7733; --ch:#FAFAFF;">
           <div class="wpc-number">03</div>
           <div class="wpc-label">UI / UX</div>
           <div class="wpc-arrow">→</div>
         </a>
       </div>
 
-      <a href="work.html" class="cta-pill">
+      <a href="pages/work.html" class="cta-pill">
         View all work
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -389,14 +389,14 @@
         <div class="work-label" style="color:var(--blue);">06 — BLOG</div>
         <h2 class="blog-preview-title">Words &amp;<br><em>Ideas</em></h2>
         <p class="blog-preview-sub">Writing about AI advances.</p>
-        <a href="blog.html" class="cta-pill" style="margin-top:.5rem">
+        <a href="pages/blog.html" class="cta-pill" style="margin-top:.5rem">
           Read all posts
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
 
       <div class="blog-preview-right">
-        <a href="blog.html" class="blog-card-preview featured">
+        <a href="pages/blog.html" class="blog-card-preview featured">
           <div class="bcp-tag">Featured</div>
           <h3 class="bcp-title">The Invisible AI Workforce That Labeled Our World Before AI Was Cool</h3>
           <p class="bcp-excerpt">Billions of unpaid clicks secretly built computer vision — while the world laughed at “I’m not a robot” checkboxes.</p>
@@ -406,21 +406,21 @@
           </div>
         </a>
         <div class="blog-cards-stack">
-          <a href="blog.html" class="blog-card-preview small">
+          <a href="pages/blog.html" class="blog-card-preview small">
             <div class="bcp-dot" style="background:var(--orange)"></div>
             <div>
               <h4 class="bcp-title-sm">Tiny vs. Mighty: The AI Showdown Between SLMs and LLMs</h4>
               <span class="bcp-meta-sm">Oct 2024 · 5 min</span>
             </div>
           </a>
-          <a href="blog.html" class="blog-card-preview small">
+          <a href="pages/blog.html" class="blog-card-preview small">
             <div class="bcp-dot" style="background:var(--green)"></div>
             <div>
               <h4 class="bcp-title-sm">Building with Smolagents — Week 1</h4>
               <span class="bcp-meta-sm">Nov 2024 · 6 min</span>
             </div>
           </a>
-          <a href="blog.html" class="blog-card-preview small">
+          <a href="pages/blog.html" class="blog-card-preview small">
             <div class="bcp-dot" style="background:var(--blue)"></div>
             <div>
               <h4 class="bcp-title-sm">GSAP vs Framer Motion: My Take</h4>
@@ -433,35 +433,15 @@
   </section>
 
   <!-- ================================================
-       SECTION 7: CONTACT PREVIEW
-  ================================================= -->
-  <section id="contact-preview-section" class="fullpage-section">
-    <div class="contact-preview-inner">
-      <div class="work-label" style="color:rgba(250,250,255,.4);">07 — CONTACT</div>
-      <h2 class="contact-preview-title">Let's Make<br>Something<br><span class="contact-yellow">Great.</span></h2>
-      <p class="contact-preview-sub">Open to freelance projects, collaborations, and interesting conversations.</p>
-      <a href="contact.html" class="cta-pill contact-cta">
-        Get in touch
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <div class="contact-preview-links">
-        <a href="mailto:vhs180903@gmail.com" class="cp-link">✉ Send me an email</a>
-        <a href="https://linkedin.com/in/vruddhi18" target="_blank" class="cp-link">↗ Connect with me on LinkedIn</a>
-        <a href="https://github.com/Vruddhi18" target="_blank" class="cp-link">↗ View my GitHub profile</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================================
-       SECTION 8: PLAY + FOOTER
+       SECTION 7: PLAY PREVIEW
   ================================================= -->
   <section id="play-section" class="fullpage-section">
     <div class="play-inner">
       <div class="play-content">
-        <div class="work-label" style="color:var(--yellow);">08 — PLAY</div>
+        <div class="work-label" style="color:var(--yellow);">07 — PLAY</div>
         <h2 class="play-title">Just for<br>Fun ✦</h2>
         <p class="play-sub">Experiments, weird ideas, and side-quests that exist purely because I wanted them to.</p>
-        <a href="play.html" class="cta-pill cta-dark">
+        <a href="pages/play.html" class="cta-pill cta-dark">
           Enter the playground
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -473,35 +453,55 @@
           <span class="play-chip">✏️ Type Studies</span>
         </div>
       </div>
-
-      <footer class="site-footer">
-        <div class="footer-inner">
-          <div class="footer-left">
-            <p class="footer-sig">Vruddhi Shah</p>
-            <p class="footer-copy">© 2025 — All rights reserved</p>
-          </div>
-          <div class="footer-links">
-            <a href="mailto:vhs180903@gmail.com" class="footer-link">Email</a>
-            <a href="https://linkedin.com/in/vruddhi18" target="_blank" class="footer-link">LinkedIn</a>
-            <a href="https://github.com/Vruddhi18" target="_blank" class="footer-link">GitHub</a>
-            <!-- <a href="https://dribbble.com" target="_blank" class="footer-link">Dribbble</a> -->
-          </div>
-          <div class="footer-right">
-            <a href="#" class="footer-back-top" id="back-to-top">Back to top ↑</a>
-          </div>
-        </div>
-        <div class="footer-marquee-wrap">
-          <div class="footer-marquee">
-            <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
-            <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
-          </div>
-        </div>
-      </footer>
     </div>
+  </section>
+
+  <!-- ================================================
+       SECTION 8: CONTACT + FOOTER
+  ================================================= -->
+  <section id="contact-preview-section" class="fullpage-section" style="flex-direction: column;">
+    <div class="contact-preview-inner" style="flex: 1; justify-content: center; width: 100%;">
+      <div class="work-label" style="color:rgba(250,250,255,.4);">08 — CONTACT</div>
+      <h2 class="contact-preview-title">Let's Make<br>Something<br><span class="contact-yellow">Great.</span></h2>
+      <p class="contact-preview-sub">Open to freelance projects, collaborations, and interesting conversations.</p>
+      <a href="pages/contact.html" class="cta-pill contact-cta">
+        Get in touch
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="contact-preview-links">
+        <a href="mailto:vhs180903@gmail.com" class="cp-link">✉ Send me an email</a>
+        <a href="https://linkedin.com/in/vruddhi18" target="_blank" class="cp-link">↗ Connect with me on LinkedIn</a>
+        <a href="https://github.com/Vruddhi18" target="_blank" class="cp-link">↗ View my GitHub profile</a>
+      </div>
+    </div>
+
+    <footer class="site-footer" style="width: 100%;">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <p class="footer-sig">Vruddhi Shah</p>
+          <p class="footer-copy">© 2025 — All rights reserved</p>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:vhs180903@gmail.com" class="footer-link">Email</a>
+          <a href="https://linkedin.com/in/vruddhi18" target="_blank" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/Vruddhi18" target="_blank" class="footer-link">GitHub</a>
+          <!-- <a href="https://dribbble.com" target="_blank" class="footer-link">Dribbble</a> -->
+        </div>
+        <div class="footer-right">
+          <a href="#" class="footer-back-top" id="back-to-top">Back to top ↑</a>
+        </div>
+      </div>
+      <div class="footer-marquee-wrap">
+        <div class="footer-marquee">
+          <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
+          <span>Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine · Design · Code · Create · Explore · Build · Imagine ·&nbsp;</span>
+        </div>
+      </div>
+    </footer>
   </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

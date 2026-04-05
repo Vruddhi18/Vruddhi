@@ -63,8 +63,8 @@ const caseStudies = {
   "process": "I built a dual-mode recipe explorer. The primary mode is a full visual canvas where every recipe in the database is plotted and browsable — zoomable, pannable, and filterable in real time. Filters cover the six cooking methods (baking, grilling, mashing, sautéing, frying, boiling), accessory type (standard and additional accessories sold with the device), cuisine, meal category (breakfast, main course, dessert, snack), diet type (veg, non-veg, egg), and cooking time — since the On2Cook device targets 15–20 minute cook times, this was a key differentiator to showcase. The second mode is an ingredient-based search: a user types whatever ingredients they have at home, and the system returns every recipe in the On2Cook database that can be made from those ingredients on the device. Both modes pull from the same structured recipe database and update instantly without page reloads.",
 
   "gallery": [
-    "./assets/Recipe Finder 1.png",
-    "./assets/Recipe Finder 2.png"
+    "../assets/Recipe Finder 1.png",
+    "../assets/Recipe Finder 2.png"
   ],
 
   "challenges": "The hardest problem was performance on the canvas visualiser — plotting and re-filtering hundreds of recipe nodes simultaneously while keeping the pan-and-zoom smooth required careful optimisation of the render loop. The ingredient search also had to handle fuzzy matching, since users type ingredients in different ways. Designing the filter UI to handle seven independent dimensions without overwhelming a non-technical client audience during a live pitch took several rounds of iteration."
@@ -110,12 +110,12 @@ const caseStudies = {
   "process": "I designed the portal to serve two entirely different audiences from the same URL, switching modes cleanly at the auth gate. The public-facing side is a full conversion funnel: it opens with an animated hero explaining the program, then flows through social proof (ambassador count, device stats, award recognition), a step-by-step program explainer, a quiz that lets visitors self-assess whether they are the right fit, an ROI calculator showing projected earnings, a video testimonial section, and a gallery of the ambassador community. Every element is built to remove hesitation and answer objections before they are raised. Once a visitor signs up, the experience flips completely into a functional dashboard: they receive a unique referral code, can track how many people registered through it, monitor their monthly and total earnings, and access the structured product training module required to become an active ambassador.",
 
   "gallery": [
-    "./assets/ambassador.png",
-    "./assets/ambassador2.png",
-    "./assets/ambassador3.png",
-    "./assets/ambassador4.png",
-    "./assets/ambassador5.png",
-    "./assets/ambassador6.png"
+    "../assets/ambassador.png",
+    "../assets/ambassador2.png",
+    "../assets/ambassador3.png",
+    "../assets/ambassador4.png",
+    "../assets/ambassador5.png",
+    "../assets/ambassador6.png"
   ],
 
   "challenges": "The dual-audience problem was the central design challenge — the public marketing site needed to feel premium and inspiring, while the ambassador dashboard needed to be clean and functional. These two modes live on the same domain but must feel like different products depending on who is looking. Getting the auth transition to feel seamless rather than jarring required careful thought about loading states and layout shifts. Integrating Supabase real-time data for referral tracking while keeping the public marketing pages fast also required deliberate code-splitting."
