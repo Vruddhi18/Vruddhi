@@ -493,7 +493,7 @@
       width: clamp(100px, 14vw, 140px);
       height: clamp(100px, 14vw, 140px);
       animation: float 3.5s ease-in-out infinite;
-      filter: drop-shadow(0 12px 28px rgba(123,63,255,.5));
+      filter: drop-shadow(0 12px 28px rgba(240, 240, 241, 0.5));
     }
     @keyframes float {
       0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)}
@@ -912,7 +912,18 @@
   </section>
 
   <!-- TOY 6 — TERMINAL -->
-  <section class="toy" id="toy-terminal">
+ 
+  <!-- TOY 8 — TIC TAC TOE -->
+  <section class="toy dark" id="toy-tictactoe">
+    <div class="tag-row r"><span class="tnum">08</span><span class="tpill">Game</span><span class="tpill">Interactive</span></div>
+    <h2 class="toy-h r">Tic Tac Toe</h2>
+    <p class="toy-p r">A classic game reinvented, play against an impossible AI.</p>
+    <div class="ttt-wrap r" style="width: 100%; max-width: 500px; height: 600px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <iframe src="tictactoe.html" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+  </section>
+
+   <section class="toy" id="toy-terminal">
     <div class="tag-row r"><span class="tnum">06</span><span class="tpill">Interactive</span><span class="tpill">Terminal</span></div>
     <h2 class="toy-h r">vruddhi.sh</h2>
     <p class="toy-p r">A shell that knows things about me. Try <code>help</code> — tab autocompletes, ↑↓ cycles history.</p>
@@ -925,8 +936,17 @@
     </div>
   </section>
 
+  <section class="toy dark" id="toy-wordle">
+    <div class="tag-row r"><span class="tnum">08</span><span class="tpill">Game</span><span class="tpill">Interactive</span></div>
+    <h2 class="toy-h r">Wordle</h2>
+    <p class="toy-p r">A classic game reinvented, play against an impossible AI.</p>
+    <div class="ttt-wrap r" style="width: 100%; max-width: 500px; height: 600px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <iframe src="wordle.html" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+  </section>
+  
   <!-- TOY 7 — KNOWLEDGE BOT -->
-  <section class="toy dark" id="toy-companion">
+  <section class="toy" id="toy-companion">
     <div class="tag-row r"><span class="tnum">07</span><span class="tpill">AI</span><span class="tpill">Knowledge Bot</span></div>
     <h2 class="toy-h r">Meet Oreo</h2>
     <p class="toy-p r">A cute little robot that knows things. Ask it factual questions like "Who is Shah Rukh Khan?"</p>
@@ -963,24 +983,6 @@
     </div>
   </section>
 
-  <!-- TOY 8 — TIC TAC TOE -->
-  <section class="toy" id="toy-tictactoe">
-    <div class="tag-row r"><span class="tnum">08</span><span class="tpill">Game</span><span class="tpill">Interactive</span></div>
-    <h2 class="toy-h r">Tic Tac Toe</h2>
-    <p class="toy-p r">A classic game reinvented, play against an impossible AI.</p>
-    <div class="ttt-wrap r" style="width: 100%; max-width: 500px; height: 600px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
-      <iframe src="tictactoe.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-  </section>
-
-  <section class="toy" id="toy-tictactoe">
-    <div class="tag-row r"><span class="tnum">08</span><span class="tpill">Game</span><span class="tpill">Interactive</span></div>
-    <h2 class="toy-h r">Tic Tac Toe</h2>
-    <p class="toy-p r">A classic game reinvented, play against an impossible AI.</p>
-    <div class="ttt-wrap r" style="width: 100%; max-width: 500px; height: 600px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
-      <iframe src="wordle.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-  </section>
 
   <!-- EASTER EGG -->
   <div id="egg" class="off">
