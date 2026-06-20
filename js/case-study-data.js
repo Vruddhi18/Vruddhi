@@ -188,5 +188,93 @@ const caseStudies = {
   // ],
 
   "challenges": "The hardest design problem was handling the back-and-forth nature of procurement — requests do not flow linearly, they bounce between roles multiple times, and each bounce needed to preserve full context without confusion. Making it clear whose court the ball was in at any moment, across multiple simultaneous requests, required careful dashboard design per role. Generating the PO document dynamically within the browser — formatted correctly for vendor submission — also required building a custom PDF templating system since no off-the-shelf library matched the format required."
+},
+"ai-customer-support": {
+  "title": "AI Customer Support Desk",
+  "category": "Process Automation",
+  "year": "2025",
+  "heroColor": "#192BC2",
+  "textColor": "light",
+  "role": "Full-Stack Developer",
+  "timeline": "2 Months",
+  "techStack": ["React", "Video CMS", "Support Ticket System", "PostgreSQL", "Content Structuring"],
+  "liveLink": "https://customer-support-on2cook.vercel.app",
+
+  "problemStatement": "Customers using the On2Cook device often needed help with setup, daily usage, accessories, and troubleshooting. Support was previously handled in an unstructured way, making it difficult for users to quickly find solutions or reach the right team when needed.",
+
+  "video": null,
+
+  "process": "I built a structured customer support portal centered around video-based assistance. The platform organizes support content into clear categories covering onboarding, daily usage, accessories, and common issues related to the On2Cook device. Each category contains targeted tutorial videos that address specific user needs, allowing customers to resolve most issues without external help. For cases where video support is not sufficient, the platform includes a direct support query system where users can submit their issue. These queries are then picked up by the customer support team, who follow up via call or direct communication to resolve the problem. This creates a hybrid support system combining self-service video guidance with human-assisted resolution.",
+
+  "gallery": [],
+
+  "challenges": "The main challenge was structuring support content in a way that users could quickly find the exact video relevant to their issue. Balancing self-service video support with a fallback human support system also required careful flow design so users could seamlessly escalate when needed."
+},
+
+"ambassador-connect": {
+  "title": "Ambassador Connect",
+  "category": "Internal CRM / Growth Operations",
+  "year": "2026",
+  "heroColor": "#00A86B",
+  "textColor": "light",
+  "role": "Full-Stack Developer",
+  "timeline": "2-3 Months",
+  "techStack": ["Next.js", "PostgreSQL", "Role-Based Access", "CRM System", "Data Management"],
+  "liveLink": "https://on2cook-ambassador-connect.vercel.app",
+
+  "problemStatement": "The sales and ambassador acquisition process was fragmented, with prospect data spread across spreadsheets and LinkedIn profiles, making it difficult for the team to track outreach, status, and ownership of potential ambassadors.",
+
+  "video": null,
+
+  "process": "I built an internal CRM-style portal for managing ambassador acquisition. The system centralizes all potential ambassador profiles, including LinkedIn data, professional background, and classification such as chef, kitchen consultant, or industry advisor. Admins can segment and assign these prospects to sales team members based on criteria like geography, category, follower strength, and relevance to the product ecosystem. Once assigned, sales members can track each prospect’s lifecycle through structured stages such as new lead, contacted, in progress, converted, or dropped. The portal also allows team members to log notes, record outreach activity, and maintain a complete history of interactions, ensuring every engagement is traceable and accountable.",
+
+  "gallery": [],
+
+  "challenges": "The key challenge was designing a flexible but structured CRM workflow that could handle subjective human decisions like ambassador suitability while still enforcing consistent lifecycle tracking. Another challenge was ensuring clean assignment logic so that no prospect was duplicated or lost across multiple sales members, while keeping the interface simple enough for daily use."
+},
+
+"ambassador-roi": {
+  "title": "Ambassador ROI Dashboard",
+  "category": "Analytics",
+  "year": "2026",
+  "heroColor": "#FF7733",
+  "textColor": "light",
+  "role": "Data Analyst & Full-Stack Developer",
+  "timeline": "6 Weeks",
+  "techStack": ["JavaScript", "PostgreSQL", "Data Visualization", "KPI Engine", "Analytics"],
+  "liveLink": "https://on2cook-ambassador-roi.vercel.app",
+
+  "problemStatement": "There was no visibility into how ambassadors were impacting revenue or conversions. Performance data existed in fragmented logs, but there was no unified system to evaluate effectiveness, compare contributors, or identify high-performing ambassadors.",
+
+  "video": null,
+
+  "process": "I designed an analytics dashboard that aggregates ambassador activity into meaningful performance metrics. Raw referral and conversion data is processed into KPIs such as conversion rate, revenue contribution, and engagement efficiency. The system visualizes these metrics through structured dashboards that allow comparison across ambassadors and time periods. It also highlights top performers and trends, enabling data-driven decisions for program optimization and incentive design.",
+
+  "gallery": [],
+
+  "challenges": "The biggest challenge was ensuring data consistency across multiple event sources while maintaining accurate attribution for conversions. Building efficient aggregation logic for real-time KPI updates without heavy database load required careful optimization. Designing meaningful metrics that accurately reflected ambassador impact was also a key analytical challenge."
+},
+
+"revenue-model": {
+  "title": "Revenue Model Simulator",
+  "category": "Business Systems",
+  "year": "2026",
+  "heroColor": "#192BC2",
+  "textColor": "light",
+  "role": "Full-Stack Developer",
+  "timeline": "4 Weeks",
+  "techStack": ["JavaScript", "Simulation Engine", "Analytics", "Financial Modeling"],
+  "liveLink": "https://on2cook-revenue-model.vercel.app",
+
+  "problemStatement": "There was no structured way to simulate how different pricing strategies, conversion rates, and growth assumptions would impact overall revenue. Decisions were often made without a clear quantitative model to forecast outcomes under varying business scenarios.",
+
+  "video": null,
+
+  "process": "I built an interactive simulation tool that allows users to adjust key business parameters such as pricing, conversion rates, user acquisition, and growth assumptions. The system processes these inputs through a calculation engine that models revenue outcomes over time. Results are visualized in real time, allowing users to compare different scenarios and understand sensitivity across variables. The tool is designed to make complex financial modeling accessible and interactive.",
+
+  "gallery": [],
+
+  "challenges": "Ensuring calculation accuracy across multiple dependent variables was the primary challenge, especially when users adjusted inputs dynamically. Maintaining performance while recalculating projections in real time required optimization of the simulation engine. Designing an intuitive interface that made complex financial modeling easy to understand was also a key UX challenge."
 }
+
 };
